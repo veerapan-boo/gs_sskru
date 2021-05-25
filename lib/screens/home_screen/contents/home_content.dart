@@ -5,7 +5,6 @@ class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: kDefaultPadding * 20,
       constraints: BoxConstraints(maxWidth: kMaxWidth),
       child: Row(
         children: [
@@ -17,7 +16,7 @@ class HomeContent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'สำนักงานบัณฑิตศึกษา',
+                    'ข่าว',
                     style: TextStyle(fontWeight: FontWeight.w500, fontSize: 40),
                   ),
                   Text(
