@@ -11,7 +11,8 @@ class AdminPoster extends StatelessWidget {
     final bool isDesktop = Responsive.isDesktop(context);
     return isDesktop
         ? Container(
-            height: Responsive.kSizeHeight(context) - NavBar().navBarHeight * 2,
+            height: Responsive.kSizeHeight(context) - NavBar().navBarHeight,
+            padding: EdgeInsets.only(bottom: NavBar().navBarHeight),
             constraints: BoxConstraints(maxWidth: kMaxWidth),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

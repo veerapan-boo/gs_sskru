@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gs_sskru/components/footer/footer.dart';
 import 'package:gs_sskru/components/navbar/navbar.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 import 'package:gs_sskru/screens/home_screen/components/home_drawer.dart';
@@ -18,7 +19,12 @@ class HomeScreen extends StatelessWidget {
       },
       drawer: HomeDrawer(),
       body: CustomScrollView(
-        slivers: [NavBar(), SwitchPoster(), SwitchContent()],
+        slivers: [
+          NavBar(),
+          SwitchPoster(),
+          SwitchContent(),
+          Footer(),
+        ],
       ),
     );
   }
