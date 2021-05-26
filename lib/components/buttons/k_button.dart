@@ -47,15 +47,21 @@ class KButton extends StatelessWidget {
                       child: CircularProgressIndicator(
                         strokeWidth: 1.5,
                         backgroundColor: Colors.white,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          kPrimaryColor.withOpacity(
+                            .75,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 Text(
                   text!,
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: textTheme.subtitle1!.fontSize,
-                      fontWeight: FontWeight.w300),
+                    color: Colors.white,
+                    fontSize: textTheme.subtitle1!.fontSize,
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
               ],
             ),
