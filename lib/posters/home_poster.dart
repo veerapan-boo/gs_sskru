@@ -10,6 +10,7 @@ class HomePoster extends StatelessWidget {
     bool isTablet = Responsive.isTablet(context);
     bool isDesktop = Responsive.isDesktop(context);
     bool isMobile = Responsive.isMobile(context);
+
     return Container(
       height: isMobile ? height * .3 : height,
       constraints: BoxConstraints(maxWidth: kMaxWidth),
