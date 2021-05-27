@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/components/buttons/k_button.dart';
 import 'package:gs_sskru/components/input_text/k_input_field.dart';
+import 'package:gs_sskru/components/k_format_date.dart';
 import 'package:gs_sskru/components/toast/toast.dart';
-import 'package:gs_sskru/controllers/user_controller.dart';
+import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 import 'package:gs_sskru/util/constants.dart';
+import 'package:gs_sskru/controllers/firebase_auth_service_controller.dart';
 import 'package:gs_sskru/util/responsive.dart';
 
 class ContentLogin extends StatefulWidget {
@@ -17,8 +19,14 @@ class _ContentLoginState extends State<ContentLogin> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final NavBarMenuController _navBarMenuController =
+      Get.put(NavBarMenuController());
+  final FirebaseAuthServiceController _firebaseAuthService =
+      Get.put(FirebaseAuthServiceController());
 
-  final UserController _userController = Get.put(UserController());
+  void _toHomePoster() {
+    _navBarMenuController.setSelectedIndex(0);
+  }
 
   // Loading button
   bool _isLoading = false;
@@ -42,66 +50,140 @@ class _ContentLoginState extends State<ContentLogin> {
       height: kDefaultPadding * (isDesktop ? 20 : 15.5),
       width: kDefaultPadding * 24,
       padding: EdgeInsets.all(kDefaultPadding),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.02),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(2, 4),
-          ),
-        ],
+      child: GetBuilder(
+        init: FirebaseAuthServiceController(),
+        builder: (_) {
+          return _firebaseAuthService.isAuthenticated
+              ? formAuthenticated()
+              : formLogin();
+        },
       ),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Obx(() => Text(_userController.getUser.value.name)),
-            KInputField(
-              controller: _emailController,
-              hintText: 'อีเมลเจ้าหน้าที่',
-            ),
-            KInputField(
-              obscureText: true,
-              controller: _passwordController,
-              hintText: 'รหัสผ่าน',
-            ),
-            KButton(
-              isLoading: _isLoading,
-              text: 'เข้าสู่ระบบ',
-              onPressed: () => _onLogin(
-                email: _emailController.text,
-                password: _passwordController.text,
+    );
+  }
+
+  Column formAuthenticated() {
+    User _user = _firebaseAuthService.user;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'ข้อมูลเจ้าหน้าที่',
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 22,
+          ),
+        ),
+        SizedBox(height: 22),
+        Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'อีเมล',
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
               ),
+              Text(
+                '${_user.email}',
+                style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 18),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'วันที่สร้าง',
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  KFormatDate.getDate(
+                      date: '${_user.metadata.creationTime}', time: true),
+                  style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
+                ),
+              ],
             ),
-            // KButton(
-            //   isLoading: _isLoading,
-            //   text: 'อัพเดท',
-            //   onPressed: () => _userController.,
-            //   // onPressed: () => _onLogin(
-            //   //   email: _emailController.text,
-            //   //   password: _passwordController.text,
-            //   // ),
-            // )
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'เข้าสู่ระบบล่าสุด',
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  KFormatDate.getDate(
+                      date: '${_user.metadata.lastSignInTime}', time: true),
+                  style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
+                ),
+              ],
+            ),
           ],
         ),
+        SizedBox(
+          height: 16,
+        ),
+        KButton(
+          isLoading: _isLoading,
+          text: 'ออกจากระบบ',
+          onPressed: () {
+            _toHomePoster();
+            _firebaseAuthService.signOut();
+          },
+        ),
+      ],
+    );
+  }
+
+  Form formLogin() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          KInputField(
+            controller: _emailController,
+            hintText: 'อีเมลเจ้าหน้าที่',
+          ),
+          KInputField(
+            obscureText: true,
+            controller: _passwordController,
+            hintText: 'รหัสผ่าน',
+          ),
+          KButton(
+            isLoading: _isLoading,
+            text: 'เข้าสู่ระบบ',
+            onPressed: () => _onLogin(
+              email: _emailController.text,
+              password: _passwordController.text,
+            ),
+          ),
+        ],
       ),
     );
   }
 
   void _onLogin({required String email, required String password}) async {
     _eventLoad();
-    // FirebaseAuth _auth = FirebaseAuth.instance;
     try {
-      // UserCredential _userCredential = await _auth.signInWithEmailAndPassword(
-      //   email: email,
-      //   password: password,
-      // );
-      // User? user = _userCredential.user;
-
-      // print(user?.refreshToken);
-      // User user = _userController.getUser;
+      User? user = await _firebaseAuthService.signInWithEmailAndPassword(
+          email, password);
+      if (user == null) {
+        toast('ไม่พบข้อมูล', 'ไม่พบข้อมูลของบัญชีนี้');
+        _eventLoad();
+      } else {
+        _toHomePoster();
+        _eventLoad();
+      }
     } on FirebaseAuthException catch (e) {
       print(e.code.characters.string);
       String msg = 'กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง';
