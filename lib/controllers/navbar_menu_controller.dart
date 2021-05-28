@@ -8,14 +8,16 @@ class NavBarMenuController extends GetxController {
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<String> getMenuItems = [
+  List<String> _menuItems = [
     'หน้าหลัก',
     'เกี่ยวกับบัญฑิต',
     'รับสมัครนักศึกษา',
     'หลักสูตร',
     'บริการ',
     'สำหรับเจ้าหน้าที่'
-  ];
+  ].obs;
+
+  List<String> get getMenuItems => _menuItems;
 
   GlobalKey<ScaffoldState> get getScaffoldKey => _scaffoldKey;
 
@@ -43,5 +45,9 @@ class NavBarMenuController extends GetxController {
 
   void setSelectedIndex(int index) {
     _selectedIndex.value = index;
+  }
+
+  void setMenuItemsOfAuthStatus(bool authStatus) {
+    authStatus ? _menuItems[5] = '@Admin' : _menuItems[5] = 'สำหรับเจ้าหน้าที่';
   }
 }
