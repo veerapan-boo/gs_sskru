@@ -1,12 +1,12 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gs_sskru/contents/about_content.dart';
+import 'package:gs_sskru/contents/admission_content.dart';
+import 'package:gs_sskru/contents/course_content.dart';
+import 'package:gs_sskru/contents/home_content.dart';
+import 'package:gs_sskru/contents/service_content.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
-import 'package:gs_sskru/screens/home_screen/contents/about_content.dart';
-import 'package:gs_sskru/screens/home_screen/contents/admission_content.dart';
-import 'package:gs_sskru/screens/home_screen/contents/course_content.dart';
-import 'package:gs_sskru/screens/home_screen/contents/home_content.dart';
-import 'package:gs_sskru/screens/home_screen/contents/service_content.dart';
 
 class SwitchContent extends StatefulWidget {
   @override
