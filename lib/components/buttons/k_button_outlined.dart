@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gs_sskru/models/title_link/title_link.dart';
 import 'package:gs_sskru/util/constants.dart';
 
 class KButtonOutlined extends StatelessWidget {
@@ -32,15 +33,13 @@ class KButtonOutlined extends StatelessWidget {
         child: OutlinedButton(
           style: ButtonStyle(
             shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0),
+                side: BorderSide(
+                    color: Colors.red, width: 2, style: BorderStyle.solid),
+              ),
+            ),
           ),
-
-          // borderSide: BorderSide(color: kPrimaryColor),
-          // shape: RoundedRectangleBorder(
-          //   borderRadius: BorderRadius.circular(24),
-          // ),
-          // padding: EdgeInsets.symmetric(vertical: 29, horizontal: 36),
-          // color: kPrimaryColor,
           onPressed: enabled ? onPressed : null,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
