@@ -25,7 +25,8 @@ class Main extends StatelessWidget {
         accentColor: kPrimaryColor,
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      initialRoute: HomeScreen.routeName,
+      getPages: [GetPage(name: HomeScreen.routeName, page: () => HomeScreen())],
     );
   }
 }

@@ -10,6 +10,7 @@ import 'package:gs_sskru/screens/home_screen/components/switch_poster.dart';
 import 'package:gs_sskru/controllers/firebase_auth_service_controller.dart';
 
 class HomeScreen extends StatelessWidget {
+  static String routeName = '/home';
   final NavBarMenuController _navBarMenuController =
       Get.put(NavBarMenuController());
   final FirebaseAuthServiceController _firebaseAuthService =

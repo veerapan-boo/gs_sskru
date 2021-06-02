@@ -37,6 +37,7 @@ dependencies:
   animations: ^2.0.0
   expandable: ^5.0.1
   font_awesome_flutter: ^9.0.0
+  flutter_svg: ^0.22.0
 
 dev_dependencies:
   flutter_test:
