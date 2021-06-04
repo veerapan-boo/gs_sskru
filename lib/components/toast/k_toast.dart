@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/util/constants.dart';
 
-void toast(String title, String message) {
+void kToast(String title, String message) {
   Get.snackbar(
     '', // title
     message, // message
@@ -13,6 +13,7 @@ void toast(String title, String message) {
     maxWidth: kMaxWidth,
     borderRadius: 0.0,
     duration: Duration(seconds: 3),
-    backgroundColor: Colors.grey.withOpacity(.15),
+    backgroundColor: Colors.white.withOpacity(.75),
+    leftBarIndicatorColor: kPrimaryColor,
   );
 }

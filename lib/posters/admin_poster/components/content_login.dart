@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:gs_sskru/components/buttons/k_button.dart';
 import 'package:gs_sskru/components/input_text/k_input_field.dart';
 import 'package:gs_sskru/components/k_format_date.dart';
-import 'package:gs_sskru/components/toast/toast.dart';
+import 'package:gs_sskru/components/toast/k_toast.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/controllers/firebase_auth_service_controller.dart';
@@ -105,7 +105,7 @@ class _ContentLoginState extends State<ContentLogin> {
                 ),
                 SizedBox(height: 8),
                 Text(
-                  KFormatDate.getDate(
+                  KFormatDate.getDateUs(
                       date: '${_user.metadata.creationTime}', time: true),
                   style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
                 ),
@@ -121,7 +121,7 @@ class _ContentLoginState extends State<ContentLogin> {
                 ),
                 SizedBox(height: 8),
                 Text(
-                  KFormatDate.getDate(
+                  KFormatDate.getDateUs(
                       date: '${_user.metadata.lastSignInTime}', time: true),
                   style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
                 ),
@@ -186,7 +186,7 @@ class _ContentLoginState extends State<ContentLogin> {
       User? user = await _firebaseAuthService.signInWithEmailAndPassword(
           email, password);
       if (user == null) {
-        toast('ไม่พบข้อมูล', 'ไม่พบข้อมูลของบัญชีนี้');
+        kToast('ไม่พบข้อมูล', 'ไม่พบข้อมูลของบัญชีนี้');
         _eventLoad();
       } else {
         _toHomePoster();
@@ -197,13 +197,13 @@ class _ContentLoginState extends State<ContentLogin> {
       String msg = 'กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง';
       switch (e.code.characters.string) {
         case 'invalid-email':
-          toast('รูปแบบอีเมลไม่ถูกต้อง', msg);
+          kToast('รูปแบบอีเมลไม่ถูกต้อง', msg);
           break;
         case 'user-not-found':
-          toast('ไม่พบอีเมลนี้ในฐานข้อมูล', msg);
+          kToast('ไม่พบอีเมลนี้ในฐานข้อมูล', msg);
           break;
         case 'wrong-password':
-          toast('รหัสผ่านไม่ถูกต้อง', msg);
+          kToast('รหัสผ่านไม่ถูกต้อง', msg);
           break;
         default:
       }

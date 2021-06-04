@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:gs_sskru/screens/home_screen/home_screen.dart';
+import 'package:gs_sskru/services/init.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -10,6 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
+  await initServices();
   runApp(Main());
 }
 
