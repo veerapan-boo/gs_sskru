@@ -2,32 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:gs_sskru/util/constants.dart';
 
 class KTextButton extends StatelessWidget {
-  const KTextButton({
-    Key? key,
-    this.textSize = 20,
-    this.text = '',
-    this.arrowIcon = false,
-    required this.onPressed,
-  }) : super(key: key);
+  const KTextButton(
+      {Key? key,
+      this.textSize = 16,
+      this.text = '',
+      this.arrowIcon = false,
+      required this.onPressed,
+      this.mainAxisAlignment = MainAxisAlignment.start})
+      : super(key: key);
 
   final String text;
   final double textSize;
   final bool arrowIcon;
-  final Function()? onPressed;
+  final Function() onPressed;
+  final MainAxisAlignment? mainAxisAlignment;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
       child: TextButton(
         onPressed: onPressed,
+        style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(
+            kPrimaryColor.withOpacity(.1),
+          ),
+        ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: mainAxisAlignment!,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              text,
-              style: TextStyle(
-                  color: kPrimaryColor, fontSize: textSize, height: 0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                text,
+                style: TextStyle(
+                    color: kPrimaryColor, fontSize: textSize, height: 0),
+              ),
             ),
             if (arrowIcon)
               Container(

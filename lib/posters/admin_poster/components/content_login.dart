@@ -53,7 +53,7 @@ class _ContentLoginState extends State<ContentLogin> {
       child: GetBuilder(
         init: FirebaseAuthServiceController(),
         builder: (_) {
-          return _firebaseAuthService.isAuthenticated
+          return _firebaseAuthService.getIsAuthenticated
               ? formAuthenticated()
               : formLogin();
         },
@@ -153,11 +153,19 @@ class _ContentLoginState extends State<ContentLogin> {
           KInputField(
             controller: _emailController,
             hintText: 'อีเมลเจ้าหน้าที่',
+            onSubmitted: (_) => _onLogin(
+              email: _emailController.text,
+              password: _passwordController.text,
+            ),
           ),
           KInputField(
             obscureText: true,
             controller: _passwordController,
             hintText: 'รหัสผ่าน',
+            onSubmitted: (_) => _onLogin(
+              email: _emailController.text,
+              password: _passwordController.text,
+            ),
           ),
           KButton(
             isLoading: _isLoading,

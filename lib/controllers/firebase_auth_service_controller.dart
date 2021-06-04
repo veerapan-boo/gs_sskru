@@ -10,9 +10,10 @@ class FirebaseAuthServiceController extends GetxController {
       Get.put(NavBarMenuController());
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   User? _user;
-  bool isAuthenticated = false;
+  bool _isAuthenticated = false;
 
   User get user => _user!;
+  bool get getIsAuthenticated => _isAuthenticated;
 
   Future<User?> signInWithEmailAndPassword(
       String userEmail, String userPassword) async {
@@ -27,13 +28,13 @@ class FirebaseAuthServiceController extends GetxController {
     _authStateChanges.listen((event) {
       if (event != null) {
         _user = event;
-        isAuthenticated = true;
+        _isAuthenticated = true;
         update();
         _navBarMenuController.setMenuItemsOfAuthStatus(true);
         print('Authentication status: Already logged in !');
       } else {
         _user = null;
-        isAuthenticated = false;
+        _isAuthenticated = false;
         _navBarMenuController.setMenuItemsOfAuthStatus(false);
         update();
         print('Authentication status: Logged out !');

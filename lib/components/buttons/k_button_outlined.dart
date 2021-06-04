@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gs_sskru/models/title_link/title_link.dart';
 import 'package:gs_sskru/util/constants.dart';
 
 class KButtonOutlined extends StatelessWidget {
@@ -9,7 +8,7 @@ class KButtonOutlined extends StatelessWidget {
   final Color? disabledColor;
   final bool enabled;
   final bool isLoading;
-  final double paddingVertical;
+  final double marginVertical;
 
   const KButtonOutlined({
     Key? key,
@@ -19,7 +18,7 @@ class KButtonOutlined extends StatelessWidget {
     this.disabledColor,
     this.isLoading = false,
     this.textColor = Colors.white,
-    this.paddingVertical = 10.0,
+    this.marginVertical = 10.0,
   }) : super(key: key);
 
   @override
@@ -27,45 +26,47 @@ class KButtonOutlined extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Container(
-      margin: EdgeInsets.symmetric(vertical: paddingVertical),
-      child: SizedBox(
-        width: double.infinity,
-        child: OutlinedButton(
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0),
-                side: BorderSide(
-                    color: Colors.red, width: 2, style: BorderStyle.solid),
-              ),
+      margin: EdgeInsets.symmetric(vertical: marginVertical),
+      child: OutlinedButton(
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all(
+            EdgeInsets.symmetric(vertical: 29, horizontal: 36),
+          ),
+          overlayColor: MaterialStateProperty.all(Colors.grey[100]),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(0),
+              side: BorderSide(
+                  color: Colors.red, width: 2, style: BorderStyle.solid),
             ),
           ),
-          onPressed: enabled ? onPressed : null,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              if (isLoading)
-                Padding(
-                  padding: const EdgeInsets.only(right: 12),
-                  child: SizedBox(
-                    width: 14,
-                    height: 14,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 1.5,
-                      backgroundColor: Colors.white,
-                    ),
+        ),
+        onPressed: enabled ? onPressed : null,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            if (isLoading)
+              Padding(
+                padding: const EdgeInsets.only(right: 12),
+                child: SizedBox(
+                  width: 14,
+                  height: 14,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1.5,
+                    backgroundColor: Colors.white,
                   ),
                 ),
-              Text(
-                text!,
-                style: TextStyle(
-                    color: kPrimaryColor,
-                    fontSize: textTheme.subtitle1!.fontSize,
-                    fontWeight: FontWeight.w300),
               ),
-            ],
-          ),
+            Text(
+              text!,
+              style: TextStyle(
+                color: kPrimaryColor,
+                fontSize: textTheme.subtitle1!.fontSize,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ],
         ),
       ),
     );
