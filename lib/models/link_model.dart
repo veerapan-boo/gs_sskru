@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class LinkModel {
   LinkModel({
     this.id,
@@ -13,16 +15,19 @@ class LinkModel {
   final String? text;
   final String? link;
   final String? photoUrl;
-  final String? createDate;
+  final DateTime? createDate;
 
-  factory LinkModel.fromMap(Map<String, dynamic> json) => LinkModel(
-        id: json["id"] ?? null,
-        type: json["type"] ?? null,
-        text: json["text"] ?? null,
-        link: json["link"] ?? null,
-        photoUrl: json["photoUrl"] ?? null,
-        createDate: json["createDate"] ?? null,
-      );
+  factory LinkModel.fromMap(Map<String, dynamic> json) {
+    return LinkModel(
+      id: json["id"] ?? null,
+      type: json["type"] ?? null,
+      text: json["text"] ?? null,
+      link: json["link"] ?? null,
+      photoUrl: json["photoUrl"] ?? null,
+      createDate: DateTime.fromMillisecondsSinceEpoch(
+          (json['createDate'] as Timestamp).millisecondsSinceEpoch),
+    );
+  }
 
   Map<String, dynamic> toMap() => {
         "id": id ?? null,

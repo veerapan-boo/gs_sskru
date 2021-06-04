@@ -80,7 +80,7 @@ class KInputField extends StatelessWidget {
             gapPadding: 4,
             borderRadius: BorderRadius.circular(borderRadius),
             borderSide:
-                BorderSide(color: Colors.grey.withOpacity(0.25), width: 1.5),
+                BorderSide(color: Colors.grey.withOpacity(0.25), width: 1),
           ),
           errorBorder: OutlineInputBorder(
             gapPadding: 4,

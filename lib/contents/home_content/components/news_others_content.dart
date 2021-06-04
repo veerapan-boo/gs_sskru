@@ -5,13 +5,17 @@ import 'package:gs_sskru/components/buttons/k_button.dart';
 import 'package:gs_sskru/components/buttons/k_button_outlined.dart';
 import 'package:gs_sskru/components/buttons/k_text_button.dart';
 import 'package:gs_sskru/components/input_text/k_input_field.dart';
+import 'package:gs_sskru/components/k_format_date.dart';
+import 'package:gs_sskru/components/toast/k_toast.dart';
 import 'package:gs_sskru/controllers/firebase_auth_service_controller.dart';
+import 'package:gs_sskru/controllers/news_controller.dart';
 import 'package:gs_sskru/models/link_model.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
 import 'package:nanoid/nanoid.dart';
 
 class NewsOthersContent extends StatelessWidget {
+  final NewsController _newsController = Get.put(NewsController());
   final double height = kDefaultPadding * 25;
   @override
   Widget build(BuildContext context) {
@@ -21,22 +25,22 @@ class NewsOthersContent extends StatelessWidget {
             kDefaultPadding;
 
     List<Widget> _listWidget = [
-      BoxNews(
-        contentWidth: contentWidth,
-        title: 'ข่าวนักศึกษา',
-        // Todo
-        data: [],
-      ),
+      // Can see the type at data_type.dart
+      Obx(() => BoxNews(
+            contentWidth: contentWidth,
+            title: 'ข่าวนักศึกษา',
+            type: 1,
+            data: _newsController.getListTypeOneOnly,
+          )),
       SizedBox(width: kDefaultPadding),
-      BoxNews(
-        contentWidth: contentWidth,
-        title: 'ข่าวทุนวิจัย',
-        // Todo
-        data: [
-          LinkModel(
-              id: '1', createDate: '2020-5-10', text: 'test', type: 1, link: '')
-        ],
-      ),
+      Obx(
+        () => BoxNews(
+          contentWidth: contentWidth,
+          title: 'ข่าวทุนวิจัย',
+          type: 0,
+          data: _newsController.getListTypeZeroOnly,
+        ),
+      )
     ];
 
     return Container(
@@ -62,32 +66,35 @@ class NewsOthersContent extends StatelessWidget {
 }
 
 class BoxNews extends StatefulWidget {
-  const BoxNews(
-      {Key? key,
-      required this.contentWidth,
-      required this.title,
-      required this.data})
-      : super(key: key);
+  const BoxNews({
+    Key? key,
+    required this.contentWidth,
+    required this.title,
+    required this.data,
+    required this.type,
+  }) : super(key: key);
 
   final double contentWidth;
   final String title;
   final List<LinkModel> data;
+  final int type;
 
   @override
   _BoxNewsState createState() => _BoxNewsState();
 }
 
 class _BoxNewsState extends State<BoxNews> {
+  final NewsController _newsController = Get.put(NewsController());
   final TextEditingController _textController = TextEditingController();
   final TextEditingController _linkController = TextEditingController();
-  final FirebaseFirestore _fbfs = FirebaseFirestore.instance;
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   bool _isAddNews = false;
   bool _isLoading = false;
 
   @override
   void dispose() {
-    _textController.clear();
-    _linkController.clear();
+    _textController.dispose();
+    _linkController.dispose();
     super.dispose();
   }
 
@@ -177,6 +184,18 @@ class _BoxNewsState extends State<BoxNews> {
               ),
             )
           } else ...{
+            if (!_isAddNews)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    _onAddLink(
+                      title: widget.title,
+                    ),
+                  ],
+                ),
+              ),
             ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -186,18 +205,6 @@ class _BoxNewsState extends State<BoxNews> {
                   color: Colors.transparent,
                   child: Column(
                     children: [
-                      if (!_isAddNews)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              _onAddLink(
-                                title: widget.title,
-                              ),
-                            ],
-                          ),
-                        ),
                       InkWell(
                         hoverColor: Colors.grey[300],
                         onTap: () {},
@@ -222,7 +229,10 @@ class _BoxNewsState extends State<BoxNews> {
                                 ),
                               ),
                               Text(
-                                widget.data[index].createDate!,
+                                KFormatDate.getDateThai(
+                                  date: '${widget.data[index].createDate}',
+                                  time: false,
+                                ),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w300,
                                     color: Colors.grey),
@@ -273,25 +283,66 @@ class _BoxNewsState extends State<BoxNews> {
     );
   }
 
+  Future<bool> _validateText() async {
+    if (_textController.text.trim() != "" &&
+        _linkController.text.trim() != "") {
+      return true;
+    }
+    return false;
+  }
+
   _addLinkToDatabase() async {
     try {
-      String linkId = nanoid();
-      _fbfs
-          .collection('news')
-          .doc(linkId)
-          .set(LinkModel(
-                  id: linkId,
-                  text: _textController.text,
-                  link: _linkController.text,
-                  type: 0)
-              .toMap())
-          .then((value) {
-        setState(() {
-          _isAddNews = false;
-        });
+      setState(() {
+        _isLoading = true;
       });
+      final bool _isValidated = await _validateText();
+      if (_isValidated) {
+        final String linkId = nanoid();
+        final DateTime dateNow = DateTime.now();
+        final int type = widget.type;
+        final LinkModel _linkModel = LinkModel(
+          id: linkId,
+          text: _textController.text,
+          link: _linkController.text,
+          type: type,
+          createDate: dateNow,
+          photoUrl: "",
+        );
+
+        _firebaseFirestore
+            .collection('news')
+            .doc(linkId)
+            .set(_linkModel.toMap())
+            .then((value) {
+          _newsController.addLinkModelToList(_linkModel);
+          setState(() {
+            _isAddNews = false;
+            _isLoading = false;
+            _textController.clear();
+            _linkController.clear();
+          });
+          kToast(
+            'เพิ่ม${widget.title}เรียบร้อย',
+            'ข้อมูลกำลังอัพเดทไปยังฐานข้อมูล',
+          );
+        });
+      } else {
+        kToast(
+          'เกิดข้อผิดพลาดในการเพิ่ม${widget.title}',
+          'กรุณาตรวจกรอกข้อมูลให้ถูกต้องและครบถ้วน',
+        );
+      }
     } catch (err) {
       print(err);
+      setState(() {
+        _isAddNews = false;
+        _isLoading = false;
+      });
+      kToast(
+        'เกิดข้อผิดพลาดในการเพิ่ม${widget.title}',
+        'กรุณาตรวจสอบข้อผิดพลาด',
+      );
     }
   }
 }

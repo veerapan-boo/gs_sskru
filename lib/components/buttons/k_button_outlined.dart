@@ -37,7 +37,7 @@ class KButtonOutlined extends StatelessWidget {
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(0),
               side: BorderSide(
-                  color: Colors.red, width: 2, style: BorderStyle.solid),
+                  color: Colors.black, width: 5, style: BorderStyle.solid),
             ),
           ),
         ),
