@@ -30,6 +30,11 @@ class KButton extends StatelessWidget {
         child: SizedBox(
           width: double.infinity,
           child: MaterialButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(0),
+              ),
+            ),
             disabledColor: kDisabledPrimaryColor,
             padding: EdgeInsets.symmetric(vertical: 29, horizontal: 36),
             color: kPrimaryColor,

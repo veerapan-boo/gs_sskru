@@ -10,7 +10,7 @@ class KInputField extends StatelessWidget {
   final keyboardType;
   final inputFormatters;
   final controller;
-  final onSubmitted;
+  final Function(String)? onSubmitted;
   final textInputAction;
   final bool? enabled;
   final bool autofocus;
@@ -50,7 +50,7 @@ class KInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8),
-      child: TextFormField(
+      child: TextField(
         key: key,
         // validator: validator,
         autocorrect: false,
@@ -62,6 +62,7 @@ class KInputField extends StatelessWidget {
         keyboardType: keyboardType,
         onChanged: onChanged,
         onTap: onTap,
+        onSubmitted: onSubmitted,
         cursorColor: kPrimaryColor,
         textInputAction: textInputAction,
         textAlign: textAlign ?? TextAlign.start,
