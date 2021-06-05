@@ -15,6 +15,17 @@ class FirebaseAuthServiceController extends GetxController {
   User get user => _user!;
   bool get getIsAuthenticated => _isAuthenticated;
 
+  Future checkCurrentUser() async {
+    User? currentUser = _firebaseAuth.currentUser;
+    if (currentUser != null) {
+      _user = currentUser;
+      _isAuthenticated = true;
+      _navBarMenuController.setMenuItemsOfAuthStatus(true);
+    }
+    update();
+    return this;
+  }
+
   Future<User?> signInWithEmailAndPassword(
       String userEmail, String userPassword) async {
     return _user = await _firebaseAuth
@@ -26,7 +37,7 @@ class FirebaseAuthServiceController extends GetxController {
     Stream<User?> _authStateChanges = _firebaseAuth.authStateChanges();
 
     _authStateChanges.listen((event) {
-      if (event != null) {
+      if (event != null && _user == null) {
         _user = event;
         _isAuthenticated = true;
         update();
