@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/util/constants.dart';
 
-void kToast(String title, String message) {
+void kToast(String title, Widget message, {Function(GetBar<Object>)? onTap}) {
   Get.snackbar(
     '', // title
-    message, // message
+    '',
+    messageText: message, // message
     titleText: Text(title),
     snackPosition: SnackPosition.BOTTOM,
     barBlur: 20,
@@ -15,5 +16,6 @@ void kToast(String title, String message) {
     duration: Duration(seconds: 3),
     backgroundColor: Colors.white.withOpacity(.75),
     leftBarIndicatorColor: kPrimaryColor,
+    onTap: onTap,
   );
 }

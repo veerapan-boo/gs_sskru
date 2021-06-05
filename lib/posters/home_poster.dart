@@ -23,7 +23,7 @@ class HomePoster extends StatelessWidget {
                 height: height,
                 // width: kMaxWidth * .35,
                 child: Image.asset(
-                  '../../assets/images/pattern_new.png',
+                  'assets/images/pattern_new.png',
                   fit: BoxFit.cover,
                 ),
               ),

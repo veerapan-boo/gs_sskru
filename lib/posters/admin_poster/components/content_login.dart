@@ -186,7 +186,7 @@ class _ContentLoginState extends State<ContentLogin> {
       User? user = await _firebaseAuthService.signInWithEmailAndPassword(
           email, password);
       if (user == null) {
-        kToast('ไม่พบข้อมูล', 'ไม่พบข้อมูลของบัญชีนี้');
+        kToast('ไม่พบข้อมูล', Text('ไม่พบข้อมูลของบัญชีนี้'));
         _eventLoad();
       } else {
         _toHomePoster();
@@ -197,13 +197,13 @@ class _ContentLoginState extends State<ContentLogin> {
       String msg = 'กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง';
       switch (e.code.characters.string) {
         case 'invalid-email':
-          kToast('รูปแบบอีเมลไม่ถูกต้อง', msg);
+          kToast('รูปแบบอีเมลไม่ถูกต้อง', Text(msg));
           break;
         case 'user-not-found':
-          kToast('ไม่พบอีเมลนี้ในฐานข้อมูล', msg);
+          kToast('ไม่พบอีเมลนี้ในฐานข้อมูล', Text(msg));
           break;
         case 'wrong-password':
-          kToast('รหัสผ่านไม่ถูกต้อง', msg);
+          kToast('รหัสผ่านไม่ถูกต้อง', Text(msg));
           break;
         default:
       }

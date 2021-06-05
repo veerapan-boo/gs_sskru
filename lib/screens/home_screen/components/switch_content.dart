@@ -35,19 +35,21 @@ class _SwitchContentState extends State<SwitchContent>
         [
           Obx(
             () => AnimatedSize(
-              curve: Curves.easeOutQuart,
-              duration: Duration(milliseconds: 1000),
+              curve: Curves.fastOutSlowIn,
+              duration: Duration(milliseconds: 300),
               vsync: this,
               child: PageTransitionSwitcher(
+                duration: Duration(milliseconds: 300),
+                reverse: false,
                 transitionBuilder: (
                   Widget child,
                   Animation<double> animation,
                   Animation<double> secondaryAnimation,
                 ) {
-                  return SharedAxisTransition(
+                  return FadeThroughTransition(
                     animation: animation,
                     secondaryAnimation: secondaryAnimation,
-                    transitionType: _transitionType!,
+                    // transitionType: _transitionType!,
                     child: child,
                   );
                 },
