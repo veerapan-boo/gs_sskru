@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/components/buttons/k_button.dart';
 import 'package:gs_sskru/components/buttons/k_button_outlined.dart';
@@ -10,6 +11,7 @@ import 'package:gs_sskru/components/toast/k_toast.dart';
 import 'package:gs_sskru/controllers/firebase_auth_service_controller.dart';
 import 'package:gs_sskru/controllers/news_controller.dart';
 import 'package:gs_sskru/models/link_model.dart';
+import 'package:gs_sskru/models/title_link/title_link.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
 import 'package:nanoid/nanoid.dart';
@@ -24,19 +26,42 @@ class NewsOthersContent extends StatelessWidget {
         (kSizeWidth < kMaxWidth ? kSizeWidth / 2 : kMaxWidth / 2) -
             kDefaultPadding;
 
-    List<Widget> _listWidget = [
+    List<Widget> _listWidgetDesktop = [
       // Can see the type at data_type.dart
-      Obx(() => BoxNews(
-            contentWidth: contentWidth,
-            title: 'ข่าวนักศึกษา',
-            type: 1,
-            data: _newsController.getListTypeOneOnly,
-          )),
+      Obx(
+        () => BoxNews(
+          contentWidth: contentWidth,
+          title: TitleLinkModel().getValue.data![0].subTitle[1].text,
+          type: 1,
+          data: _newsController.getListTypeOneOnly,
+        ),
+      ),
       SizedBox(width: kDefaultPadding),
       Obx(
         () => BoxNews(
           contentWidth: contentWidth,
-          title: 'ข่าวทุนวิจัย',
+          title: TitleLinkModel().getValue.data![0].subTitle[0].text,
+          type: 0,
+          data: _newsController.getListTypeZeroOnly,
+        ),
+      )
+    ];
+
+    List<Widget> _listWidgetTablet = [
+      // Can see the type at data_type.dart
+      Obx(
+        () => BoxNews(
+          contentWidth: kSizeWidth,
+          title: TitleLinkModel().getValue.data![0].subTitle[1].text,
+          type: 1,
+          data: _newsController.getListTypeOneOnly,
+        ),
+      ),
+      SizedBox(height: kDefaultPadding),
+      Obx(
+        () => BoxNews(
+          contentWidth: kSizeWidth,
+          title: TitleLinkModel().getValue.data![0].subTitle[0].text,
           type: 0,
           data: _newsController.getListTypeZeroOnly,
         ),
@@ -46,19 +71,19 @@ class NewsOthersContent extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: kDefaultPadding * 2),
       width: kMaxWidth < kSizeWidth ? kMaxWidth : kSizeWidth,
-      child: LimitedBox(
-        maxHeight: height * 2,
-        child: Responsive(
-          desktop: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: _listWidget,
+      child: Responsive(
+        desktop: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: _listWidgetDesktop,
+        ),
+        tablet: Padding(
+          padding: const EdgeInsets.all(kDefaultPadding),
+          child: Column(
+            children: _listWidgetTablet,
           ),
-          mobile: Column(
-            children: _listWidget,
-          ),
-          tablet: Column(
-            children: _listWidget,
-          ),
+        ),
+        mobile: Column(
+          children: _listWidgetTablet,
         ),
       ),
     );
@@ -88,6 +113,7 @@ class _BoxNewsState extends State<BoxNews> {
   final TextEditingController _textController = TextEditingController();
   final TextEditingController _linkController = TextEditingController();
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+
   bool _isAddNews = false;
   bool _isLoading = false;
 
@@ -201,57 +227,17 @@ class _BoxNewsState extends State<BoxNews> {
               shrinkWrap: true,
               itemCount: widget.data.length,
               itemBuilder: (_, index) {
-                return Material(
-                  color: Colors.transparent,
-                  child: Column(
-                    children: [
-                      InkWell(
-                        hoverColor: Colors.grey[300],
-                        onTap: () {},
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: kDefaultPadding,
-                              vertical: kDefaultPadding),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Flexible(
-                                child: Container(
-                                  width: widget.contentWidth * .7,
-                                  child: Text(
-                                    widget.data[index].text!,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black87.withOpacity(.5),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                KFormatDate.getDateThai(
-                                  date: '${widget.data[index].createDate}',
-                                  time: false,
-                                ),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      if (index + 1 == widget.data.length) ...{
-                        SizedBox(height: 30),
-                      } else ...{
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: kDefaultPadding),
-                          child: Divider(height: 0, color: Colors.grey[300]),
-                        ),
-                      }
-                    ],
-                  ),
+                return GetBuilder<FirebaseAuthServiceController>(
+                  init: FirebaseAuthServiceController(),
+                  builder: (_) {
+                    return ListNews(
+                      key: ValueKey(index),
+                      data: widget.data,
+                      index: index,
+                      width: widget.contentWidth,
+                      isAuth: _.getIsAuthenticated,
+                    );
+                  },
                 );
               },
             ),
@@ -344,5 +330,160 @@ class _BoxNewsState extends State<BoxNews> {
         'กรุณาตรวจสอบข้อผิดพลาด',
       );
     }
+  }
+}
+
+class ListNews extends StatefulWidget {
+  ListNews({
+    required Key key,
+    required this.data,
+    required this.index,
+    required this.width,
+    required this.isAuth,
+  }) : super(key: key);
+
+  final List<LinkModel> data;
+  final int index;
+  final double width;
+  final bool isAuth;
+
+  @override
+  _ListNewsState createState() => _ListNewsState();
+}
+
+class _ListNewsState extends State<ListNews> {
+  bool _isSlideAnimationChanged = false;
+  bool _isHover = false;
+
+  late SlidableController slidableController = SlidableController(
+      onSlideIsOpenChanged: onSlideIsOpenChanged,
+      onSlideAnimationChanged: (Animation<double>? value) => null);
+
+  void onSlideIsOpenChanged(bool? isOpen) {
+    if (isOpen!) {
+      setState(() {
+        _isSlideAnimationChanged = true;
+      });
+    } else {
+      setState(() {
+        _isSlideAnimationChanged = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        overlayColor: MaterialStateProperty.all(Colors.grey[50]),
+        highlightColor: Colors.grey[50],
+        onHover: (value) {
+          setState(() {
+            _isHover = value;
+          });
+        },
+        onTap: () {},
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: widget.width,
+              child: Stack(
+                alignment: Alignment.centerLeft,
+                children: [
+                  Slidable(
+                    controller: slidableController,
+                    actionPane: SlidableBehindActionPane(),
+                    movementDuration: Duration(milliseconds: 600),
+                    actionExtentRatio: 0.15,
+                    enabled: widget.isAuth,
+                    actions: <Widget>[
+                      IconSlideAction(
+                        caption: 'ลบ',
+                        color: Colors.grey[50],
+                        iconWidget: Icon(
+                          Icons.close,
+                          size: 14,
+                          color: Colors.grey[600],
+                        ),
+                        foregroundColor: Colors.grey[600],
+                        onTap: () {},
+                      ),
+                      IconSlideAction(
+                        caption: 'แก้ไข',
+                        color: Colors.grey[50],
+                        iconWidget: Icon(
+                          Icons.edit_outlined,
+                          size: 14,
+                          color: Colors.grey[600],
+                        ),
+                        foregroundColor: Colors.grey[600],
+                        onTap: () {},
+                      ),
+                    ],
+                    child: Container(
+                      width: widget.width * .7,
+                      color: Colors.grey[50],
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: kDefaultPadding,
+                            vertical: kDefaultPadding),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Container(
+                                width: widget.width * .7,
+                                child: Text(
+                                  widget.data[widget.index].text!,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: _isHover
+                                        ? Colors.black87
+                                        : Colors.black87.withOpacity(.5),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: kDefaultPadding,
+                    child: AnimatedOpacity(
+                      opacity: !_isSlideAnimationChanged ? 1 : 0,
+                      duration: Duration(milliseconds: 300),
+                      child: Container(
+                        child: Text(
+                          KFormatDate.getDateThai(
+                            date: '${widget.data[widget.index].createDate}',
+                            time: false,
+                          ),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w300, color: Colors.grey),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            if (widget.index + 1 == widget.data.length) ...{
+              SizedBox(height: 30),
+            } else ...{
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                child: Divider(height: 0, color: Colors.grey[300]),
+              ),
+            }
+          ],
+        ),
+      ),
+    );
   }
 }

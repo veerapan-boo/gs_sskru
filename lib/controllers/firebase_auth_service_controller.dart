@@ -37,7 +37,7 @@ class FirebaseAuthServiceController extends GetxController {
     Stream<User?> _authStateChanges = _firebaseAuth.authStateChanges();
 
     _authStateChanges.listen((event) {
-      if (event != null && _user == null) {
+      if (event != null) {
         _user = event;
         _isAuthenticated = true;
         update();
