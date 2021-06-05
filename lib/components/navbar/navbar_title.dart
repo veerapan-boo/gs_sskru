@@ -11,7 +11,7 @@ class NavBarTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset(
-          '../assets/images/sskru_logo.png',
+          'assets/images/sskru_logo.png',
           width: 30,
         ),
         Padding(

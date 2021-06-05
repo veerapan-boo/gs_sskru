@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
       drawer: HomeDrawer(),
       body: StreamBuilder<User?>(
         stream: _firebaseAuthService.authStateChanges(),
-        builder: (_, snap) {
+        builder: (_, __) {
           return _customScrollView;
         },
       ),

@@ -15,6 +15,7 @@ import 'package:gs_sskru/models/title_link/title_link.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
 import 'package:nanoid/nanoid.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NewsOthersContent extends StatelessWidget {
   final NewsController _newsController = Get.put(NewsController());
@@ -232,10 +233,10 @@ class _BoxNewsState extends State<BoxNews> {
                   builder: (_) {
                     return ListNews(
                       key: ValueKey(index),
-                      data: widget.data,
-                      index: index,
+                      data: widget.data[index],
                       width: widget.contentWidth,
                       isAuth: _.getIsAuthenticated,
+                      spaceBottom: index + 1 == widget.data.length,
                     );
                   },
                 );
@@ -310,13 +311,13 @@ class _BoxNewsState extends State<BoxNews> {
           });
           kToast(
             'เพิ่ม${widget.title}เรียบร้อย',
-            'ข้อมูลกำลังอัพเดทไปยังฐานข้อมูล',
+            Text('ข้อมูลกำลังอัพเดทไปยังฐานข้อมูล'),
           );
         });
       } else {
         kToast(
           'เกิดข้อผิดพลาดในการเพิ่ม${widget.title}',
-          'กรุณาตรวจกรอกข้อมูลให้ถูกต้องและครบถ้วน',
+          Text('กรุณาตรวจกรอกข้อมูลให้ถูกต้องและครบถ้วน'),
         );
       }
     } catch (err) {
@@ -327,7 +328,7 @@ class _BoxNewsState extends State<BoxNews> {
       });
       kToast(
         'เกิดข้อผิดพลาดในการเพิ่ม${widget.title}',
-        'กรุณาตรวจสอบข้อผิดพลาด',
+        Text('กรุณาตรวจสอบข้อผิดพลาด'),
       );
     }
   }
@@ -337,21 +338,34 @@ class ListNews extends StatefulWidget {
   ListNews({
     required Key key,
     required this.data,
-    required this.index,
     required this.width,
     required this.isAuth,
+    required this.spaceBottom,
   }) : super(key: key);
 
-  final List<LinkModel> data;
-  final int index;
+  final LinkModel data;
   final double width;
   final bool isAuth;
+  final bool spaceBottom;
 
   @override
   _ListNewsState createState() => _ListNewsState();
 }
 
 class _ListNewsState extends State<ListNews> {
+  late LinkModel data;
+  late double width;
+  late bool isAuth;
+  late bool spaceBottom;
+  @override
+  void initState() {
+    super.initState();
+    data = widget.data;
+    width = widget.width;
+    isAuth = widget.isAuth;
+    spaceBottom = widget.spaceBottom;
+  }
+
   bool _isSlideAnimationChanged = false;
   bool _isHover = false;
 
@@ -383,7 +397,7 @@ class _ListNewsState extends State<ListNews> {
             _isHover = value;
           });
         },
-        onTap: () {},
+        onTap: () => _launchURL(data.link!),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -437,7 +451,7 @@ class _ListNewsState extends State<ListNews> {
                               child: Container(
                                 width: widget.width * .7,
                                 child: Text(
-                                  widget.data[widget.index].text!,
+                                  widget.data.text!,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     color: _isHover
@@ -460,7 +474,7 @@ class _ListNewsState extends State<ListNews> {
                       child: Container(
                         child: Text(
                           KFormatDate.getDateThai(
-                            date: '${widget.data[widget.index].createDate}',
+                            date: '${widget.data.createDate}',
                             time: false,
                           ),
                           style: TextStyle(
@@ -472,7 +486,8 @@ class _ListNewsState extends State<ListNews> {
                 ],
               ),
             ),
-            if (widget.index + 1 == widget.data.length) ...{
+            // if (widget.index + 1 == widget.data.length) ...{
+            if (spaceBottom) ...{
               SizedBox(height: 30),
             } else ...{
               Padding(
@@ -485,5 +500,24 @@ class _ListNewsState extends State<ListNews> {
         ),
       ),
     );
+  }
+
+  void _launchURL(String _url) async {
+    await canLaunch(_url)
+        ? await launch(_url)
+        : kToast(
+            'ไม่สามารถเข้าลิงค์นี้ได้',
+            // TODO:
+            Row(
+              children: [
+                Text('กรุณาแจ้งไปยังผู้ดูแลระบบ'),
+                SizedBox(
+                  width: 8,
+                ),
+                Text('Facebook โดยกดที่การแจ้งเตือนนี้'),
+              ],
+            ), onTap: (_) {
+            _launchURL('https://pub.dev/packages/url_launcher');
+          });
   }
 }

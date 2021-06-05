@@ -35,10 +35,12 @@ class _SwitchPosterState extends State<SwitchPoster>
         [
           Obx(
             () => AnimatedSize(
-              curve: Curves.easeOutQuart,
-              duration: Duration(seconds: 1),
+              curve: Curves.fastOutSlowIn,
+              duration: Duration(milliseconds: 300),
               vsync: this,
               child: PageTransitionSwitcher(
+                duration: Duration(milliseconds: 300),
+                reverse: false,
                 transitionBuilder: (
                   Widget child,
                   Animation<double> animation,
