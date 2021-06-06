@@ -24,8 +24,10 @@ class LinkModel {
       text: json["text"] ?? null,
       link: json["link"] ?? null,
       photoUrl: json["photoUrl"] ?? null,
-      createDate: DateTime.fromMillisecondsSinceEpoch(
-          (json['createDate'] as Timestamp).millisecondsSinceEpoch),
+      createDate: json['createDate'] is DateTime
+          ? json['createDate']
+          : DateTime.fromMillisecondsSinceEpoch(
+              (json['createDate'] as Timestamp).millisecondsSinceEpoch),
     );
   }
 
