@@ -8,6 +8,7 @@ class KButton extends StatelessWidget {
   final Color? disabledColor;
   final bool enabled;
   final bool isLoading;
+  final bool isMargin;
 
   const KButton({
     Key? key,
@@ -16,6 +17,7 @@ class KButton extends StatelessWidget {
     this.enabled = true,
     this.disabledColor,
     this.isLoading = false,
+    this.isMargin = true,
     this.textColor = Colors.white,
   }) : super(key: key);
 
@@ -24,7 +26,7 @@ class KButton extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: EdgeInsets.symmetric(vertical: isMargin ? 10 : 0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(0),
         child: SizedBox(

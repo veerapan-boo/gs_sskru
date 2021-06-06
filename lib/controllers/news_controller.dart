@@ -32,4 +32,8 @@ class NewsController extends GetxController {
     });
     _linkModel[index] = LinkModel.fromMap(data);
   }
+
+  void removeLinkModelInList({required String id}) {
+    _linkModel.removeWhere((e) => e.id == id);
+  }
 }

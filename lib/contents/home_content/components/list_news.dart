@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:gs_sskru/components/k_dialog.dart';
 import 'package:gs_sskru/components/k_format_date.dart';
 import 'package:gs_sskru/components/toast/k_toast.dart';
 import 'package:gs_sskru/contents/home_content/components/form_action_link.dart';
@@ -108,7 +109,15 @@ class _ListNewsState extends State<ListNews> {
                           color: Colors.grey[600],
                         ),
                         foregroundColor: Colors.grey[600],
-                        onTap: () {},
+                        onTap: () {
+                          kDialog(
+                            title: 'ยืนยันการลบ',
+                            content: Text(
+                              'คุณต้องการลบลิงค์ข่าวนี้หรือไม่ ?',
+                            ),
+                            onConfirm: _removeLinkOnDatabase,
+                          );
+                        },
                       ),
                       IconSlideAction(
                         caption: 'แก้ไข',
@@ -240,6 +249,7 @@ class _ListNewsState extends State<ListNews> {
             _isEdit = false;
             _isLoading = false;
           });
+
           kToast(
             'แก้ไขสำเร็จ !',
             Text('ข้อมูลกำลังอัพเดทไปยังฐานข้อมูล'),
@@ -259,6 +269,32 @@ class _ListNewsState extends State<ListNews> {
       });
       kToast(
         'เกิดข้อผิดพลาดในการแก้ไข',
+        Text('กรุณาตรวจสอบข้อผิดพลาด'),
+      );
+    }
+  }
+
+  _removeLinkOnDatabase() async {
+    try {
+      setState(() {});
+      _firebaseFirestore.collection('news').doc(data.id).delete().then((value) {
+        Get.back();
+        _newsController.removeLinkModelInList(id: data.id!);
+        setState(() {
+          _isEdit = false;
+        });
+        kToast(
+          'ลบลิงค์สำเร็จ !',
+          Text('ข้อมูลกำลังอัพเดทไปยังฐานข้อมูล'),
+        );
+      });
+    } catch (err) {
+      Get.back();
+      setState(() {
+        _isEdit = false;
+      });
+      kToast(
+        'เกิดข้อผิดพลาดในการลบ',
         Text('กรุณาตรวจสอบข้อผิดพลาด'),
       );
     }
