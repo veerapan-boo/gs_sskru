@@ -8,6 +8,7 @@ class KButtonOutlined extends StatelessWidget {
   final Color? disabledColor;
   final bool enabled;
   final bool isLoading;
+  final bool isMargin;
   final double marginVertical;
 
   const KButtonOutlined({
@@ -17,6 +18,7 @@ class KButtonOutlined extends StatelessWidget {
     this.enabled = true,
     this.disabledColor,
     this.isLoading = false,
+    this.isMargin = true,
     this.textColor = Colors.white,
     this.marginVertical = 10.0,
   }) : super(key: key);
@@ -26,7 +28,7 @@ class KButtonOutlined extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Container(
-      margin: EdgeInsets.symmetric(vertical: marginVertical),
+      margin: EdgeInsets.symmetric(vertical: isMargin ? marginVertical : 0),
       child: OutlinedButton(
         style: ButtonStyle(
           padding: MaterialStateProperty.all(
