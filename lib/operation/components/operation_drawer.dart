@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:gs_sskru/components/navbar/navbar_menu.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 
-class HomeDrawer extends StatelessWidget {
+class OperationDrawer extends StatelessWidget {
   final NavBarMenuController _navBarMenuController =
       Get.put(NavBarMenuController());
 

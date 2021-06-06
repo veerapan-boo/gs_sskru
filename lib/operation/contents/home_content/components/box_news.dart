@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/components/buttons/k_text_button.dart';
 import 'package:gs_sskru/components/toast/k_toast.dart';
-import 'package:gs_sskru/contents/home_content/components/form_action_link.dart';
-import 'package:gs_sskru/contents/home_content/components/list_news.dart';
 import 'package:gs_sskru/controllers/firebase_auth_service_controller.dart';
 import 'package:gs_sskru/controllers/news_controller.dart';
 import 'package:gs_sskru/models/link_model.dart';
+import 'package:gs_sskru/operation/contents/home_content/components/form_action_link.dart';
+import 'package:gs_sskru/operation/contents/home_content/components/list_news.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:nanoid/nanoid.dart';
 

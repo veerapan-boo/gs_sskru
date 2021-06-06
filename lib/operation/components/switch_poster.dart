@@ -1,28 +1,28 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gs_sskru/contents/about_content.dart';
-import 'package:gs_sskru/contents/admission_content.dart';
-import 'package:gs_sskru/contents/course_content.dart';
-import 'package:gs_sskru/contents/home_content/home_content.dart';
-import 'package:gs_sskru/contents/service_content.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
+import 'package:gs_sskru/operation/posters/about_poster.dart';
+import 'package:gs_sskru/operation/posters/admin_poster/admin_poster.dart';
+import 'package:gs_sskru/operation/posters/admission_poster.dart';
+import 'package:gs_sskru/operation/posters/course_poster.dart';
+import 'package:gs_sskru/operation/posters/home_poster.dart';
+import 'package:gs_sskru/operation/posters/service_poster.dart';
 
-class SwitchContent extends StatefulWidget {
+class SwitchPoster extends StatefulWidget {
   @override
-  _SwitchContentState createState() => _SwitchContentState();
+  _SwitchPosterState createState() => _SwitchPosterState();
 }
 
-class _SwitchContentState extends State<SwitchContent>
+class _SwitchPosterState extends State<SwitchPoster>
     with SingleTickerProviderStateMixin {
-  SharedAxisTransitionType? _transitionType = SharedAxisTransitionType.vertical;
-  final List<Widget> _listContents = [
-    HomeContent(),
-    AboutContent(),
-    AdmissionContent(),
-    CourseContent(),
-    ServiceContent(),
-    SizedBox()
+  final List<Widget> _listPosters = [
+    HomePoster(),
+    AboutPoster(),
+    AdmissionPoster(),
+    CoursePoster(),
+    ServicePoster(),
+    AdminPoster(),
   ];
 
   final NavBarMenuController _navBarMenuController =
@@ -49,11 +49,10 @@ class _SwitchContentState extends State<SwitchContent>
                   return FadeThroughTransition(
                     animation: animation,
                     secondaryAnimation: secondaryAnimation,
-                    // transitionType: _transitionType!,
                     child: child,
                   );
                 },
-                child: _listContents[_navBarMenuController.getSelectedIndex],
+                child: _listPosters[_navBarMenuController.getSelectedIndex],
               ),
             ),
           )

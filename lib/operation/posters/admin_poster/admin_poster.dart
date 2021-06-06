@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gs_sskru/components/navbar/navbar.dart';
-import 'package:gs_sskru/posters/admin_poster/components/content_admin_poster.dart';
-import 'package:gs_sskru/posters/admin_poster/components/content_login.dart';
+import 'package:gs_sskru/operation/posters/admin_poster/components/content_admin_poster.dart';
+import 'package:gs_sskru/operation/posters/admin_poster/components/content_login.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
 
