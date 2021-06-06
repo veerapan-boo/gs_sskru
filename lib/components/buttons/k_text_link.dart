@@ -7,6 +7,7 @@ class KTextLink extends StatefulWidget {
       this.textSize = 16,
       this.text = '',
       this.arrowIcon = false,
+      this.colors,
       required this.onPressed,
       this.mainAxisAlignment = MainAxisAlignment.start})
       : super(key: key);
@@ -14,6 +15,7 @@ class KTextLink extends StatefulWidget {
   final String text;
   final double textSize;
   final bool arrowIcon;
+  final Color? colors;
   final Function()? onPressed;
   final MainAxisAlignment? mainAxisAlignment;
 
@@ -42,9 +44,9 @@ class _KTextLinkState extends State<KTextLink> {
             style: TextStyle(
               decoration:
                   _isHover ? TextDecoration.underline : TextDecoration.none,
-              decorationColor: kPrimaryColor,
+              decorationColor: widget.colors ?? kPrimaryColor,
               decorationThickness: 1,
-              color: kPrimaryColor,
+              color: widget.colors ?? kPrimaryColor,
               fontSize: widget.textSize,
               height: 0,
             ),
@@ -54,7 +56,7 @@ class _KTextLinkState extends State<KTextLink> {
               padding: EdgeInsets.only(top: widget.textSize * .011),
               child: Icon(
                 Icons.arrow_forward_ios_sharp,
-                color: kPrimaryColor,
+                color: widget.colors ?? kPrimaryColor,
                 size: widget.textSize * .9,
               ),
             )

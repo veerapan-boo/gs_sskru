@@ -67,7 +67,7 @@ Map<String, dynamic> data_type = {
     },
     {
       "col": 6,
-      "headTitle": "Staff",
+      "headTitle": "บุคลากร",
       "subTitle": [
         {"type": 0, "text": "ผู้บริหารและบุคลากร", "link": ""},
         {
