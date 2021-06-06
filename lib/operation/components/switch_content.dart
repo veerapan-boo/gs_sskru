@@ -2,27 +2,27 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
-import 'package:gs_sskru/posters/about_poster.dart';
-import 'package:gs_sskru/posters/admin_poster/admin_poster.dart';
-import 'package:gs_sskru/posters/admission_poster.dart';
-import 'package:gs_sskru/posters/course_poster.dart';
-import 'package:gs_sskru/posters/home_poster.dart';
-import 'package:gs_sskru/posters/service_poster.dart';
+import 'package:gs_sskru/operation/contents/about_content.dart';
+import 'package:gs_sskru/operation/contents/admission_content.dart';
+import 'package:gs_sskru/operation/contents/course_content.dart';
+import 'package:gs_sskru/operation/contents/home_content/home_content.dart';
+import 'package:gs_sskru/operation/contents/service_content.dart';
 
-class SwitchPoster extends StatefulWidget {
+class SwitchContent extends StatefulWidget {
   @override
-  _SwitchPosterState createState() => _SwitchPosterState();
+  _SwitchContentState createState() => _SwitchContentState();
 }
 
-class _SwitchPosterState extends State<SwitchPoster>
+class _SwitchContentState extends State<SwitchContent>
     with SingleTickerProviderStateMixin {
-  final List<Widget> _listPosters = [
-    HomePoster(),
-    AboutPoster(),
-    AdmissionPoster(),
-    CoursePoster(),
-    ServicePoster(),
-    AdminPoster(),
+  SharedAxisTransitionType? _transitionType = SharedAxisTransitionType.vertical;
+  final List<Widget> _listContents = [
+    HomeContent(),
+    AboutContent(),
+    AdmissionContent(),
+    CourseContent(),
+    ServiceContent(),
+    SizedBox()
   ];
 
   final NavBarMenuController _navBarMenuController =
@@ -46,13 +46,14 @@ class _SwitchPosterState extends State<SwitchPoster>
                   Animation<double> animation,
                   Animation<double> secondaryAnimation,
                 ) {
-                  return FadeThroughTransition(
+                  return SharedAxisTransition(
                     animation: animation,
                     secondaryAnimation: secondaryAnimation,
+                    transitionType: _transitionType!,
                     child: child,
                   );
                 },
-                child: _listPosters[_navBarMenuController.getSelectedIndex],
+                child: _listContents[_navBarMenuController.getSelectedIndex],
               ),
             ),
           )

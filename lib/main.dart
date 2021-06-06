@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:gs_sskru/screens/home_screen/home_screen.dart';
+import 'package:gs_sskru/operation/operation.dart';
 import 'package:gs_sskru/services/init.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,8 +27,8 @@ class Main extends StatelessWidget {
         accentColor: kPrimaryColor,
         primarySwatch: Colors.blue,
       ),
-      initialRoute: HomeScreen.routeName,
-      getPages: [GetPage(name: HomeScreen.routeName, page: () => HomeScreen())],
+      initialRoute: Operation.routeName,
+      getPages: [GetPage(name: Operation.routeName, page: () => Operation())],
     );
   }
 }

@@ -20,9 +20,8 @@ class TitleLinkModel {
             ? null
             : List<dynamic>.from(data!.map((x) => x.toJson())),
       };
-
   TitleLinkModel get getValue =>
-      TitleLinkModel.fromJson(jsonDecode(jsonEncode(dataType)));
+      TitleLinkModel.fromJson(jsonDecode(jsonEncode(data_type)));
 }
 
 class Data {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gs_sskru/contents/home_content/components/box_news.dart';
 import 'package:gs_sskru/controllers/news_controller.dart';
-import 'package:gs_sskru/models/title_link/title_link.dart';
+import 'package:gs_sskru/models/title_link_model.dart';
+import 'package:gs_sskru/operation/contents/home_content/components/box_news.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
 

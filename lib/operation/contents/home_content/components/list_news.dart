@@ -5,9 +5,10 @@ import 'package:get/get.dart';
 import 'package:gs_sskru/components/k_dialog.dart';
 import 'package:gs_sskru/components/k_format_date.dart';
 import 'package:gs_sskru/components/toast/k_toast.dart';
-import 'package:gs_sskru/contents/home_content/components/form_action_link.dart';
 import 'package:gs_sskru/controllers/news_controller.dart';
+import 'package:gs_sskru/data/link_others.dart';
 import 'package:gs_sskru/models/link_model.dart';
+import 'package:gs_sskru/operation/contents/home_content/components/form_action_link.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -305,7 +306,6 @@ class _ListNewsState extends State<ListNews> {
         ? await launch(_url)
         : kToast(
             'ไม่สามารถเข้าลิงค์นี้ได้',
-            // TODO:
             Row(
               children: [
                 Text('กรุณาแจ้งไปยังผู้ดูแลระบบ'),
@@ -316,7 +316,7 @@ class _ListNewsState extends State<ListNews> {
               ],
             ),
             onTap: (_) {
-              _launchURL('https://pub.dev/packages/url_launcher');
+              _launchURL(link_others['facebook']);
             },
           );
   }
