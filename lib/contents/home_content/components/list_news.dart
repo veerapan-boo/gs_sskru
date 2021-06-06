@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/get.dart';
 import 'package:gs_sskru/components/k_format_date.dart';
 import 'package:gs_sskru/components/toast/k_toast.dart';
 import 'package:gs_sskru/contents/home_content/components/form_action_link.dart';
+import 'package:gs_sskru/controllers/news_controller.dart';
 import 'package:gs_sskru/models/link_model.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,6 +36,8 @@ class _ListNewsState extends State<ListNews> {
   late bool spaceBottom;
   late TextEditingController _textController = TextEditingController();
   late TextEditingController _linkController = TextEditingController();
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  final NewsController _newsController = Get.put(NewsController());
   @override
   void initState() {
     super.initState();
@@ -185,7 +190,7 @@ class _ListNewsState extends State<ListNews> {
                       _isEdit = false;
                     });
                   },
-                  onSubmitPress: () {},
+                  onSubmitPress: _editLinkToDatabase,
                   isLoading: _isLoading,
                 ),
               ),
@@ -202,6 +207,61 @@ class _ListNewsState extends State<ListNews> {
         ),
       ),
     );
+  }
+
+  Future<bool> _validateText() async {
+    if (_textController.text.trim() != "" &&
+        _linkController.text.trim() != "") {
+      return true;
+    }
+    return false;
+  }
+
+  _editLinkToDatabase() async {
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      final bool _isValidated = await _validateText();
+      if (_isValidated) {
+        final Map<String, dynamic> _linkModel = {
+          "text": _textController.text,
+          "link": _linkController.text,
+        };
+
+        _firebaseFirestore
+            .collection('news')
+            .doc(data.id)
+            .update(_linkModel)
+            .then((value) {
+          _newsController.updateLinkModelInList(
+              id: data.id!, value: _linkModel);
+          setState(() {
+            _isEdit = false;
+            _isLoading = false;
+          });
+          kToast(
+            'แก้ไขสำเร็จ !',
+            Text('ข้อมูลกำลังอัพเดทไปยังฐานข้อมูล'),
+          );
+        });
+      } else {
+        kToast(
+          'เกิดข้อผิดพลาดในการแก้ไข',
+          Text('กรุณาตรวจกรอกข้อมูลให้ถูกต้องและครบถ้วน'),
+        );
+      }
+    } catch (err) {
+      print(err);
+      setState(() {
+        _isEdit = false;
+        _isLoading = false;
+      });
+      kToast(
+        'เกิดข้อผิดพลาดในการแก้ไข',
+        Text('กรุณาตรวจสอบข้อผิดพลาด'),
+      );
+    }
   }
 
   void _launchURL(String _url) async {
