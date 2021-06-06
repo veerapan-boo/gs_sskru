@@ -4,13 +4,12 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/components/k_dialog.dart';
 import 'package:gs_sskru/components/k_format_date.dart';
+import 'package:gs_sskru/components/k_launchURL.dart';
 import 'package:gs_sskru/components/toast/k_toast.dart';
 import 'package:gs_sskru/controllers/news_controller.dart';
-import 'package:gs_sskru/data/link_others.dart';
 import 'package:gs_sskru/models/link_model.dart';
 import 'package:gs_sskru/operation/contents/home_content/components/form_action_link.dart';
 import 'package:gs_sskru/util/constants.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ListNews extends StatefulWidget {
   ListNews({
@@ -85,7 +84,7 @@ class _ListNewsState extends State<ListNews> {
             _isHover = value;
           });
         },
-        onTap: () => _launchURL(data.link!),
+        onTap: () => k_launchURL(url: data.link!),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -299,25 +298,5 @@ class _ListNewsState extends State<ListNews> {
         Text('กรุณาตรวจสอบข้อผิดพลาด'),
       );
     }
-  }
-
-  void _launchURL(String _url) async {
-    await canLaunch(_url)
-        ? await launch(_url)
-        : kToast(
-            'ไม่สามารถเข้าลิงค์นี้ได้',
-            Row(
-              children: [
-                Text('กรุณาแจ้งไปยังผู้ดูแลระบบ'),
-                SizedBox(
-                  width: 8,
-                ),
-                Text('Facebook โดยกดที่การแจ้งเตือนนี้'),
-              ],
-            ),
-            onTap: (_) {
-              _launchURL(link_others['facebook']);
-            },
-          );
   }
 }
