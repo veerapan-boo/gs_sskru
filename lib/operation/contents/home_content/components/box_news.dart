@@ -30,22 +30,18 @@ class BoxNews extends StatefulWidget {
 }
 
 class _BoxNewsState extends State<BoxNews> {
-  late double _contentWidth;
   late NewsController _newsController;
   late TextEditingController _textController;
   late TextEditingController _linkController;
   late FirebaseFirestore _firebaseFirestore;
-  late double _inputWidth;
 
   @override
   void initState() {
     super.initState();
-    _contentWidth = widget.contentWidth;
     _newsController = Get.put(NewsController());
     _textController = TextEditingController();
     _linkController = TextEditingController();
     _firebaseFirestore = FirebaseFirestore.instance;
-    _inputWidth = _contentWidth - (kDefaultPadding * 2);
   }
 
   bool _isAddNews = false;
@@ -60,8 +56,9 @@ class _BoxNewsState extends State<BoxNews> {
 
   @override
   Widget build(BuildContext context) {
+    double _inputWidth = widget.contentWidth - (kDefaultPadding * 2);
     return Container(
-      width: _contentWidth,
+      width: widget.contentWidth,
       decoration: BoxDecoration(color: Colors.grey[50]),
       child: Column(
         mainAxisSize: MainAxisSize.min,

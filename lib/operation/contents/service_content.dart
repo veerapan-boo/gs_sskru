@@ -40,7 +40,6 @@ class ServiceContent extends StatelessWidget {
         );
       },
     );
-
     Column _rowList = Column(
       children: [
         Row(

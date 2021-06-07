@@ -41,7 +41,7 @@ class NewsOthersContent extends StatelessWidget {
       // Can see the type at data_type.dart
       Obx(
         () => BoxNews(
-          contentWidth: kSizeWidth,
+          contentWidth: contentWidth,
           title: TitleLinkModel().getValue.data![0].subTitle[1].text,
           type: 1,
           data: _newsController.getListTypeOneOnly,
@@ -50,7 +50,7 @@ class NewsOthersContent extends StatelessWidget {
       SizedBox(height: kDefaultPadding),
       Obx(
         () => BoxNews(
-          contentWidth: kSizeWidth,
+          contentWidth: contentWidth,
           title: TitleLinkModel().getValue.data![0].subTitle[0].text,
           type: 0,
           data: _newsController.getListTypeZeroOnly,
@@ -66,11 +66,9 @@ class NewsOthersContent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: _listWidgetDesktop,
         ),
-        tablet: Padding(
-          padding: const EdgeInsets.all(kDefaultPadding),
-          child: Column(
-            children: _listWidgetTablet,
-          ),
+        tablet: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: _listWidgetDesktop,
         ),
         mobile: Column(
           children: _listWidgetTablet,
