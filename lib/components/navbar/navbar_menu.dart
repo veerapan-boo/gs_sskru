@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 import 'package:gs_sskru/util/constants.dart';
 
-class NavBarMenu extends StatelessWidget {
-  final NavBarMenuController _navBarMenuController =
-      Get.put(NavBarMenuController());
+class NavBarMenu extends GetWidget<NavBarMenuController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Row(
         children: List.generate(
-          _navBarMenuController.getMenuItems.length,
+          controller.getMenuItems.length,
           (index) => NavBarMenuItem(
-            text: _navBarMenuController.getMenuItems[index],
-            onPress: () => _navBarMenuController.setSelectedIndex(index),
-            isActive: index == _navBarMenuController.getSelectedIndex,
+            text: controller.getMenuItems[index],
+            onPress: () => controller.setSelectedIndex(index),
+            isActive: index == controller.getSelectedIndex,
           ),
         ),
       ),

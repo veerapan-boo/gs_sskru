@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gs_sskru/components/buttons/k_text_link.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
 
 class EducationJoinUp extends StatelessWidget {
+  final ImageProvider _image = AssetImage(
+    'assets/images/education.png',
+  );
+
   @override
   Widget build(BuildContext context) {
     final bool isDesktop = Responsive.isDesktop(context);
@@ -18,10 +21,10 @@ class EducationJoinUp extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           if (isDesktop)
-            SvgPicture.asset(
-              'assets/images/undraw_education_f8ru.svg',
+            Container(
               width: kMaxWidth * .25,
-              allowDrawingOutsideViewBox: true,
+              height: kMaxWidth * .25,
+              decoration: BoxDecoration(image: DecorationImage(image: _image)),
             ),
           Container(
             padding: EdgeInsets.all(kDefaultPadding),

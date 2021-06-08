@@ -17,6 +17,7 @@ class SwitchContent extends StatefulWidget {
 class _SwitchContentState extends State<SwitchContent>
     with TickerProviderStateMixin {
   SharedAxisTransitionType? _transitionType = SharedAxisTransitionType.vertical;
+
   final List<Widget> _listContents = [
     HomeContent(),
     AboutContent(),
@@ -25,9 +26,7 @@ class _SwitchContentState extends State<SwitchContent>
     ServiceContent(),
     SizedBox()
   ];
-
-  final NavBarMenuController _navBarMenuController =
-      Get.put(NavBarMenuController());
+  final _navBarMenuController = Get.find<NavBarMenuController>();
 
   @override
   Widget build(BuildContext context) {

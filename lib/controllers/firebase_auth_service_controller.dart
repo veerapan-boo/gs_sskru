@@ -6,8 +6,7 @@ import 'package:get/get.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 
 class FirebaseAuthServiceController extends GetxController {
-  final NavBarMenuController _navBarMenuController =
-      Get.put(NavBarMenuController());
+  final _navBarMenuController = Get.find<NavBarMenuController>();
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   late User? _user;
   bool _isAuthenticated = false;

@@ -38,7 +38,7 @@ class _ListNewsState extends State<ListNews> {
   late TextEditingController _textController = TextEditingController();
   late TextEditingController _linkController = TextEditingController();
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-  final NewsController _newsController = Get.put(NewsController());
+  final _newsController = Get.find<NewsController>();
   @override
   void initState() {
     super.initState();

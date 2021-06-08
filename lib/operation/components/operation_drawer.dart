@@ -3,10 +3,7 @@ import 'package:get/get.dart';
 import 'package:gs_sskru/components/navbar/navbar_menu.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 
-class OperationDrawer extends StatelessWidget {
-  final NavBarMenuController _navBarMenuController =
-      Get.put(NavBarMenuController());
-
+class OperationDrawer extends GetWidget<NavBarMenuController> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -16,11 +13,11 @@ class OperationDrawer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: List.generate(
-              _navBarMenuController.getMenuItems.length,
+              controller.getMenuItems.length,
               (index) => NavBarMenuItem(
-                text: _navBarMenuController.getMenuItems[index],
-                onPress: () => _navBarMenuController.setSelectedIndex(index),
-                isActive: index == _navBarMenuController.getSelectedIndex,
+                text: controller.getMenuItems[index],
+                onPress: () => controller.setSelectedIndex(index),
+                isActive: index == controller.getSelectedIndex,
               ),
             ),
           ),

@@ -6,8 +6,7 @@ import 'package:gs_sskru/operation/contents/home_content/components/box_news.dar
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
 
-class NewsOthersContent extends StatelessWidget {
-  final NewsController _newsController = Get.put(NewsController());
+class NewsOthersContent extends GetView<NewsController> {
   final double height = kDefaultPadding * 25;
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class NewsOthersContent extends StatelessWidget {
           contentWidth: contentWidth,
           title: TitleLinkModel().getValue.data![0].subTitle[1].text,
           type: 1,
-          data: _newsController.getListTypeOneOnly,
+          data: controller.getListTypeOneOnly,
         ),
       ),
       SizedBox(width: kDefaultPadding),
@@ -32,7 +31,7 @@ class NewsOthersContent extends StatelessWidget {
           contentWidth: contentWidth,
           title: TitleLinkModel().getValue.data![0].subTitle[0].text,
           type: 0,
-          data: _newsController.getListTypeZeroOnly,
+          data: controller.getListTypeZeroOnly,
         ),
       )
     ];
@@ -41,19 +40,19 @@ class NewsOthersContent extends StatelessWidget {
       // Can see the type at data_type.dart
       Obx(
         () => BoxNews(
-          contentWidth: contentWidth,
+          contentWidth: context.width,
           title: TitleLinkModel().getValue.data![0].subTitle[1].text,
           type: 1,
-          data: _newsController.getListTypeOneOnly,
+          data: controller.getListTypeOneOnly,
         ),
       ),
       SizedBox(height: kDefaultPadding),
       Obx(
         () => BoxNews(
-          contentWidth: contentWidth,
+          contentWidth: context.width,
           title: TitleLinkModel().getValue.data![0].subTitle[0].text,
           type: 0,
-          data: _newsController.getListTypeZeroOnly,
+          data: controller.getListTypeZeroOnly,
         ),
       )
     ];

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/components/footer/footer.dart';
@@ -12,22 +11,23 @@ import 'package:gs_sskru/operation/components/switch_poster.dart';
 
 import 'components/switch_content.dart';
 
-class Operation extends GetWidget<NavBarMenuController> {
+class Operation extends StatelessWidget {
   static String routeName = '/operation';
 
-  final FirebaseAuthServiceController _firebaseAuthService =
-      Get.put(FirebaseAuthServiceController());
+  final _firebaseAuthServiceController =
+      Get.find<FirebaseAuthServiceController>();
+  final _navBarMenuController = Get.find<NavBarMenuController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: controller.getScaffoldKey,
+      key: _navBarMenuController.getScaffoldKey,
       onDrawerChanged: (value) {
-        controller.setOnDrawerChanged(value);
+        _navBarMenuController.setOnDrawerChanged(value);
       },
       drawer: OperationDrawer(),
-      body: StreamBuilder<User?>(
-        stream: _firebaseAuthService.authStateChanges(),
+      body: StreamBuilder(
+        stream: _firebaseAuthServiceController.authStateChanges(),
         builder: (_, __) {
           return FetchNewsData();
         },
@@ -36,12 +36,13 @@ class Operation extends GetWidget<NavBarMenuController> {
   }
 }
 
-class FetchNewsData extends Operation {
-  final NewsController _newsController = Get.put(NewsController());
+class FetchNewsData extends StatelessWidget {
+  final _newsController = Get.find<NewsController>();
+  final _navBarMenuController = Get.find<NavBarMenuController>();
   @override
   Widget build(BuildContext context) {
     CustomScrollView _customScrollView = CustomScrollView(
-      controller: controller.getScrollController,
+      controller: _navBarMenuController.getScrollController,
       slivers: [
         NavBar(),
         SwitchPoster(),
