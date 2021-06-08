@@ -12,22 +12,24 @@ import 'components/switch_content.dart';
 
 class Operation extends StatelessWidget {
   static String routeName = '/operation';
+
   final NavBarMenuController _navBarMenuController =
       Get.put(NavBarMenuController());
+
   final FirebaseAuthServiceController _firebaseAuthService =
       Get.put(FirebaseAuthServiceController());
 
-  final CustomScrollView _customScrollView = CustomScrollView(
-    slivers: [
-      NavBar(),
-      SwitchPoster(),
-      SwitchContent(),
-      Footer(),
-    ],
-  );
-
   @override
   Widget build(BuildContext context) {
+    CustomScrollView _customScrollView = CustomScrollView(
+      controller: _navBarMenuController.getScrollController,
+      slivers: [
+        NavBar(),
+        SwitchPoster(),
+        SwitchContent(),
+        Footer(),
+      ],
+    );
     return Scaffold(
       key: _navBarMenuController.getScaffoldKey,
       onDrawerChanged: (value) {
