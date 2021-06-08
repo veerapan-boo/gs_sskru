@@ -9,12 +9,13 @@ import 'package:gs_sskru/operation/contents/home_content/home_content.dart';
 import 'package:gs_sskru/operation/contents/service_content.dart';
 
 class SwitchContent extends StatefulWidget {
+  const SwitchContent({Key? key}) : super(key: key);
   @override
   _SwitchContentState createState() => _SwitchContentState();
 }
 
 class _SwitchContentState extends State<SwitchContent>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   SharedAxisTransitionType? _transitionType = SharedAxisTransitionType.vertical;
   final List<Widget> _listContents = [
     HomeContent(),
@@ -36,11 +37,10 @@ class _SwitchContentState extends State<SwitchContent>
           Obx(
             () => AnimatedSize(
               curve: Curves.fastOutSlowIn,
-              duration: Duration(milliseconds: 300),
+              duration: Duration(milliseconds: 50),
               vsync: this,
               child: PageTransitionSwitcher(
                 duration: Duration(milliseconds: 300),
-                reverse: false,
                 transitionBuilder: (
                   Widget child,
                   Animation<double> animation,
