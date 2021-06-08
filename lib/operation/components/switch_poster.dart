@@ -25,9 +25,7 @@ class _SwitchPosterState extends State<SwitchPoster>
     AdminPoster(),
   ];
 
-  final NavBarMenuController _navBarMenuController =
-      Get.put(NavBarMenuController());
-
+  final _navBarMenuController = Get.find<NavBarMenuController>();
   @override
   Widget build(BuildContext context) {
     return SliverList(
@@ -55,7 +53,7 @@ class _SwitchPosterState extends State<SwitchPoster>
                 child: _listPosters[_navBarMenuController.getSelectedIndex],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

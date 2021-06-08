@@ -7,10 +7,7 @@ import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
 
-class NavBar extends StatelessWidget {
-  final NavBarMenuController _navBarMenuController =
-      Get.put(NavBarMenuController());
-
+class NavBar extends GetView<NavBarMenuController> {
   get navBarHeight => 100.0;
 
   @override
@@ -41,8 +38,7 @@ class NavBar extends StatelessWidget {
                       AnimateIcons(
                         startIcon: Icons.drag_handle,
                         endIcon: Icons.close_sharp,
-                        controller:
-                            _navBarMenuController.getControllerAnimateIcons,
+                        controller: controller.getControllerAnimateIcons,
                         duration: Duration(milliseconds: 190),
                         size: 25.0,
                         startIconColor: Colors.black38,
@@ -50,7 +46,7 @@ class NavBar extends StatelessWidget {
                         clockwise: false,
                         onEndIconPress: () => true,
                         onStartIconPress: () {
-                          _navBarMenuController.onDrawer();
+                          controller.onDrawer();
                           return true;
                         },
                       ),

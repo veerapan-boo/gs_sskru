@@ -19,13 +19,10 @@ class _ContentLoginState extends State<ContentLogin> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final NavBarMenuController _navBarMenuController =
-      Get.put(NavBarMenuController());
-  final FirebaseAuthServiceController _firebaseAuthService =
-      Get.put(FirebaseAuthServiceController());
+  final _firebaseAuthService = Get.find<FirebaseAuthServiceController>();
 
   void _toHomePoster() {
-    _navBarMenuController.setSelectedIndex(0);
+    Get.find<NavBarMenuController>().setSelectedIndex(0);
   }
 
   // Loading button

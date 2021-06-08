@@ -3,6 +3,9 @@ import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
 
 class HomePoster extends StatelessWidget {
+  final ImageProvider _imagePoster = AssetImage(
+    'assets/images/pattern_new.png',
+  );
   @override
   Widget build(BuildContext context) {
     final double height = kDefaultPadding * 25;
@@ -20,11 +23,12 @@ class HomePoster extends StatelessWidget {
             Positioned(
               right: 0,
               child: Container(
+                width: 500,
                 height: height,
-                // width: kMaxWidth * .35,
-                child: Image.asset(
-                  'assets/images/pattern_new.png',
-                  fit: BoxFit.cover,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: _imagePoster,
+                  ),
                 ),
               ),
             ),

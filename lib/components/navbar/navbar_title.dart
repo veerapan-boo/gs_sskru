@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
 class NavBarTitle extends StatelessWidget {
-  const NavBarTitle({
-    Key? key,
-  }) : super(key: key);
+  final ImageProvider logo = AssetImage(
+    'assets/images/sskru_logo.png',
+  );
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(
-          'assets/images/sskru_logo.png',
-          width: 30,
+        Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(image: DecorationImage(image: logo)),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0),

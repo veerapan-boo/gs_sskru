@@ -17,6 +17,10 @@ void main() async {
 class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Load image
+    precacheImage(AssetImage('assets/images/sskru_logo.png'), context);
+    precacheImage(AssetImage('assets/images/pattern_new.png'), context);
+    precacheImage(AssetImage('assets/images/education.png'), context);
     return GetMaterialApp(
       title: 'วิทยาลัยบัญฑิต | SSKRU',
       debugShowCheckedModeBanner: false,

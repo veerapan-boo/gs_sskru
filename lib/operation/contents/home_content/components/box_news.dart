@@ -30,7 +30,6 @@ class BoxNews extends StatefulWidget {
 }
 
 class _BoxNewsState extends State<BoxNews> {
-  late NewsController _newsController;
   late TextEditingController _textController;
   late TextEditingController _linkController;
   late FirebaseFirestore _firebaseFirestore;
@@ -38,7 +37,6 @@ class _BoxNewsState extends State<BoxNews> {
   @override
   void initState() {
     super.initState();
-    _newsController = Get.put(NewsController());
     _textController = TextEditingController();
     _linkController = TextEditingController();
     _firebaseFirestore = FirebaseFirestore.instance;
@@ -202,7 +200,7 @@ class _BoxNewsState extends State<BoxNews> {
             .doc(linkId)
             .set(_linkModel.toMap())
             .then((value) {
-          _newsController.addLinkModelToList(_linkModel);
+          Get.find<NewsController>().addLinkModelToList(_linkModel);
           setState(() {
             _isAddNews = false;
             _isLoading = false;
