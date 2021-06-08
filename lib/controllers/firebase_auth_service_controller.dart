@@ -9,8 +9,14 @@ class FirebaseAuthServiceController extends GetxController {
   final NavBarMenuController _navBarMenuController =
       Get.put(NavBarMenuController());
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  User? _user;
+  late User? _user;
   bool _isAuthenticated = false;
+
+  @override
+  void onInit() {
+    super.onInit();
+    checkCurrentUser();
+  }
 
   User get user => _user!;
   bool get getIsAuthenticated => _isAuthenticated;
@@ -23,7 +29,6 @@ class FirebaseAuthServiceController extends GetxController {
       _navBarMenuController.setMenuItemsOfAuthStatus(true);
     }
     update();
-    return this;
   }
 
   Future<User?> signInWithEmailAndPassword(
