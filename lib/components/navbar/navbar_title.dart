@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class NavBarTitle extends StatelessWidget {
   final ImageProvider logo = AssetImage(
@@ -22,11 +23,11 @@ class NavBarTitle extends StatelessWidget {
             children: [
               Text(
                 'สำนักงานบัณฑิตศึกษา ',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                style: context.textTheme.subtitle1,
               ),
               Text(
                 'มหาวิทยาลัยราชภัฏศรีสะเกษ',
-                style: TextStyle(fontWeight: FontWeight.w300, fontSize: 12),
+                style: context.textTheme.caption,
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gs_sskru/components/buttons/k_text_link.dart';
 import 'package:gs_sskru/components/k_launchURL.dart';
 import 'package:gs_sskru/models/title_link_model.dart';
@@ -20,11 +21,9 @@ class ServiceContent extends StatelessWidget {
           children: [
             Text(
               _titleLink.data![_index].headTitle,
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 26,
-              ),
+              style: context.textTheme.headline5,
             ),
+            SizedBox(height: 8),
             for (var _elemSubTitle in _titleLink.data![_index].subTitle)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 2),

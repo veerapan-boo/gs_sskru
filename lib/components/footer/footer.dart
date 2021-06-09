@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:gs_sskru/models/title_link_model.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
@@ -60,6 +61,7 @@ class _FooterState extends State<Footer> {
 
   Container contentMobileAndTablet() {
     bool isTablet = Responsive.isTablet(context);
+
     return Container(
       padding: EdgeInsets.symmetric(
           horizontal: isTablet ? kDefaultPadding * 4 : kDefaultPadding),
@@ -96,7 +98,10 @@ class _FooterState extends State<Footer> {
                                   vertical: 5, horizontal: 10),
                               child: Text(
                                 subTitle.text,
-                                style: TextStyle(color: Colors.white60),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle2!
+                                    .copyWith(color: Colors.white60),
                                 softWrap: true,
                                 overflow: TextOverflow.fade,
                               ),
@@ -247,7 +252,7 @@ class _FooterState extends State<Footer> {
 
   Container headTitle(String text) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 14, horizontal: 10),
+      padding: EdgeInsets.symmetric(vertical: 14, horizontal: 5),
       child: Text(
         text,
         style: TextStyle(
@@ -268,7 +273,7 @@ class _FooterState extends State<Footer> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           text,
-          style: TextStyle(color: Colors.white60),
+          style: context.textTheme.bodyText2!.copyWith(color: Colors.white60),
           softWrap: true,
           overflow: TextOverflow.fade,
         ),

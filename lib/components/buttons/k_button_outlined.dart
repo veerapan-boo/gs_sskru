@@ -62,10 +62,8 @@ class KButtonOutlined extends StatelessWidget {
               ),
             Text(
               text!,
-              style: TextStyle(
+              style: textTheme.subtitle1!.copyWith(
                 color: kPrimaryColor,
-                fontSize: textTheme.subtitle1!.fontSize,
-                fontWeight: FontWeight.w300,
               ),
             ),
           ],

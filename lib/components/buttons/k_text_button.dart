@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gs_sskru/util/constants.dart';
 
 class KTextButton extends StatelessWidget {
@@ -36,8 +37,10 @@ class KTextButton extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 text,
-                style: TextStyle(
-                    color: kPrimaryColor, fontSize: textSize, height: 0),
+                style: context.textTheme.subtitle1!.copyWith(
+                  color: kPrimaryColor,
+                  fontSize: context.textTheme.subtitle1!.fontSize,
+                ),
               ),
             ),
             if (arrowIcon)
@@ -46,7 +49,7 @@ class KTextButton extends StatelessWidget {
                 child: Icon(
                   Icons.arrow_forward_ios_sharp,
                   color: kPrimaryColor,
-                  size: textSize * .9,
+                  size: textSize * .8,
                 ),
               )
           ],

@@ -43,13 +43,16 @@ class NavBarMenuItem extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-                width: 2, color: isActive ? kPrimaryColor : Colors.transparent),
+              width: 1.5,
+              color: isActive ? kPrimaryColor : Colors.transparent,
+            ),
           ),
         ),
         child: Text(
           text,
-          style: TextStyle(
-              fontWeight: isActive ? FontWeight.normal : FontWeight.w300),
+          style: context.textTheme.bodyText2!.copyWith(
+            color: isActive ? Colors.black : Colors.black54,
+          ),
         ),
       ),
     );

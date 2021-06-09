@@ -36,7 +36,7 @@ class _SwitchContentState extends State<SwitchContent>
           Obx(
             () => AnimatedSize(
               curve: Curves.fastOutSlowIn,
-              duration: Duration(milliseconds: 50),
+              duration: Duration(milliseconds: 300),
               vsync: this,
               child: PageTransitionSwitcher(
                 duration: Duration(milliseconds: 300),
