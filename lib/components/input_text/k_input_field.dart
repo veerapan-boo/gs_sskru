@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:gs_sskru/util/constants.dart';
 
 class KInputField extends StatelessWidget {
@@ -115,7 +116,9 @@ class KInputField extends StatelessWidget {
           // ),
           labelText: labelText,
           hintText: hintText,
-          hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.w300),
+          hintStyle: context.textTheme.bodyText2!.copyWith(
+            color: Colors.grey,
+          ),
           border: InputBorder.none,
         ),
         obscureText: obscureText,

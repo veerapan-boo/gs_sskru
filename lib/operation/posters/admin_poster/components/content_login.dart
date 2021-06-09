@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:gs_sskru/components/buttons/k_button.dart';
 import 'package:gs_sskru/components/input_text/k_input_field.dart';
 import 'package:gs_sskru/components/k_format_date.dart';
-import 'package:gs_sskru/components/toast/k_toast.dart';
+import 'package:gs_sskru/components/k_toast.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/controllers/firebase_auth_service_controller.dart';

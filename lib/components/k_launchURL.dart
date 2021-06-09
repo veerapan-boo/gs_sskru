@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gs_sskru/components/toast/k_toast.dart';
+import 'package:gs_sskru/components/k_toast.dart';
 import 'package:gs_sskru/data/link_others.dart';
 import 'package:url_launcher/url_launcher.dart';
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gs_sskru/components/buttons/k_text_link.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
@@ -35,19 +36,15 @@ class EducationJoinUp extends StatelessWidget {
               children: [
                 Text(
                   'ข่าวรับสมัคร',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: isDesktop ? 40 : 26),
+                  style: context.textTheme.headline4,
                 ),
                 Text(
                   'อยู่ระหว่างการพัฒนาอยู่ระหว่างการพัฒนา...',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      fontSize: isDesktop ? 22 : 16),
+                  style: context.textTheme.headline6,
                 ),
+                SizedBox(height: 4),
                 KTextLink(
                   text: 'ดูเพิ่มเติม',
-                  textSize: 16,
                   arrowIcon: true,
                   onPressed: () {},
                 )

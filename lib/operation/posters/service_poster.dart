@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gs_sskru/util/constants.dart';
 
 class ServicePoster extends StatelessWidget {
@@ -19,11 +20,11 @@ class ServicePoster extends StatelessWidget {
                 children: [
                   Text(
                     'บริการและช่วยเหลือ',
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 40),
+                    style: context.textTheme.headline4,
                   ),
                   Text(
                     'มหาวิทยาลัยราชภัฏศรีสะเกษ',
-                    style: TextStyle(fontWeight: FontWeight.w300, fontSize: 22),
+                    style: context.textTheme.headline6,
                   ),
                 ],
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
 
@@ -47,32 +48,28 @@ class HomePoster extends StatelessWidget {
                     children: [
                       Text(
                         'สำนักงานบัณฑิตศึกษา',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: isDesktop
-                                ? 55
-                                : isTablet
-                                    ? 40
-                                    : 30),
+                        style: context.textTheme.headline2,
                       ),
-                      Container(
-                        constraints: BoxConstraints(maxWidth: kMaxWidth),
-                        color: kPrimaryColor,
-                        width: isDesktop
-                            ? 505
-                            : isTablet
-                                ? 367
-                                : 277,
-                        child: Center(
-                          child: Text(
-                            'มหาวิทยาลัยราชภัฏศรีสะเกษ',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w300,
-                              fontSize: isMobile ? 20 : 25,
-                              color: Colors.white,
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: context.responsiveValue(
+                                  desktop: 55, tablet: 38, mobile: 14)!,
+                            ),
+                            color: kPrimaryColor,
+                            child: Center(
+                              child: Text(
+                                'มหาวิทยาลัยราชภัฏศรีสะเกษ',
+                                style: context.textTheme.headline4!.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ],
                   ),

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/components/buttons/k_text_button.dart';
-import 'package:gs_sskru/components/toast/k_toast.dart';
+import 'package:gs_sskru/components/k_toast.dart';
 import 'package:gs_sskru/controllers/firebase_auth_service_controller.dart';
 import 'package:gs_sskru/controllers/news_controller.dart';
 import 'package:gs_sskru/models/link_model.dart';
@@ -67,7 +67,7 @@ class _BoxNewsState extends State<BoxNews> {
             padding: const EdgeInsets.all(kDefaultPadding * 1.5),
             child: Text(
               widget.title,
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 32),
+              style: context.textTheme.headline5,
             ),
           ),
           if (_isAddNews) ...{

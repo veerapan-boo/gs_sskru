@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gs_sskru/util/constants.dart';
 
 class KButton extends StatelessWidget {
@@ -23,8 +24,6 @@ class KButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-
     return Container(
       margin: EdgeInsets.symmetric(vertical: isMargin ? 10 : 0),
       child: ClipRRect(
@@ -64,10 +63,8 @@ class KButton extends StatelessWidget {
                   ),
                 Text(
                   text!,
-                  style: TextStyle(
+                  style: context.textTheme.bodyText2!.copyWith(
                     color: Colors.white,
-                    fontSize: textTheme.subtitle1!.fontSize,
-                    fontWeight: FontWeight.w300,
                   ),
                 ),
               ],

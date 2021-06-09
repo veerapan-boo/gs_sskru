@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:gs_sskru/components/k_dialog.dart';
 import 'package:gs_sskru/components/k_format_date.dart';
 import 'package:gs_sskru/components/k_launchURL.dart';
-import 'package:gs_sskru/components/toast/k_toast.dart';
+import 'package:gs_sskru/components/k_toast.dart';
 import 'package:gs_sskru/controllers/news_controller.dart';
 import 'package:gs_sskru/models/link_model.dart';
 import 'package:gs_sskru/operation/contents/home_content/components/form_action_link.dart';

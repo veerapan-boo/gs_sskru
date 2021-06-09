@@ -62,7 +62,7 @@ class FetchNewsData extends StatelessWidget {
             children: [
               Text(
                 'กรุณารอสักครู่',
-                style: TextStyle(color: Colors.black87.withOpacity(.65)),
+                style: context.textTheme.bodyText2,
               ),
               SizedBox(width: 15),
               SizedBox(child: KProgress(), width: 18, height: 18)
