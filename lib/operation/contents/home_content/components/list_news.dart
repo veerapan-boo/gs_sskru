@@ -190,10 +190,12 @@ class _ListNewsState extends State<ListNews> {
               Center(
                 child: FormActionLink(
                   inputWidth: _inputWidth,
-                  labelText: 'ข้อความข่าว',
-                  linkText: 'ลิงค์ข้อความข่าว',
-                  textController: _textController,
-                  linkController: _linkController,
+                  type: FormActionLinkType.all(
+                    title: 'ข้อความข่าว',
+                    link: 'ลิงค์ข้อความข่าว',
+                    textController: _textController,
+                    linkController: _linkController,
+                  ),
                   onClosePress: () {
                     setState(() {
                       _isEdit = false;

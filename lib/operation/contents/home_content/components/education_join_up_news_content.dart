@@ -40,21 +40,23 @@ class EducationJoinUp extends StatelessWidget {
                   style: context.textTheme.headline4,
                 ),
                 KDialogEdit(
-                    widget: Text(
-                      'อยู่ระหว่างการพัฒนาอยู่ระหว่างการพัฒนา...',
-                      style: context.textTheme.headline6,
-                    ),
-                    message: 'text',
-                    link: 'link'),
+                  widget: Text(
+                    'อยู่ระหว่างการพัฒนาอยู่ระหว่างการพัฒนา...',
+                    style: context.textTheme.headline6,
+                  ),
+                  type: DialogEditType.titleOnly(
+                    title: 'อยู่ระหว่างการพัฒนาอยู่ระหว่างการพัฒนา',
+                  ),
+                ),
                 SizedBox(height: 4),
                 KDialogEdit(
-                    widget: KTextLink(
-                      text: 'ดูเพิ่มเติม',
-                      arrowIcon: true,
-                      onPressed: () {},
-                    ),
-                    message: 'text',
-                    link: 'link'),
+                  widget: KTextLink(
+                    text: 'ดูเพิ่มเติม',
+                    arrowIcon: true,
+                    onPressed: () {},
+                  ),
+                  type: DialogEditType.linkOnly(link: 'ดูเพิ่มเติม'),
+                ),
               ],
             ),
           )
