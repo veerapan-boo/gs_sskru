@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/components/buttons/k_text_link.dart';
+import 'package:gs_sskru/components/k_dialog_edit.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
 
@@ -38,16 +39,22 @@ class EducationJoinUp extends StatelessWidget {
                   'ข่าวรับสมัคร',
                   style: context.textTheme.headline4,
                 ),
-                Text(
-                  'อยู่ระหว่างการพัฒนาอยู่ระหว่างการพัฒนา...',
-                  style: context.textTheme.headline6,
-                ),
+                KDialogEdit(
+                    widget: Text(
+                      'อยู่ระหว่างการพัฒนาอยู่ระหว่างการพัฒนา...',
+                      style: context.textTheme.headline6,
+                    ),
+                    message: 'text',
+                    link: 'link'),
                 SizedBox(height: 4),
-                KTextLink(
-                  text: 'ดูเพิ่มเติม',
-                  arrowIcon: true,
-                  onPressed: () {},
-                )
+                KDialogEdit(
+                    widget: KTextLink(
+                      text: 'ดูเพิ่มเติม',
+                      arrowIcon: true,
+                      onPressed: () {},
+                    ),
+                    message: 'text',
+                    link: 'link'),
               ],
             ),
           )

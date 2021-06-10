@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gs_sskru/components/get_size.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
 
@@ -41,33 +42,19 @@ class HomePoster extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: Container(
-                  child: Column(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        'สำนักงานบัณฑิตศึกษา',
-                        style: context.textTheme.headline2,
-                      ),
-                      Row(
+                      Column(
                         mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: context.responsiveValue(
-                                  desktop: 55, tablet: 38, mobile: 14)!,
-                            ),
-                            color: kPrimaryColor,
-                            child: Center(
-                              child: Text(
-                                'มหาวิทยาลัยราชภัฏศรีสะเกษ',
-                                style: context.textTheme.headline4!.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                            ),
+                          // * Title
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              TitleHeader(),
+                            ],
                           ),
                         ],
                       ),
@@ -79,6 +66,59 @@ class HomePoster extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class TitleHeader extends StatefulWidget {
+  const TitleHeader({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _TitleHeaderState createState() => _TitleHeaderState();
+}
+
+class _TitleHeaderState extends State<TitleHeader> {
+  double _sizeWidth = 0.0;
+
+  @override
+  Widget build(BuildContext context) {
+    Color white = Colors.white;
+    var text = context.textTheme.apply(
+      bodyColor: white,
+      displayColor: white,
+    );
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        GetSize(
+          onChange: (size) {
+            setState(() {
+              _sizeWidth = size.width;
+            });
+          },
+          child: Text(
+            'สำนักงานบัณฑิตศึกษา',
+            style: context.textTheme.headline2,
+          ),
+        ),
+        if (_sizeWidth != 0.0)
+          Container(
+            width: _sizeWidth - 7,
+            color: kPrimaryColor,
+            child: Center(
+              child: Text(
+                'มหาวิทยาลัยราชภัฏศรีสะเกษ',
+                style: context.responsiveValue(
+                  desktop: text.headline4,
+                  tablet: text.subtitle1,
+                  mobile: text.subtitle1,
+                ),
+              ),
+            ),
+          )
+      ],
     );
   }
 }

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/utils.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/components/buttons/k_text_button.dart';
+import 'package:gs_sskru/components/k_dialog_edit.dart';
 import 'package:gs_sskru/components/k_format_date.dart';
+import 'package:gs_sskru/controllers/firebase_auth_service_controller.dart';
 import 'package:gs_sskru/models/title_link_model.dart';
 import 'package:gs_sskru/util/constants.dart';
 
-class AdmissionPoster extends StatelessWidget {
+class AdmissionPoster extends GetView<FirebaseAuthServiceController> {
   @override
   Widget build(BuildContext context) {
     double deadlineDateSize = context.responsiveValue(
@@ -17,71 +19,77 @@ class AdmissionPoster extends StatelessWidget {
 
     TitleLinkModel title = TitleLinkModel().getValue;
 
+    List<Map> _data = [
+      {
+        "title": title.data![2].subTitle[0].text,
+        "deadlineText": "",
+        "link": "",
+      },
+      {
+        "title": title.data![2].subTitle[1].text,
+        "deadlineText": "",
+        "link": "",
+      },
+    ];
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
       constraints:
           BoxConstraints(maxWidth: kMaxWidth, minHeight: context.height * .3),
       child: Row(
-        children: [
-          Expanded(
+        children: List.generate(
+          2,
+          (index) => Expanded(
             flex: 1,
             child: Container(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "ระดับ${title.data![2].subTitle[0].text}",
+                    "ระดับ${_data[index]['title']}",
                     style: context.textTheme.headline4,
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 6),
-                    child: Text(
-                      "หมดเขต ${KFormatDate.getDateThai(date: DateTime.now().toString(), time: false)}",
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w500,
-                          fontSize: deadlineDateSize),
-                    ),
-                  ),
-                  KTextButton(
-                    onPressed: () {},
-                    text: 'สมัครเรียน',
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    textSize: deadlineDateSize,
-                  )
+                  !controller.getIsAuthenticated
+                      ? Text(
+                          "หมดเขต ${KFormatDate.getDateThai(date: DateTime.now().toString(), time: false)}",
+                          style: context.textTheme.subtitle1!.copyWith(
+                            color: Colors.grey,
+                          ),
+                        )
+                      : KDialogEdit(
+                          message: 'message',
+                          link: 'link',
+                          type: DialogEditType.forCenter,
+                          widget: Text(
+                            "หมดเขต ${KFormatDate.getDateThai(date: DateTime.now().toString(), time: false)}",
+                            style: context.textTheme.subtitle1!.copyWith(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                  !controller.getIsAuthenticated
+                      ? KTextButton(
+                          onPressed: () {},
+                          text: 'สมัครเรียน',
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          textSize: deadlineDateSize,
+                        )
+                      : KDialogEdit(
+                          message: 'message',
+                          link: 'link',
+                          type: DialogEditType.forCenter,
+                          widget: KTextButton(
+                            onPressed: () {},
+                            text: 'สมัครเรียน',
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            textSize: deadlineDateSize,
+                          ),
+                        )
                 ],
               ),
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              child: Column(
-                children: [
-                  Text(
-                    "ระดับ${title.data![2].subTitle[1].text}",
-                    style: context.textTheme.headline4,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 6),
-                    child: Text(
-                      "หมดเขต ${KFormatDate.getDateThai(date: DateTime.now().toString(), time: false)}",
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w500,
-                          fontSize: deadlineDateSize),
-                    ),
-                  ),
-                  KTextButton(
-                    onPressed: () {},
-                    text: 'สมัครเรียน',
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    textSize: deadlineDateSize,
-                  )
-                ],
-              ),
-            ),
-          )
-        ],
+        ),
       ),
     );
   }
