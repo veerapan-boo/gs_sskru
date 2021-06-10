@@ -8,27 +8,22 @@ import 'package:gs_sskru/util/constants.dart';
 class FormActionLink extends StatefulWidget {
   FormActionLink({
     Key? key,
+    required this.type,
     required this.inputWidth,
-    required this.labelText,
-    required this.linkText,
     this.closeText,
     this.submitText,
     required this.onClosePress,
     required this.onSubmitPress,
-    required this.textController,
-    required this.linkController,
     required this.isLoading,
   }) : super(key: key);
+
   final double inputWidth;
-  final String labelText;
-  final String linkText;
   String? closeText;
   String? submitText;
+  FormActionLinkType type;
   final Function() onClosePress;
   final Function() onSubmitPress;
   final bool isLoading;
-  TextEditingController? textController;
-  TextEditingController? linkController;
 
   @override
   _FormActionLinkState createState() => _FormActionLinkState();
@@ -44,19 +39,35 @@ class _FormActionLinkState extends State<FormActionLink> {
   late String _submitText;
   late Function() _onClosePress;
   late Function() _onSubmitPress;
+  late TypeFormActionLink _type;
 
   @override
   void initState() {
     super.initState();
-    _textController = widget.textController!;
-    _linkController = widget.linkController!;
     _inputWidth = widget.inputWidth;
-    _labelText = widget.labelText;
-    _linkText = widget.linkText;
+    _onClosePress = widget.onClosePress;
     _closeText = widget.closeText ?? 'ยกเลิก';
     _submitText = widget.submitText ?? 'บันทึก';
-    _onClosePress = widget.onClosePress;
     _onSubmitPress = widget.onSubmitPress;
+    _type = widget.type.type!;
+
+    switch (widget.type.type) {
+      case TypeFormActionLink.titleOnly:
+        _labelText = widget.type.title!;
+        _textController = widget.type.textController!;
+        break;
+      case TypeFormActionLink.linkOnly:
+        _linkText = widget.type.link!;
+        _linkController = widget.type.linkController!;
+        break;
+      case TypeFormActionLink.all:
+        _labelText = widget.type.title!;
+        _linkText = widget.type.link!;
+        _textController = widget.type.textController!;
+        _linkController = widget.type.linkController!;
+        break;
+      default:
+    }
   }
 
   @override
@@ -65,14 +76,18 @@ class _FormActionLinkState extends State<FormActionLink> {
       width: _inputWidth,
       child: Column(
         children: [
-          KInputField(
-            controller: _textController,
-            labelText: _labelText,
-          ),
-          KInputField(
-            controller: _linkController,
-            labelText: _linkText,
-          ),
+          if (_type == TypeFormActionLink.all ||
+              _type == TypeFormActionLink.titleOnly)
+            KInputField(
+              controller: _textController,
+              hintText: _labelText,
+            ),
+          if (_type == TypeFormActionLink.all ||
+              _type == TypeFormActionLink.linkOnly)
+            KInputField(
+              controller: _linkController,
+              hintText: _linkText,
+            ),
           Row(
             children: [
               Expanded(
@@ -95,6 +110,57 @@ class _FormActionLinkState extends State<FormActionLink> {
           )
         ],
       ),
+    );
+  }
+}
+
+enum TypeFormActionLink { titleOnly, linkOnly, all }
+
+class FormActionLinkType {
+  FormActionLinkType({
+    this.link,
+    this.title,
+    this.type,
+    this.textController,
+    this.linkController,
+  });
+  final String? link;
+  final String? title;
+  final TypeFormActionLink? type;
+  TextEditingController? textController;
+  TextEditingController? linkController;
+
+  factory FormActionLinkType.titleOnly({
+    required String title,
+    required TextEditingController textController,
+  }) {
+    return FormActionLinkType(
+        title: title,
+        type: TypeFormActionLink.titleOnly,
+        textController: textController);
+  }
+  factory FormActionLinkType.linkOnly({
+    required String link,
+    required TextEditingController linkController,
+  }) {
+    return FormActionLinkType(
+      link: link,
+      type: TypeFormActionLink.linkOnly,
+      linkController: linkController,
+    );
+  }
+  factory FormActionLinkType.all({
+    required String title,
+    required String link,
+    required TextEditingController textController,
+    required TextEditingController linkController,
+  }) {
+    return FormActionLinkType(
+      title: title,
+      link: link,
+      type: TypeFormActionLink.all,
+      textController: textController,
+      linkController: linkController,
     );
   }
 }

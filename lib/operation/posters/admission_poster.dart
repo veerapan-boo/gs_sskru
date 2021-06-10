@@ -57,9 +57,8 @@ class AdmissionPoster extends GetView<FirebaseAuthServiceController> {
                           ),
                         )
                       : KDialogEdit(
-                          message: 'message',
-                          link: 'link',
-                          type: DialogEditType.forCenter,
+                          direction: DirectionDialogEdit.forCenter,
+                          type: DialogEditType.linkOnly(link: 'adsads'),
                           widget: Text(
                             "หมดเขต ${KFormatDate.getDateThai(date: DateTime.now().toString(), time: false)}",
                             style: context.textTheme.subtitle1!.copyWith(
@@ -75,9 +74,8 @@ class AdmissionPoster extends GetView<FirebaseAuthServiceController> {
                           textSize: deadlineDateSize,
                         )
                       : KDialogEdit(
-                          message: 'message',
-                          link: 'link',
-                          type: DialogEditType.forCenter,
+                          direction: DirectionDialogEdit.forCenter,
+                          type: DialogEditType.linkOnly(link: 'aaaa'),
                           widget: KTextButton(
                             onPressed: () {},
                             text: 'สมัครเรียน',
