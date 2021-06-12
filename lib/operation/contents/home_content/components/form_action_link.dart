@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gs_sskru/components/buttons/k_button.dart';
 import 'package:gs_sskru/components/buttons/k_button_outlined.dart';
 import 'package:gs_sskru/components/input_text/k_input_field.dart';
@@ -81,12 +82,16 @@ class _FormActionLinkState extends State<FormActionLink> {
             KInputField(
               controller: _textController,
               hintText: _labelText,
+              icon: Icons.text_fields,
             ),
           if (_type == TypeFormActionLink.all ||
               _type == TypeFormActionLink.linkOnly)
             KInputField(
               controller: _linkController,
               hintText: _linkText,
+              icon: Icons.link,
+              hintStyle:
+                  context.textTheme.subtitle2!.copyWith(color: kPrimaryColor),
             ),
           Row(
             children: [

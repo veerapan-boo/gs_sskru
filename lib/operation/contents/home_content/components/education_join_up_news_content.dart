@@ -40,7 +40,7 @@ class EducationJoinUp extends StatelessWidget {
                   style: context.textTheme.headline4,
                 ),
                 KDialogEdit(
-                  widget: Text(
+                  child: Text(
                     'อยู่ระหว่างการพัฒนาอยู่ระหว่างการพัฒนา...',
                     style: context.textTheme.headline6,
                   ),
@@ -50,7 +50,7 @@ class EducationJoinUp extends StatelessWidget {
                 ),
                 SizedBox(height: 4),
                 KDialogEdit(
-                  widget: KTextLink(
+                  child: KTextLink(
                     text: 'ดูเพิ่มเติม',
                     arrowIcon: true,
                     onPressed: () {},

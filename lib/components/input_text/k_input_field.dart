@@ -23,6 +23,8 @@ class KInputField extends StatelessWidget {
   final TextAlign? textAlign;
   final Function()? validator;
   final Widget? suffixIcon;
+  final TextStyle? hintStyle;
+  final TextStyle? labelStyle;
 
   const KInputField({
     Key? key,
@@ -43,6 +45,8 @@ class KInputField extends StatelessWidget {
     this.textAlign,
     this.validator,
     this.suffixIcon,
+    this.hintStyle,
+    this.labelStyle,
     this.iconSize = 18.0,
     this.borderRadius = 0.0,
   }) : super(key: key);
@@ -105,20 +109,16 @@ class KInputField extends StatelessWidget {
                   ),
                 )
               : null,
-          labelStyle: TextStyle(
-            color: kPrimaryColor,
-          ),
-          // suffixIcon: Padding(
-          //   padding: EdgeInsets.only(
-          //     right: 16,
-          //   ),
-          //   child: suffixIcon,
-          // ),
+          labelStyle: labelStyle ??
+              TextStyle(
+                color: kPrimaryColor,
+              ),
           labelText: labelText,
           hintText: hintText,
-          hintStyle: context.textTheme.bodyText2!.copyWith(
-            color: Colors.grey,
-          ),
+          hintStyle: hintStyle ??
+              context.textTheme.bodyText2!.copyWith(
+                color: Colors.grey,
+              ),
           border: InputBorder.none,
         ),
         obscureText: obscureText,
