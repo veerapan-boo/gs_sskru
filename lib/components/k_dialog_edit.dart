@@ -8,15 +8,17 @@ enum DirectionDialogEdit { forCenter, forLeft }
 
 // ignore: must_be_immutable
 class KDialogEdit extends StatefulWidget {
-  KDialogEdit({
-    Key? key,
-    required this.widget,
-    required this.type,
-    this.direction = DirectionDialogEdit.forLeft,
-  }) : super(key: key);
-  Widget widget;
+  KDialogEdit(
+      {Key? key,
+      required this.child,
+      required this.type,
+      this.direction = DirectionDialogEdit.forLeft,
+      this.title})
+      : super(key: key);
+  Widget child;
   DirectionDialogEdit direction;
   DialogEditType type;
+  String? title;
 
   @override
   _KDialogEditState createState() => _KDialogEditState();
@@ -25,10 +27,12 @@ class KDialogEdit extends StatefulWidget {
 class _KDialogEditState extends State<KDialogEdit> {
   late TextEditingController _textController;
   late TextEditingController _linkController;
+  late bool _isAuth;
 
   @override
   void initState() {
     super.initState();
+    _isAuth = Get.find<FirebaseAuthServiceController>().getIsAuthenticated;
     switch (widget.type.type) {
       case TypeDialogEditType.titleOnly:
         _textController = TextEditingController(text: widget.type.title);
@@ -48,7 +52,8 @@ class _KDialogEditState extends State<KDialogEdit> {
 
   void _showDialog() {
     Get.defaultDialog(
-      title: 'title',
+      title: widget.title ?? 'title',
+      titleStyle: TextStyle(height: 3),
       content: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
         child: FormActionLink(
@@ -78,8 +83,6 @@ class _KDialogEditState extends State<KDialogEdit> {
 
   @override
   Widget build(BuildContext context) {
-    final bool _isAuth =
-        Get.find<FirebaseAuthServiceController>().getIsAuthenticated;
     return MouseRegion(
       onEnter: (_) => _mouseEnter(true),
       onExit: (_) => _mouseEnter(false),
@@ -92,16 +95,18 @@ class _KDialogEditState extends State<KDialogEdit> {
               color: Colors.transparent,
               size: 16,
             ),
-          widget.widget,
-          if (_isAuth) SizedBox(width: 4),
-          InkWell(
-            onTap: _showDialog,
-            child: Icon(
-              Icons.edit_outlined,
-              color: _hovering ? Colors.black54 : Colors.transparent,
-              size: 16,
+          widget.child,
+          if (_isAuth) ...{
+            SizedBox(width: 4),
+            InkWell(
+              onTap: _showDialog,
+              child: Icon(
+                Icons.edit_outlined,
+                color: _hovering ? Colors.black54 : Colors.transparent,
+                size: 16,
+              ),
             ),
-          ),
+          }
         ],
       ),
     );
