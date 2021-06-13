@@ -9,7 +9,7 @@ class FirebaseAuthServiceController extends GetxController {
   final _navBarMenuController = Get.find<NavBarMenuController>();
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   late User? _user;
-  bool _isAuthenticated = false;
+  RxBool _isAuthenticated = false.obs;
 
   @override
   void onInit() {
@@ -18,23 +18,20 @@ class FirebaseAuthServiceController extends GetxController {
   }
 
   User get user => _user!;
-  bool get getIsAuthenticated => _isAuthenticated;
+  bool get getIsAuthenticated => _isAuthenticated.value;
 
   Future checkCurrentUser() async {
     User? currentUser = _firebaseAuth.currentUser;
     if (currentUser != null) {
       _user = currentUser;
-      _isAuthenticated = true;
+      _isAuthenticated.value = true;
       _navBarMenuController.setMenuItemsOfAuthStatus(true);
     }
     update();
   }
 
-  Future<User?> signInWithEmailAndPassword(
-      String userEmail, String userPassword) async {
-    return _user = await _firebaseAuth
-        .signInWithEmailAndPassword(email: userEmail, password: userPassword)
-        .then((userCredential) => userCredential.user);
+  Future<User?> signInWithEmailAndPassword(String userEmail, String userPassword) async {
+    return _user = await _firebaseAuth.signInWithEmailAndPassword(email: userEmail, password: userPassword).then((userCredential) => userCredential.user);
   }
 
   Stream<User?> authStateChanges() {
@@ -43,13 +40,13 @@ class FirebaseAuthServiceController extends GetxController {
     _authStateChanges.listen((event) {
       if (event != null) {
         _user = event;
-        _isAuthenticated = true;
+        _isAuthenticated.value = true;
         update();
         _navBarMenuController.setMenuItemsOfAuthStatus(true);
         print('Authentication status: Already logged in !');
       } else {
         _user = null;
-        _isAuthenticated = false;
+        _isAuthenticated.value = false;
         _navBarMenuController.setMenuItemsOfAuthStatus(false);
         update();
         print('Authentication status: Logged out !');

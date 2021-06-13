@@ -191,6 +191,7 @@ class _ListNewsState extends State<ListNews> {
                 child: FormActionLink(
                   inputWidth: _inputWidth,
                   type: FormActionLinkType.all(
+                    onSubmitPress: () => _editLinkToDatabase,
                     title: 'ข้อความข่าว',
                     link: 'ลิงค์ข้อความข่าว',
                     textController: _textController,
@@ -201,7 +202,7 @@ class _ListNewsState extends State<ListNews> {
                       _isEdit = false;
                     });
                   },
-                  onSubmitPress: _editLinkToDatabase,
+                  // onSubmitPress: () => _editLinkToDatabase,
                   isLoading: _isLoading,
                 ),
               ),

@@ -74,6 +74,7 @@ class _BoxNewsState extends State<BoxNews> {
             FormActionLink(
               inputWidth: _inputWidth,
               type: FormActionLinkType.all(
+                onSubmitPress: _addLinkToDatabase,
                 title: 'ข้อความข่าว',
                 link: 'ลิงค์ข้อความข่าว',
                 textController: _textController,
@@ -84,7 +85,7 @@ class _BoxNewsState extends State<BoxNews> {
                   _isAddNews = false;
                 });
               },
-              onSubmitPress: _addLinkToDatabase,
+              // onSubmitPress: _addLinkToDatabase,
               isLoading: _isLoading,
             )
           },

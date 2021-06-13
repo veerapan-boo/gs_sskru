@@ -11,3 +11,5 @@ const kMaxWidth = 1232.0;
 const kDefaultDuration = Duration(milliseconds: 250);
 
 Color kDisabledPrimaryColor = Color(0xFF919191);
+
+const String notFound = "ไม่พบข้อมูล";

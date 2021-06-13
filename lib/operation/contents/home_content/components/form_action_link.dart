@@ -14,7 +14,7 @@ class FormActionLink extends StatefulWidget {
     this.closeText,
     this.submitText,
     required this.onClosePress,
-    required this.onSubmitPress,
+    // required this.onSubmitPress,
     required this.isLoading,
   }) : super(key: key);
 
@@ -23,7 +23,6 @@ class FormActionLink extends StatefulWidget {
   String? submitText;
   FormActionLinkType type;
   final Function() onClosePress;
-  final Function() onSubmitPress;
   final bool isLoading;
 
   @override
@@ -39,7 +38,7 @@ class _FormActionLinkState extends State<FormActionLink> {
   late String _closeText;
   late String _submitText;
   late Function() _onClosePress;
-  late Function() _onSubmitPress;
+  late dynamic Function()? _onSubmitPress;
   late TypeFormActionLink _type;
 
   @override
@@ -49,7 +48,7 @@ class _FormActionLinkState extends State<FormActionLink> {
     _onClosePress = widget.onClosePress;
     _closeText = widget.closeText ?? 'ยกเลิก';
     _submitText = widget.submitText ?? 'บันทึก';
-    _onSubmitPress = widget.onSubmitPress;
+    _onSubmitPress = widget.type.onSubmitPress;
     _type = widget.type.type!;
 
     switch (widget.type.type) {
@@ -128,30 +127,37 @@ class FormActionLinkType {
     this.type,
     this.textController,
     this.linkController,
+    this.onSubmitPress,
   });
   final String? link;
   final String? title;
   final TypeFormActionLink? type;
+  final Function()? onSubmitPress;
   TextEditingController? textController;
   TextEditingController? linkController;
 
   factory FormActionLinkType.titleOnly({
     required String title,
     required TextEditingController textController,
+    required Function() onSubmitPress,
   }) {
     return FormActionLinkType(
-        title: title,
-        type: TypeFormActionLink.titleOnly,
-        textController: textController);
+      title: title,
+      type: TypeFormActionLink.titleOnly,
+      textController: textController,
+      onSubmitPress: onSubmitPress,
+    );
   }
   factory FormActionLinkType.linkOnly({
     required String link,
     required TextEditingController linkController,
+    required Function() onSubmitPress,
   }) {
     return FormActionLinkType(
       link: link,
       type: TypeFormActionLink.linkOnly,
       linkController: linkController,
+      onSubmitPress: onSubmitPress,
     );
   }
   factory FormActionLinkType.all({
@@ -159,6 +165,7 @@ class FormActionLinkType {
     required String link,
     required TextEditingController textController,
     required TextEditingController linkController,
+    required Function() onSubmitPress,
   }) {
     return FormActionLinkType(
       title: title,
@@ -166,6 +173,7 @@ class FormActionLinkType {
       type: TypeFormActionLink.all,
       textController: textController,
       linkController: linkController,
+      onSubmitPress: onSubmitPress,
     );
   }
 }
