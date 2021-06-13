@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/components/buttons/k_text_link.dart';
+import 'package:gs_sskru/components/k_dialog_edit.dart';
 import 'package:gs_sskru/components/k_launchURL.dart';
 import 'package:gs_sskru/models/title_link_model.dart';
 import 'package:gs_sskru/util/constants.dart';
@@ -27,13 +28,19 @@ class ServiceContent extends StatelessWidget {
             for (var _elemSubTitle in _titleLink.data![_index].subTitle)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 2),
-                child: KTextLink(
-                  text: _elemSubTitle.text,
-                  colors: Colors.black54,
-                  onPressed: () {
-                    k_launchURL(url: _elemSubTitle.link);
-                  },
-                ),
+                child: KDialogEdit(
+                    child: KTextLink(
+                      text: _elemSubTitle.text,
+                      colors: Colors.black54,
+                      onPressed: () {
+                        k_launchURL(url: _elemSubTitle.link);
+                      },
+                    ),
+                    type: DialogEditType.linkOnly(
+                        link: 'link',
+                        onSubmitPress: (link) {
+                          // TODO
+                        })),
               )
           ],
         );

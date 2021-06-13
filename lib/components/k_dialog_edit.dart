@@ -33,6 +33,10 @@ class _KDialogEditState extends State<KDialogEdit> {
   late TextEditingController _linkController;
   late bool _isAuth;
 
+  bool _hovering = false;
+
+  bool _isLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -47,13 +51,10 @@ class _KDialogEditState extends State<KDialogEdit> {
       case TypeDialogEditType.all:
         _textController = TextEditingController(text: widget.type.title);
         _linkController = TextEditingController(text: widget.type.link);
-
         break;
       default:
     }
   }
-
-  bool _hovering = false;
 
   void _showDialog() {
     Get.defaultDialog(
@@ -61,38 +62,59 @@ class _KDialogEditState extends State<KDialogEdit> {
       titleStyle: TextStyle(height: 3),
       content: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-        child: FormActionLink(
-          inputWidth: context.width * .7,
-          type: widget.type.type == TypeDialogEditType.titleOnly
-              ? FormActionLinkType.titleOnly(
-                  title: widget.type.title!,
-                  textController: _textController,
-                  onSubmitPress: () =>
-                      widget.type.onSubmitPress(_textController.text),
-                )
-              : widget.type.type == TypeDialogEditType.linkOnly
-                  ? FormActionLinkType.linkOnly(
-                      link: widget.type.link!,
-                      linkController: _linkController,
-                      onSubmitPress: () =>
-                          widget.type.onSubmitPress(_linkController.text),
-                    )
-                  : FormActionLinkType.all(
+        child: StatefulBuilder(
+          builder: (_, setStateOnDialog) {
+            return FormActionLink(
+              inputWidth: context.width * .7,
+              type: widget.type.type == TypeDialogEditType.titleOnly
+                  ? FormActionLinkType.titleOnly(
                       title: widget.type.title!,
-                      link: widget.type.link!,
                       textController: _textController,
-                      linkController: _linkController,
-                      onSubmitPress: () => widget.type.onSubmitPress(
-                          _textController.text, _linkController.text),
-                    ),
-          onClosePress: () {
-            Get.back();
+                      onSubmitPress: () {
+                        setStateOnDialog(() {
+                          _isLoading = true;
+                        });
+                        widget.type.onSubmitPress(_textController.text);
+                      },
+                    )
+                  : widget.type.type == TypeDialogEditType.linkOnly
+                      ? FormActionLinkType.linkOnly(
+                          link: widget.type.link!,
+                          linkController: _linkController,
+                          onSubmitPress: () {
+                            setStateOnDialog(() {
+                              _isLoading = true;
+                            });
+                            widget.type.onSubmitPress(_linkController.text);
+                          },
+                        )
+                      : FormActionLinkType.all(
+                          title: widget.type.title!,
+                          link: widget.type.link!,
+                          textController: _textController,
+                          linkController: _linkController,
+                          onSubmitPress: () {
+                            setStateOnDialog(() {
+                              _isLoading = true;
+                            });
+                            widget.type.onSubmitPress(
+                                _textController.text, _linkController.text);
+                          },
+                        ),
+              onClosePress: () {
+                Get.back();
+              },
+              isLoading: _isLoading,
+            );
           },
-          isLoading: false,
         ),
       ),
       radius: 0,
-    );
+    ).whenComplete(() {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
   @override

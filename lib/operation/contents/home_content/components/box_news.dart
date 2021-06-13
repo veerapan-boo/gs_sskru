@@ -85,7 +85,6 @@ class _BoxNewsState extends State<BoxNews> {
                   _isAddNews = false;
                 });
               },
-              // onSubmitPress: _addLinkToDatabase,
               isLoading: _isLoading,
             )
           },

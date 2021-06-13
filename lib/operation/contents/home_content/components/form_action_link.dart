@@ -80,14 +80,16 @@ class _FormActionLinkState extends State<FormActionLink> {
               _type == TypeFormActionLink.titleOnly)
             KInputField(
               controller: _textController,
-              hintText: _labelText,
+              hintText: _labelText.isNotEmpty ? _labelText : "เพิ่มข้อความ",
               icon: Icons.text_fields,
+              hintStyle:
+                  context.textTheme.subtitle2!.copyWith(color: kPrimaryColor),
             ),
           if (_type == TypeFormActionLink.all ||
               _type == TypeFormActionLink.linkOnly)
             KInputField(
               controller: _linkController,
-              hintText: _linkText,
+              hintText: _linkText.isNotEmpty ? _linkText : "เพิ่มลิงค์",
               icon: Icons.link,
               hintStyle:
                   context.textTheme.subtitle2!.copyWith(color: kPrimaryColor),
