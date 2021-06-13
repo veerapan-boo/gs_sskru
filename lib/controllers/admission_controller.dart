@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/components/k_toast.dart';
 import 'package:gs_sskru/models/admission/admission_detail_model.dart';
-import 'package:gs_sskru/models/enroll_model.dart';
+import 'package:gs_sskru/models/admission/enroll_model.dart';
 
 enum EnrollKeys {
   duration,

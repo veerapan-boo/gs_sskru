@@ -4,6 +4,7 @@ import 'package:gs_sskru/controllers/admission_controller.dart';
 import 'package:gs_sskru/controllers/firebase_auth_service_controller.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 import 'package:gs_sskru/controllers/news_controller.dart';
+import 'package:gs_sskru/controllers/service_controller.dart';
 
 class OperationBindings extends Bindings {
   @override
@@ -19,6 +20,9 @@ class OperationBindings extends Bindings {
     );
     Get.lazyPut<AddmissionController>(
       () => AddmissionController(),
+    );
+    Get.lazyPut<ServiceController>(
+      () => ServiceController(),
     );
   }
 }

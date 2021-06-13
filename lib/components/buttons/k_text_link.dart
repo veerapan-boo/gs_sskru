@@ -9,6 +9,7 @@ class KTextLink extends StatefulWidget {
       this.text = '',
       this.arrowIcon = false,
       this.colors,
+      this.maxWidth,
       required this.onPressed,
       this.mainAxisAlignment = MainAxisAlignment.start})
       : super(key: key);
@@ -18,6 +19,7 @@ class KTextLink extends StatefulWidget {
   final bool arrowIcon;
   final Color? colors;
   final Function()? onPressed;
+  final double? maxWidth;
   final MainAxisAlignment? mainAxisAlignment;
 
   @override
@@ -35,38 +37,46 @@ class _KTextLinkState extends State<KTextLink> {
           _isHover = value;
         });
       },
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: widget.mainAxisAlignment!,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            widget.text,
-            style: TextStyle(
-              decoration:
-                  _isHover ? TextDecoration.underline : TextDecoration.none,
-              decorationColor: widget.colors ?? kPrimaryColor,
-              decorationThickness: 1,
-              color: widget.colors ?? kPrimaryColor,
-              fontSize:
-                  widget.textSize ?? context.textTheme.subtitle1!.fontSize,
-              height: 0,
-            ),
-          ),
-          if (widget.arrowIcon)
-            Container(
-              padding: EdgeInsets.only(
-                  top: (widget.textSize ??
-                          context.textTheme.subtitle1!.fontSize!) *
-                      .011),
-              child: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: widget.colors ?? kPrimaryColor,
-                size:
-                    (widget.textSize ?? context.textTheme.subtitle1!.fontSize!),
+      child: Container(
+        constraints: BoxConstraints(
+          maxWidth: widget.maxWidth ?? kMaxWidth,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: widget.mainAxisAlignment!,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Flexible(
+              child: Text(
+                widget.text,
+                overflow: TextOverflow.visible,
+                style: TextStyle(
+                  decoration:
+                      _isHover ? TextDecoration.underline : TextDecoration.none,
+                  decorationColor: widget.colors ?? kPrimaryColor,
+                  decorationThickness: 1,
+                  color: widget.colors ?? kPrimaryColor,
+                  fontSize:
+                      widget.textSize ?? context.textTheme.subtitle1!.fontSize,
+                  height: 0,
+                ),
               ),
-            )
-        ],
+            ),
+            if (widget.arrowIcon)
+              Container(
+                padding: EdgeInsets.only(
+                    top: (widget.textSize ??
+                            context.textTheme.subtitle1!.fontSize!) *
+                        .011),
+                child: Icon(
+                  Icons.arrow_forward_ios_sharp,
+                  color: widget.colors ?? kPrimaryColor,
+                  size: (widget.textSize ??
+                      context.textTheme.subtitle1!.fontSize!),
+                ),
+              )
+          ],
+        ),
       ),
     );
   }
