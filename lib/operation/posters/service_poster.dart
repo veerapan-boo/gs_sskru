@@ -6,7 +6,7 @@ class ServicePoster extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: kDefaultPadding * 8,
+      height: context.isTablet ? kDefaultPadding * 8 : kDefaultPadding * 4,
       constraints: BoxConstraints(maxWidth: kMaxWidth),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -20,7 +20,9 @@ class ServicePoster extends StatelessWidget {
                 children: [
                   Text(
                     'บริการและช่วยเหลือ',
-                    style: context.textTheme.headline4,
+                    style: context.isPhone
+                        ? context.textTheme.headline2
+                        : context.textTheme.headline4,
                   ),
                   Text(
                     'มหาวิทยาลัยราชภัฏศรีสะเกษ',
