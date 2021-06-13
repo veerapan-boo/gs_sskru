@@ -45,8 +45,10 @@ class EducationJoinUp extends StatelessWidget {
                     style: context.textTheme.headline6,
                   ),
                   type: DialogEditType.titleOnly(
-                    title: 'อยู่ระหว่างการพัฒนาอยู่ระหว่างการพัฒนา',
-                  ),
+                      title: 'อยู่ระหว่างการพัฒนาอยู่ระหว่างการพัฒนา',
+                      onSubmitPress: (title) {
+                        // TODO
+                      }),
                 ),
                 SizedBox(height: 4),
                 KDialogEdit(
@@ -55,7 +57,12 @@ class EducationJoinUp extends StatelessWidget {
                     arrowIcon: true,
                     onPressed: () {},
                   ),
-                  type: DialogEditType.linkOnly(link: 'ดูเพิ่มเติม'),
+                  type: DialogEditType.linkOnly(
+                    link: 'ดูเพิ่มเติม',
+                    onSubmitPress: (title) {
+                      // TODO
+                    },
+                  ),
                 ),
               ],
             ),

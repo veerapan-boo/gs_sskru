@@ -50,9 +50,7 @@ class _ContentLoginState extends State<ContentLogin> {
       child: GetBuilder(
         init: FirebaseAuthServiceController(),
         builder: (_) {
-          return _firebaseAuthService.getIsAuthenticated
-              ? formAuthenticated()
-              : formLogin();
+          return _firebaseAuthService.getIsAuthenticated ? formAuthenticated() : formLogin();
         },
       ),
     );
@@ -102,8 +100,7 @@ class _ContentLoginState extends State<ContentLogin> {
                 ),
                 SizedBox(height: 8),
                 Text(
-                  KFormatDate.getDateUs(
-                      date: '${_user.metadata.creationTime}', time: true),
+                  KFormatDate.getDateUs(date: '${_user.metadata.creationTime}', time: true),
                   style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
                 ),
               ],
@@ -118,8 +115,7 @@ class _ContentLoginState extends State<ContentLogin> {
                 ),
                 SizedBox(height: 8),
                 Text(
-                  KFormatDate.getDateUs(
-                      date: '${_user.metadata.lastSignInTime}', time: true),
+                  KFormatDate.getDateUs(date: '${_user.metadata.lastSignInTime}', time: true),
                   style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
                 ),
               ],
@@ -180,10 +176,9 @@ class _ContentLoginState extends State<ContentLogin> {
   void _onLogin({required String email, required String password}) async {
     _eventLoad();
     try {
-      User? user = await _firebaseAuthService.signInWithEmailAndPassword(
-          email, password);
+      User? user = await _firebaseAuthService.signInWithEmailAndPassword(email, password);
       if (user == null) {
-        kToast('ไม่พบข้อมูล', Text('ไม่พบข้อมูลของบัญชีนี้'));
+        kToast(notFound, Text('$notFoundของบัญชีนี้'));
         _eventLoad();
       } else {
         _toHomePoster();

@@ -8,17 +8,21 @@ enum DirectionDialogEdit { forCenter, forLeft }
 
 // ignore: must_be_immutable
 class KDialogEdit extends StatefulWidget {
-  KDialogEdit(
-      {Key? key,
-      required this.child,
-      required this.type,
-      this.direction = DirectionDialogEdit.forLeft,
-      this.title})
-      : super(key: key);
+  KDialogEdit({
+    Key? key,
+    required this.child,
+    required this.type,
+    this.direction = DirectionDialogEdit.forLeft,
+    this.title,
+    this.pressShowDialogOnChild = false,
+    this.onSubmitPress,
+  }) : super(key: key);
   Widget child;
   DirectionDialogEdit direction;
   DialogEditType type;
   String? title;
+  bool pressShowDialogOnChild = false;
+  var onSubmitPress;
 
   @override
   _KDialogEditState createState() => _KDialogEditState();
@@ -43,6 +47,7 @@ class _KDialogEditState extends State<KDialogEdit> {
       case TypeDialogEditType.all:
         _textController = TextEditingController(text: widget.type.title);
         _linkController = TextEditingController(text: widget.type.link);
+
         break;
       default:
     }
@@ -60,20 +65,29 @@ class _KDialogEditState extends State<KDialogEdit> {
           inputWidth: context.width * .7,
           type: widget.type.type == TypeDialogEditType.titleOnly
               ? FormActionLinkType.titleOnly(
-                  title: widget.type.title!, textController: _textController)
+                  title: widget.type.title!,
+                  textController: _textController,
+                  onSubmitPress: () =>
+                      widget.type.onSubmitPress(_textController.text),
+                )
               : widget.type.type == TypeDialogEditType.linkOnly
                   ? FormActionLinkType.linkOnly(
-                      link: widget.type.link!, linkController: _linkController)
+                      link: widget.type.link!,
+                      linkController: _linkController,
+                      onSubmitPress: () =>
+                          widget.type.onSubmitPress(_linkController.text),
+                    )
                   : FormActionLinkType.all(
                       title: widget.type.title!,
                       link: widget.type.link!,
                       textController: _textController,
                       linkController: _linkController,
+                      onSubmitPress: () => widget.type.onSubmitPress(
+                          _textController.text, _linkController.text),
                     ),
           onClosePress: () {
             Get.back();
           },
-          onSubmitPress: () {},
           isLoading: false,
         ),
       ),
@@ -89,14 +103,23 @@ class _KDialogEditState extends State<KDialogEdit> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (_isAuth && widget.direction == DirectionDialogEdit.forCenter)
+          if (_isAuth &&
+              widget.direction == DirectionDialogEdit.forCenter &&
+              !widget.pressShowDialogOnChild)
             Icon(
               Icons.edit_outlined,
               color: Colors.transparent,
               size: 16,
             ),
-          widget.child,
-          if (_isAuth) ...{
+          if (widget.pressShowDialogOnChild) ...{
+            InkWell(
+              onTap: _showDialog,
+              child: widget.child,
+            )
+          } else ...{
+            widget.child
+          },
+          if (_isAuth && !widget.pressShowDialogOnChild) ...{
             SizedBox(width: 4),
             InkWell(
               onTap: _showDialog,
@@ -122,31 +145,46 @@ class _KDialogEditState extends State<KDialogEdit> {
 enum TypeDialogEditType { titleOnly, linkOnly, all }
 
 class DialogEditType {
-  DialogEditType({this.link, this.title, this.type});
+  DialogEditType({this.link, this.title, this.type, this.onSubmitPress});
   final String? link;
   final String? title;
   final TypeDialogEditType? type;
+  var onSubmitPress;
+  late Function(String title) pressOnTypeTitle;
+  late Function(String link) pressOnTypeLink;
+  late Function(String title, String link) pressOnTypeAll;
 
-  factory DialogEditType.titleOnly({required String title}) {
+  factory DialogEditType.titleOnly({
+    required String title,
+    required Function(String title) onSubmitPress,
+  }) {
     return DialogEditType(
       title: title,
       type: TypeDialogEditType.titleOnly,
+      onSubmitPress: onSubmitPress,
     );
   }
-  factory DialogEditType.linkOnly({required String link}) {
+  factory DialogEditType.linkOnly({
+    required String link,
+    required Function(String link) onSubmitPress,
+  }) {
     return DialogEditType(
       link: link,
       type: TypeDialogEditType.linkOnly,
+      onSubmitPress: onSubmitPress,
     );
   }
+
   factory DialogEditType.all({
     required String title,
     required String link,
+    required Function(String title, String link) onSubmitPress,
   }) {
     return DialogEditType(
       title: title,
       link: link,
       type: TypeDialogEditType.all,
+      onSubmitPress: onSubmitPress,
     );
   }
 }
