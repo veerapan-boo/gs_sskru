@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gs_sskru/components/k_toast.dart';
 import 'package:gs_sskru/models/link_model.dart';
 
 class NewsController extends GetxController {
+  final firestore = FirebaseFirestore.instance;
   RxList<LinkModel> _linkModel = <LinkModel>[].obs;
+  RxString _educationJoinUpDescription = "".obs;
 
   List<LinkModel> _where({required int type}) {
     List<LinkModel> value = _linkModel;
@@ -13,6 +17,7 @@ class NewsController extends GetxController {
   List<LinkModel> get getListAllType => _linkModel;
   List<LinkModel> get getListTypeZeroOnly => _where(type: 0);
   List<LinkModel> get getListTypeOneOnly => _where(type: 1);
+  String get getEducationJoinUpDescription => _educationJoinUpDescription.value;
 
   set setListLinkModel(List<LinkModel> value) {
     _linkModel.value = value;
@@ -38,12 +43,23 @@ class NewsController extends GetxController {
 
   Future<bool> fetchNewsData() async {
     try {
-      final QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection("news").get();
-      final List<QueryDocumentSnapshot<Object?>> listNews = querySnapshot.docs;
+      // New others
+      final snapshot = await firestore.collection("news").get();
+
+      // Description deducation join up
+      final detail =
+          await firestore.collection("details").doc("education_join_up").get();
+
+      if (detail.data()!.isNotEmpty) {
+        detail.data()!.forEach((key, value) {
+          if (key == 'description') _educationJoinUpDescription.value = value;
+        });
+      }
+
+      final listNews = snapshot.docs;
       if (listNews.isNotEmpty) {
         List<LinkModel> _listLinkModel = listNews.map((e) {
-          Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+          Map<String, dynamic> data = e.data();
           return LinkModel.fromMap(data);
         }).toList();
         setListLinkModel = _listLinkModel;
@@ -52,5 +68,19 @@ class NewsController extends GetxController {
     } catch (err) {
       return false;
     }
+  }
+
+  updateEducationJoinUpDescription(String value) {
+    firestore.collection("details").doc("education_join_up").set(
+      {"description": value},
+      SetOptions(merge: true),
+    ).whenComplete(() {
+      _educationJoinUpDescription.value = value;
+      Get.back();
+      kToast(
+        'อัพเดทข้อมูลสำเร็จ',
+        Text('ข้อมูลกำลังอัพเดทไปยังฐานข้อมูล'),
+      );
+    });
   }
 }
