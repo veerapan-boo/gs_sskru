@@ -2,6 +2,10 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:gs_sskru/components/k_launchURL.dart';
+import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
+import 'package:gs_sskru/controllers/service_controller.dart';
+import 'package:gs_sskru/models/service_model.dart';
 import 'package:gs_sskru/models/title_link_model.dart';
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
@@ -12,9 +16,12 @@ class Footer extends StatefulWidget {
 }
 
 class _FooterState extends State<Footer> {
+  final _serviceController = Get.find<ServiceController>();
+  final _navBarMenuController = Get.find<NavBarMenuController>();
+
   final double specing = 10.0;
 
-  final TitleLinkModel _titleLink = TitleLinkModel().getValue;
+  final _titleLink = TitleLinkModel().getValue.data;
 
   ExpandableController _expandableController = ExpandableController();
 
@@ -62,51 +69,66 @@ class _FooterState extends State<Footer> {
   Container contentMobileAndTablet() {
     bool isTablet = Responsive.isTablet(context);
 
+    List<List<ServiceModel>> _listService = [
+      _serviceController.getAcademic,
+      _serviceController.getOther,
+      _serviceController.getStaff
+    ];
+
+    List<Widget> list = [SizedBox(), SizedBox(), SizedBox(), SizedBox()];
     return Container(
       padding: EdgeInsets.symmetric(
-          horizontal: isTablet ? kDefaultPadding * 4 : kDefaultPadding),
+        horizontal: isTablet ? kDefaultPadding * 4 : kDefaultPadding,
+      ),
       child: Column(
         children: [
           ListView(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
-            children: List.generate(
-              _titleLink.data!.length,
-              (index) {
-                return ExpandableNotifier(
+            children: [
+              for (var i = 1; i <= _titleLink!.length - 1; i++)
+                ExpandableNotifier(
                   initialExpanded: false,
                   child: ExpandablePanel(
                     key: UniqueKey(),
                     theme: const ExpandableThemeData(
-                        headerAlignment: ExpandablePanelHeaderAlignment.center,
-                        tapBodyToCollapse: false,
-                        iconColor: Colors.white60),
-                    header: headTitle(_titleLink.data![index].headTitle),
+                      headerAlignment: ExpandablePanelHeaderAlignment.center,
+                      tapBodyToCollapse: false,
+                      iconColor: Colors.white60,
+                    ),
+                    header: headTitle(_titleLink![i].headTitle),
                     collapsed: SizedBox(),
                     expanded: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        for (var subTitle in _titleLink.data![index].subTitle)
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              primary: Colors.white,
-                            ),
-                            onPressed: () {},
-                            child: Container(
-                              // width: kMaxWidth / 7,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 10),
-                              child: Text(
-                                subTitle.text,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle2!
-                                    .copyWith(color: Colors.white60),
-                                softWrap: true,
-                                overflow: TextOverflow.fade,
-                              ),
+                        ...list,
+                        // จำนวน 3 ชุดแรกของ data_type
+                        if (i <= 3) ...{
+                          for (var x = 0;
+                              x <= _titleLink![i].subTitle.length - 1;
+                              x++) ...{
+                            subTitle(
+                                text: _titleLink![i].subTitle[x].text,
+                                onPressed: () {
+                                  _navBarMenuController.setSelectedIndex(i);
+                                })
+                          }
+                        } else ...{
+                          Obx(
+                            () => Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                for (var elem in _listService[i - 4]) ...{
+                                  subTitle(
+                                      text: elem.text!,
+                                      onPressed: () {
+                                        k_launchURL(url: elem.link ?? "");
+                                      }),
+                                }
+                              ],
                             ),
                           )
+                        },
                       ],
                     ),
                     builder: (_, collapsed, expanded) {
@@ -123,9 +145,8 @@ class _FooterState extends State<Footer> {
                       );
                     },
                   ),
-                );
-              },
-            ),
+                )
+            ],
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -169,20 +190,42 @@ class _FooterState extends State<Footer> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(5, (index) {
-            return Container(
-              // color: Colors.red,
-              padding: EdgeInsets.symmetric(horizontal: specing),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  headTitle(_titleLink.data![index].headTitle),
-                  for (var elem in _titleLink.data![index].subTitle)
-                    subTitle(elem.text),
-                ],
+          children: [
+            for (var i = 0; i <= 3; i++) ...{
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: specing),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    headTitle(_titleLink![i].headTitle),
+                    for (var elem in _titleLink![i].subTitle)
+                      subTitle(
+                        text: elem.text,
+                        onPressed: () =>
+                            _navBarMenuController.setSelectedIndex(i),
+                      ),
+                  ],
+                ),
+              )
+            },
+            Obx(
+              () => Container(
+                width: kMaxWidth / 5,
+                padding: EdgeInsets.symmetric(horizontal: specing),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    headTitle(_titleLink![4].headTitle),
+                    for (var elem in _serviceController.getAcademic)
+                      subTitle(
+                        text: elem.text!,
+                        onPressed: () => k_launchURL(url: elem.link ?? ""),
+                      ),
+                  ],
+                ),
               ),
-            );
-          }),
+            )
+          ],
         ),
         Divider(
           height: 80,
@@ -192,22 +235,42 @@ class _FooterState extends State<Footer> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: List.generate(2, (index) {
-                return Container(
-                  padding: EdgeInsets.symmetric(horizontal: specing),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      headTitle(_titleLink.data![index + 5].headTitle),
-                      for (var elem in _titleLink.data![index + 5].subTitle)
-                        subTitle(elem.text),
-                    ],
+            Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: specing),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        headTitle(_titleLink![5].headTitle),
+                        for (var elem in _serviceController.getOther)
+                          subTitle(
+                            text: elem.text!,
+                            onPressed: () => k_launchURL(url: elem.link ?? ""),
+                          ),
+                      ],
+                    ),
                   ),
-                );
-              }),
+                  Container(
+                    width: kMaxWidth / 5,
+                    padding: EdgeInsets.symmetric(horizontal: specing),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        headTitle(_titleLink![6].headTitle),
+                        for (var elem in _serviceController.getStaff)
+                          subTitle(
+                            text: elem.text!,
+                            onPressed: () => k_launchURL(url: elem.link ?? ""),
+                          ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: specing),
@@ -263,12 +326,12 @@ class _FooterState extends State<Footer> {
     );
   }
 
-  TextButton subTitle(String text) {
+  TextButton subTitle({required String text, Function()? onPressed}) {
     return TextButton(
       style: TextButton.styleFrom(
         primary: Colors.white,
       ),
-      onPressed: () {},
+      onPressed: onPressed ?? () {},
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
