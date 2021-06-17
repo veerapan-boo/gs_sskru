@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/components/get_size.dart';
 import 'package:gs_sskru/util/constants.dart';
@@ -50,10 +51,23 @@ class HomePoster extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           // * Title
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              TitleHeader(),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TitleHeader(),
+                                ],
+                              ),
+                              SizedBox(
+                                height: context.responsiveValue(
+                                  desktop: kDefaultPadding,
+                                  tablet: kDefaultPadding * .75,
+                                  mobile: kDefaultPadding * .5,
+                                ),
+                              ),
+                              FacebookFansPageLink()
                             ],
                           ),
                         ],
@@ -105,7 +119,7 @@ class _TitleHeaderState extends State<TitleHeader> {
         ),
         if (_sizeWidth != 0.0)
           Container(
-            width: _sizeWidth - 7,
+            width: _sizeWidth,
             color: kPrimaryColor,
             child: Center(
               child: Text(
@@ -119,6 +133,118 @@ class _TitleHeaderState extends State<TitleHeader> {
             ),
           )
       ],
+    );
+  }
+}
+
+class FacebookFansPageLink extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: context.responsiveValue(
+        desktop: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: EdgeInsets.all(kDefaultPadding * .75),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: kPrimaryColor,
+                  width: 1,
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: kDefaultPadding),
+                    child: FaIcon(
+                      FontAwesomeIcons.facebookF,
+                      color: kPrimaryColor,
+                      size: context.textTheme.subtitle2!.fontSize,
+                    ),
+                  ),
+                  Text(
+                    "สำหนักงานบัญฑิตศึกษา",
+                    style: context.textTheme.subtitle1!.copyWith(
+                      color: kPrimaryColor,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        tablet: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: EdgeInsets.all(
+                kDefaultPadding * .45,
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: kPrimaryColor,
+                  width: 1,
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(right: kDefaultPadding * .75),
+                    child: FaIcon(
+                      FontAwesomeIcons.facebookF,
+                      color: kPrimaryColor,
+                      size: context.textTheme.bodyText2!.fontSize,
+                    ),
+                  ),
+                  Text(
+                    "สำหนักงานบัญฑิตศึกษา",
+                    style: context.textTheme.bodyText2!.copyWith(
+                      color: kPrimaryColor,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        mobile: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: EdgeInsets.all(kDefaultPadding * .75),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: kPrimaryColor,
+                  width: 1,
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: kDefaultPadding),
+                    child: FaIcon(
+                      FontAwesomeIcons.facebookF,
+                      color: kPrimaryColor,
+                      size: context.textTheme.subtitle2!.fontSize,
+                    ),
+                  ),
+                  Text(
+                    "สำหนักงานบัญฑิตศึกษา",
+                    style: context.textTheme.subtitle1!.copyWith(
+                      color: kPrimaryColor,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

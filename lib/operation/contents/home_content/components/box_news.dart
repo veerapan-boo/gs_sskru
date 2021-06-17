@@ -56,7 +56,7 @@ class _BoxNewsState extends State<BoxNews> {
   Widget build(BuildContext context) {
     double _inputWidth = widget.contentWidth - (kDefaultPadding * 2);
     return Container(
-      width: widget.contentWidth,
+      constraints: BoxConstraints(minHeight: 500),
       decoration: BoxDecoration(color: Colors.grey[50]),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -112,7 +112,7 @@ class _BoxNewsState extends State<BoxNews> {
             )
           } else ...{
             if (!_isAddNews)
-              Padding(
+              Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
