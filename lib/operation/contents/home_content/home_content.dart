@@ -11,13 +11,13 @@ class HomeContent extends StatelessWidget {
       children: [
         // * Education join up news content
         EducationJoinUp(),
-        SizedBox(
-          height: context.responsiveValue(
-            desktop: kDefaultPadding * 4,
-            tablet: kDefaultPadding * 2,
-            mobile: kDefaultPadding,
-          ),
-        ),
+        // SizedBox(
+        //   height: context.responsiveValue(
+        //     desktop: kDefaultPadding * 4,
+        //     tablet: kDefaultPadding * 2,
+        //     mobile: kDefaultPadding,
+        //   ),
+        // ),
         // * Research fund news content
         NewsOthersContent(),
       ],
