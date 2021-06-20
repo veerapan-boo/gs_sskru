@@ -75,7 +75,7 @@ class BoxCoursePosterDegreeTwo extends StatelessWidget {
                     }),
                 child: KTextButton(
                   onPressed: () => k_launchURL(url: /** TODO */ ""),
-                  text: 'สมัครเรียน',
+                  text: 'ดูเพิ่มเติม',
                   mainAxisAlignment: MainAxisAlignment.center,
                   textSize: deadlineDateSize,
                 ),

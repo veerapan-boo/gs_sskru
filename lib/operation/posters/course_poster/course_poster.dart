@@ -45,7 +45,7 @@ class CoursePoster extends StatelessWidget {
     );
 
     return Container(
-      padding: const EdgeInsets.only(bottom: kDefaultPadding * 10),
+      padding: const EdgeInsets.only(bottom: kDefaultPadding * 3.5),
       child: Column(
         children: [
           // Title
