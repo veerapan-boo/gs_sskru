@@ -19,6 +19,7 @@ class KDialogEdit extends StatefulWidget {
     this.onSubmitPress,
   }) : super(key: key);
   Widget child;
+
   DirectionDialogEdit direction;
   String? title;
   DialogEditType type;
