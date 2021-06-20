@@ -42,5 +42,7 @@ class Main extends StatelessWidget {
     precacheImage(AssetImage('assets/images/sskru_poster3.jpg'), context);
     precacheImage(AssetImage('assets/images/sskru_poster4.jpg'), context);
     precacheImage(AssetImage('assets/images/sskru_poster5.jpg'), context);
+    precacheImage(AssetImage('assets/images/degree_cap2.png'), context);
+    precacheImage(AssetImage('assets/images/degree_cap3.png'), context);
   }
 }

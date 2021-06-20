@@ -14,13 +14,15 @@ class KDialogEdit extends StatefulWidget {
     required this.type,
     this.direction = DirectionDialogEdit.forLeft,
     this.title,
+    this.maxLines,
     this.pressShowDialogOnChild = false,
     this.onSubmitPress,
   }) : super(key: key);
   Widget child;
   DirectionDialogEdit direction;
-  DialogEditType type;
   String? title;
+  DialogEditType type;
+  int? maxLines;
   bool pressShowDialogOnChild = false;
   var onSubmitPress;
 
@@ -65,6 +67,10 @@ class _KDialogEditState extends State<KDialogEdit> {
         child: StatefulBuilder(
           builder: (_, setStateOnDialog) {
             return FormActionLink(
+              maxLines: widget.type.type == TypeDialogEditType.titleOnly &&
+                      widget.maxLines != null
+                  ? widget.maxLines
+                  : 1,
               inputWidth: context.width * .7,
               type: widget.type.type == TypeDialogEditType.titleOnly
                   ? FormActionLinkType.titleOnly(

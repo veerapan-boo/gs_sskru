@@ -44,7 +44,10 @@ class NewsController extends GetxController {
   Future<bool> fetchNewsData() async {
     try {
       // New others
-      final snapshot = await firestore.collection("news").get();
+      final snapshot = await firestore
+          .collection("news")
+          .orderBy("createDate", descending: true)
+          .get();
 
       // Description deducation join up
       final detail =

@@ -21,7 +21,7 @@ class _SwitchContentState extends State<SwitchContent>
   final List<Widget> _listContents = [
     HomeContent(),
     AboutContent(),
-    AdmissionContent(),
+    SizedBox(),
     CourseContent(),
     ServiceContent(),
     SizedBox()
