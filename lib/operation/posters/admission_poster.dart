@@ -12,8 +12,7 @@ class AdmissionPoster extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: kDefaultPadding * 2),
-      constraints:
-          BoxConstraints(maxWidth: kMaxWidth, minHeight: context.height * .35),
+      constraints: BoxConstraints(maxWidth: kMaxWidth),
       child: Column(
         children: [
           Padding(
@@ -26,7 +25,7 @@ class AdmissionPoster extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "การรับสมัครนึกศึกษา",
+                        "การรับสมัครนักศึกษา",
                         style: context
                             .responsiveValue(
                                 desktop: context.textTheme.headline4,
@@ -47,7 +46,7 @@ class AdmissionPoster extends StatelessWidget {
                           () => Container(
                             width: context.responsiveValue(
                               desktop: context.width * .5,
-                              tablet: context.width - (kDefaultPadding * 2),
+                              tablet: context.width * .7,
                               mobile: context.width - (kDefaultPadding * 2),
                             ),
                             child: KDialogEdit(
