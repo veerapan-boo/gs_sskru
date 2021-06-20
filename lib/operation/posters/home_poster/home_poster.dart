@@ -63,13 +63,6 @@ class HomePoster extends StatelessWidget {
                                   TitleHeader(),
                                 ],
                               ),
-                              // SizedBox(
-                              //   height: context.responsiveValue(
-                              //     desktop: kDefaultPadding,
-                              //     tablet: kDefaultPadding * .75,
-                              //     mobile: kDefaultPadding * .5,
-                              //   ),
-                              // ),
                             ],
                           ),
                         ],

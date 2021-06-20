@@ -29,10 +29,17 @@ class _TitleHeaderState extends State<TitleHeader> {
             'สำนักงานบัณฑิตศึกษา',
             overflow: TextOverflow.ellipsis,
             softWrap: false,
-            style: context.responsiveValue(
-                desktop: textHead.headline2,
-                tablet: textHead.headline4,
-                mobile: textHead.headline4?.copyWith(fontSize: 28)),
+            style: context
+                .responsiveValue(
+                  desktop: textHead.headline2,
+                  tablet: textHead.headline4,
+                  mobile: textHead.headline4?.copyWith(
+                    fontSize: 28,
+                  ),
+                )
+                ?.copyWith(
+                  color: Colors.black87,
+                ),
           ),
         ),
         Text(

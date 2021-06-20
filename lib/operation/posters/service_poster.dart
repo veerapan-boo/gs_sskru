@@ -20,9 +20,15 @@ class ServicePoster extends StatelessWidget {
                 children: [
                   Text(
                     'บริการและช่วยเหลือ',
-                    style: context.isPhone
-                        ? context.textTheme.headline2
-                        : context.textTheme.headline4,
+                    style: context
+                        .responsiveValue(
+                          desktop: context.textTheme.headline4,
+                          tablet: context.textTheme.headline4,
+                          mobile: context.textTheme.headline5,
+                        )
+                        ?.copyWith(
+                          color: Colors.black87,
+                        ),
                   ),
                   Text(
                     'มหาวิทยาลัยราชภัฏศรีสะเกษ',
