@@ -13,6 +13,7 @@ class FormActionLink extends StatefulWidget {
     required this.inputWidth,
     this.closeText,
     this.submitText,
+    this.maxLines,
     required this.onClosePress,
     // required this.onSubmitPress,
     required this.isLoading,
@@ -21,6 +22,7 @@ class FormActionLink extends StatefulWidget {
   final double inputWidth;
   String? closeText;
   String? submitText;
+  int? maxLines;
   FormActionLinkType type;
   final Function() onClosePress;
   final bool isLoading;
@@ -82,6 +84,7 @@ class _FormActionLinkState extends State<FormActionLink> {
               controller: _textController,
               hintText: _labelText.isNotEmpty ? _labelText : "เพิ่มข้อความ",
               icon: Icons.text_fields,
+              maxLines: widget.maxLines ?? 1,
               hintStyle:
                   context.textTheme.subtitle2!.copyWith(color: kPrimaryColor),
             ),

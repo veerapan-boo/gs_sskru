@@ -58,7 +58,7 @@ class _KTextLinkState extends State<KTextLink> {
                   color: widget.colors ?? kPrimaryColor,
                   fontSize:
                       widget.textSize ?? context.textTheme.subtitle1!.fontSize,
-                  height: 0,
+                  height: 1.4,
                 ),
               ),
             ),
@@ -71,8 +71,9 @@ class _KTextLinkState extends State<KTextLink> {
                 child: Icon(
                   Icons.arrow_forward_ios_sharp,
                   color: widget.colors ?? kPrimaryColor,
-                  size: (widget.textSize ??
-                      context.textTheme.subtitle1!.fontSize!),
+                  size: (widget.textSize != null
+                      ? widget.textSize! - 4
+                      : context.textTheme.subtitle1!.fontSize!),
                 ),
               )
           ],

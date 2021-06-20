@@ -16,7 +16,7 @@ class AdmissionContent extends GetView<AddmissionController> {
           child: Text(
             'เพิ่มเติม',
             style: context.textTheme.headline6!.copyWith(
-              color: Colors.black87,
+              color: Colors.white,
             ),
           ),
         ),
@@ -39,7 +39,9 @@ class AdmissionContent extends GetView<AddmissionController> {
                   controller.getDescription.isNotEmpty
                       ? controller.getDescription
                       : notFound,
-                  style: context.textTheme.subtitle2,
+                  style: context.textTheme.subtitle2!.copyWith(
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -48,8 +50,9 @@ class AdmissionContent extends GetView<AddmissionController> {
       ],
     );
     return Container(
-      padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
+      padding: EdgeInsets.all(kDefaultPadding * 2),
       constraints: BoxConstraints(maxWidth: kMaxWidth),
+      color: kPrimaryColor.withOpacity(.85),
       child: Column(
         children: [
           Row(
