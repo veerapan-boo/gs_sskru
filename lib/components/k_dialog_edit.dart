@@ -15,16 +15,18 @@ class KDialogEdit extends StatefulWidget {
     this.direction = DirectionDialogEdit.forLeft,
     this.title,
     this.maxLines,
-    this.pressShowDialogOnChild = false,
+    // โชว์ Dialog เมื่อทำการกดที่ Child แทนการกดที่ Icon pen
+    bool? onPressShowDialogOnChild,
     this.onSubmitPress,
-  }) : super(key: key);
+  })  : pressShowDialogOnChild = onPressShowDialogOnChild ?? false,
+        super(key: key);
   Widget child;
 
   DirectionDialogEdit direction;
   String? title;
   DialogEditType type;
   int? maxLines;
-  bool pressShowDialogOnChild = false;
+  bool? pressShowDialogOnChild;
   var onSubmitPress;
 
   @override
@@ -134,13 +136,13 @@ class _KDialogEditState extends State<KDialogEdit> {
         children: [
           if (_isAuth &&
               widget.direction == DirectionDialogEdit.forCenter &&
-              !widget.pressShowDialogOnChild)
+              !widget.pressShowDialogOnChild!)
             Icon(
               Icons.edit_outlined,
               color: Colors.transparent,
               size: 16,
             ),
-          if (widget.pressShowDialogOnChild) ...{
+          if (widget.pressShowDialogOnChild!) ...{
             InkWell(
               onTap: _showDialog,
               child: widget.child,
@@ -148,7 +150,7 @@ class _KDialogEditState extends State<KDialogEdit> {
           } else ...{
             widget.child
           },
-          if (_isAuth && !widget.pressShowDialogOnChild) ...{
+          if (_isAuth && !widget.pressShowDialogOnChild!) ...{
             SizedBox(width: 4),
             InkWell(
               onTap: _showDialog,

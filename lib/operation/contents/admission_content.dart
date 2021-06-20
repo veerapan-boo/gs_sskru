@@ -165,7 +165,7 @@ class AdmissionContent extends StatelessWidget {
                 } else ...{
                   _firebaseAuthServiceController.getIsAuthenticated
                       ? KDialogEdit(
-                          pressShowDialogOnChild: true,
+                          onPressShowDialogOnChild: true,
                           direction: DirectionDialogEdit.forCenter,
                           type: DialogEditType.linkOnly(
                             link: "",
@@ -293,7 +293,7 @@ class AdmissionContent extends StatelessWidget {
                 } else ...{
                   _firebaseAuthServiceController.getIsAuthenticated
                       ? KDialogEdit(
-                          pressShowDialogOnChild: true,
+                          onPressShowDialogOnChild: true,
                           direction: DirectionDialogEdit.forCenter,
                           type: DialogEditType.linkOnly(
                             link: "",
