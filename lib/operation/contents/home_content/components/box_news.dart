@@ -56,7 +56,7 @@ class _BoxNewsState extends State<BoxNews> {
   Widget build(BuildContext context) {
     double _inputWidth = widget.contentWidth - (kDefaultPadding * 2);
     return Container(
-      constraints: BoxConstraints(minHeight: 500),
+      constraints: BoxConstraints(minHeight: context.isPhone ? 0 : 500),
       decoration: BoxDecoration(color: Colors.grey[50]),
       child: Column(
         mainAxisSize: MainAxisSize.min,

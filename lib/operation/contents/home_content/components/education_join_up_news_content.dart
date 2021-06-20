@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/components/buttons/k_text_link.dart';
 import 'package:gs_sskru/components/k_dialog_edit.dart';
@@ -18,7 +19,7 @@ class EducationJoinUp extends StatelessWidget {
       child: Center(
         child: Padding(
           padding: context.responsiveValue(
-            desktop: EdgeInsets.all(kDefaultPadding * 8),
+            desktop: EdgeInsets.all(kDefaultPadding * 6),
             tablet: EdgeInsets.all(kDefaultPadding * 4),
             mobile: EdgeInsets.symmetric(vertical: kDefaultPadding * 4),
           ) as EdgeInsets,
@@ -28,21 +29,6 @@ class EducationJoinUp extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                // if (context.isTablet)
-                //   Expanded(
-                //     flex: 1,
-                //     child: Container(
-                //       constraints: BoxConstraints(minHeight: 500),
-                //       // width: kMaxWidth * .25,
-                //       // height: kMaxWidth * .25,
-                //       decoration: BoxDecoration(
-                //         image: DecorationImage(
-                //           image: _image,
-                //           fit: BoxFit.fitHeight,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,7 +39,12 @@ class EducationJoinUp extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(height: kDefaultPadding * .5),
+                    SizedBox(height: kDefaultPadding * 2),
+                    SvgPicture.asset(
+                      'assets/images/undraw_Done_checking.svg',
+                      width: 180,
+                    ),
+                    SizedBox(height: kDefaultPadding * 2),
                     Obx(
                       () {
                         String descriptionJoinUp =
@@ -69,9 +60,22 @@ class EducationJoinUp extends StatelessWidget {
                                   child: Text(
                                     descriptionJoinUp,
                                     overflow: TextOverflow.fade,
-                                    style:
-                                        context.textTheme.headline6!.copyWith(
-                                      color: Colors.white,
+                                    style: context.responsiveValue(
+                                      desktop:
+                                          context.textTheme.headline6!.copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                      tablet:
+                                          context.textTheme.headline6!.copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                      mobile:
+                                          context.textTheme.subtitle1!.copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                     ),
                                   ),
                                 ),
