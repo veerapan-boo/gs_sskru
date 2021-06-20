@@ -6,7 +6,7 @@ import 'package:gs_sskru/operation/posters/about_poster.dart';
 import 'package:gs_sskru/operation/posters/admin_poster/admin_poster.dart';
 import 'package:gs_sskru/operation/posters/admission_poster.dart';
 import 'package:gs_sskru/operation/posters/course_poster.dart';
-import 'package:gs_sskru/operation/posters/home_poster.dart';
+import 'package:gs_sskru/operation/posters/home_poster/home_poster.dart';
 import 'package:gs_sskru/operation/posters/service_poster.dart';
 
 class SwitchPoster extends StatefulWidget {

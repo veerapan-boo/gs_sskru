@@ -34,7 +34,9 @@ class ServiceContent extends GetView<ServiceController> {
               children: [
                 Text(
                   _titleLink.data![index + 4].headTitle,
-                  style: context.textTheme.headline5,
+                  style: context.textTheme.headline5!.copyWith(
+                    color: Colors.black54,
+                  ),
                 ),
                 SizedBox(height: 8),
                 for (var _elemSubTitle in data[index])
