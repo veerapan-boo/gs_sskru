@@ -10,6 +10,7 @@ class KTextLink extends StatefulWidget {
       this.arrowIcon = false,
       this.colors,
       this.maxWidth,
+      this.fontWeight,
       required this.onPressed,
       this.mainAxisAlignment = MainAxisAlignment.start})
       : super(key: key);
@@ -21,6 +22,7 @@ class KTextLink extends StatefulWidget {
   final Function()? onPressed;
   final double? maxWidth;
   final MainAxisAlignment? mainAxisAlignment;
+  final FontWeight? fontWeight;
 
   @override
   _KTextLinkState createState() => _KTextLinkState();
@@ -51,15 +53,16 @@ class _KTextLinkState extends State<KTextLink> {
                 widget.text,
                 overflow: TextOverflow.visible,
                 style: TextStyle(
-                  decoration:
-                      _isHover ? TextDecoration.underline : TextDecoration.none,
-                  decorationColor: widget.colors ?? kPrimaryColor,
-                  decorationThickness: 1,
-                  color: widget.colors ?? kPrimaryColor,
-                  fontSize:
-                      widget.textSize ?? context.textTheme.subtitle1!.fontSize,
-                  height: 1.4,
-                ),
+                    decoration: _isHover
+                        ? TextDecoration.underline
+                        : TextDecoration.none,
+                    decorationColor: widget.colors ?? kPrimaryColor,
+                    decorationThickness: 1,
+                    color: widget.colors ?? kPrimaryColor,
+                    fontSize: widget.textSize ??
+                        context.textTheme.subtitle1!.fontSize,
+                    height: 1.4,
+                    fontWeight: widget.fontWeight ?? FontWeight.w300),
               ),
             ),
             if (widget.arrowIcon)
