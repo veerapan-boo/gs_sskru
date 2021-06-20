@@ -26,7 +26,9 @@ class ServicePoster extends StatelessWidget {
                   ),
                   Text(
                     'มหาวิทยาลัยราชภัฏศรีสะเกษ',
-                    style: context.textTheme.headline6,
+                    style: context.textTheme.headline6!.copyWith(
+                      color: Colors.black54,
+                    ),
                   ),
                 ],
               ),

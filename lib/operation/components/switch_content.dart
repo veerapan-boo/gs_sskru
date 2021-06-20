@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 import 'package:gs_sskru/operation/contents/about_content.dart';
-import 'package:gs_sskru/operation/contents/admission_content.dart';
 import 'package:gs_sskru/operation/contents/course_content.dart';
 import 'package:gs_sskru/operation/contents/home_content/home_content.dart';
 import 'package:gs_sskru/operation/contents/service_content.dart';

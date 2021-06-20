@@ -7,7 +7,6 @@ import 'package:gs_sskru/controllers/news_controller.dart';
 import 'package:gs_sskru/util/constants.dart';
 
 class EducationJoinUp extends StatelessWidget {
-  final ImageProvider _image = AssetImage('assets/images/sskru_poster1.jpg');
   final _navBarMenuController = Get.find<NavBarMenuController>();
   final _newsController = Get.find<NewsController>();
 
@@ -24,12 +23,7 @@ class EducationJoinUp extends StatelessWidget {
             mobile: EdgeInsets.symmetric(vertical: kDefaultPadding * 4),
           ) as EdgeInsets,
           child: Container(
-            // margin: EdgeInsets.symmetric(vertical: 26),
-            // padding: const EdgeInsets.symmetric(vertical: 36.0),
             child: Row(
-              // mainAxisAlignment: context.isTablet
-              //     ? MainAxisAlignment.spaceAround
-              //     : MainAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
