@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:gs_sskru/components/buttons/k_text_button.dart';
 import 'package:gs_sskru/components/k_dialog_edit.dart';
 import 'package:gs_sskru/components/k_launchURL.dart';
+import 'package:gs_sskru/controllers/course_controller.dart';
+import 'package:gs_sskru/controllers/firebase_auth_service_controller.dart';
+import 'package:gs_sskru/models/course_model.dart';
 import 'package:gs_sskru/models/title_link_model.dart';
 import 'package:gs_sskru/util/constants.dart';
 
@@ -18,8 +21,11 @@ class BoxCoursePosterDegreeOne extends StatelessWidget {
   final List data;
   final TitleLinkModel title;
   final BuildContext context;
-
   final ImageProvider _imageOne;
+
+  final _courseController = Get.find<CourseController>();
+  final _firebaseAuthServiceController =
+      Get.find<FirebaseAuthServiceController>();
 
   @override
   Widget build(BuildContext context) {
@@ -50,40 +56,131 @@ class BoxCoursePosterDegreeOne extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          height: 210,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              SizedBox(height: kDefaultPadding),
-              Text(
-                "หลักสูตรระดับปริญญาโท",
-                style: context
-                    .responsiveValue(
-                        desktop: context.textTheme.headline5,
-                        tablet: context.textTheme.headline5,
-                        mobile: context.textTheme.headline6)
-                    ?.copyWith(
-                      color: Colors.black54,
+        Obx(() {
+          if (_courseController.getListCourse.isEmpty) {
+            return Text(
+              notFound,
+              style: context.textTheme.headline5,
+            );
+          }
+
+          CourseModel courseData = _courseController.getListCourse[0];
+          return Container(
+            height: 210,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                SizedBox(height: kDefaultPadding),
+                if (courseData.title != "") ...{
+                  KDialogEdit(
+                    direction: DirectionDialogEdit.forCenter,
+                    type: DialogEditType.titleOnly(
+                        title: courseData.title!,
+                        onSubmitPress: (title) {
+                          _courseController.updateCourse(
+                              id: courseData.id!,
+                              key: CourseKeys.title,
+                              value: title,
+                              docWillUpdateCourse: DocWillUpdateCourse.courses);
+                        }),
+                    child: Flexible(
+                      child: Text(
+                        courseData.title!,
+                        style: context
+                            .responsiveValue(
+                              desktop: context.textTheme.headline5,
+                              tablet: context.textTheme.headline5,
+                              mobile: context.textTheme.headline6,
+                            )
+                            ?.copyWith(
+                              color: Colors.black54,
+                            ),
+                      ),
                     ),
-              ),
-              KDialogEdit(
-                direction: DirectionDialogEdit.forCenter,
-                type: DialogEditType.linkOnly(
-                    link: /*TODO*/ "TODO",
-                    onSubmitPress: (link) {
-                      // TODO:
-                    }),
-                child: KTextButton(
-                  onPressed: () => k_launchURL(url: /*TODO*/ ""),
-                  text: 'ดูเพิ่มเติม',
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  textSize: deadlineDateSize,
-                ),
-              )
-            ],
-          ),
-        ),
+                  )
+                } else ...{
+                  _firebaseAuthServiceController.getIsAuthenticated
+                      ? KDialogEdit(
+                          onPressShowDialogOnChild: true,
+                          direction: DirectionDialogEdit.forCenter,
+                          type: DialogEditType.titleOnly(
+                            title: "",
+                            onSubmitPress: (title) {
+                              _courseController.updateCourse(
+                                  id: courseData.id!,
+                                  key: CourseKeys.title,
+                                  value: title,
+                                  docWillUpdateCourse:
+                                      DocWillUpdateCourse.courses);
+                            },
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                            child: Text(
+                              'เพิ่มหัวข้อ',
+                              style: context.textTheme.subtitle1!.copyWith(
+                                color: kPrimaryColor,
+                                fontSize: context.textTheme.subtitle1!.fontSize,
+                              ),
+                            ),
+                          ),
+                        )
+                      : SizedBox()
+                },
+                if (courseData.link != "") ...{
+                  KDialogEdit(
+                    direction: DirectionDialogEdit.forCenter,
+                    type: DialogEditType.linkOnly(
+                        link: courseData.link!,
+                        onSubmitPress: (link) {
+                          _courseController.updateCourse(
+                            id: courseData.id!,
+                            key: CourseKeys.link,
+                            value: link,
+                            docWillUpdateCourse: DocWillUpdateCourse.courses,
+                          );
+                        }),
+                    child: KTextButton(
+                      onPressed: () => k_launchURL(url: courseData.link!),
+                      text: 'ดูเพิ่มเติม',
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      textSize: deadlineDateSize,
+                    ),
+                  )
+                } else ...{
+                  _firebaseAuthServiceController.getIsAuthenticated
+                      ? KDialogEdit(
+                          onPressShowDialogOnChild: true,
+                          direction: DirectionDialogEdit.forCenter,
+                          type: DialogEditType.linkOnly(
+                            link: "",
+                            onSubmitPress: (link) {
+                              _courseController.updateCourse(
+                                id: courseData.id!,
+                                key: CourseKeys.link,
+                                value: link,
+                                docWillUpdateCourse:
+                                    DocWillUpdateCourse.courses,
+                              );
+                            },
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                            child: Text(
+                              'เพิ่มลิงค์',
+                              style: context.textTheme.subtitle1!.copyWith(
+                                color: kPrimaryColor,
+                                fontSize: context.textTheme.subtitle1!.fontSize,
+                              ),
+                            ),
+                          ),
+                        )
+                      : SizedBox()
+                }
+              ],
+            ),
+          );
+        })
       ],
     );
   }
