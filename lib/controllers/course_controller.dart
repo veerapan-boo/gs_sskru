@@ -9,6 +9,7 @@ enum CourseKeys {
   text,
   link,
 }
+enum DocWillUpdateCourse { courses, other }
 
 class CourseController extends GetxController {
   final _firestore = FirebaseFirestore.instance;
@@ -51,38 +52,63 @@ class CourseController extends GetxController {
     }
   }
 
-  updateOtherCourse({
+  updateCourse({
     required String id,
     required CourseKeys key,
     required String value,
+    required DocWillUpdateCourse docWillUpdateCourse,
   }) async {
     try {
-      late String keyForUpdate;
-      int index = _liteOtherCourse.indexWhere((element) => element.id == id);
-
+      // Key for update
+      late String _keyForUpdate;
+      // Index course or course other
+      late int index;
+      // List for update data local
+      CourseModel _listlocalForUpdate;
+      //  Set index from list course or course other with enum docWillUpdateCourse
+      switch (docWillUpdateCourse) {
+        case DocWillUpdateCourse.courses:
+          index = _liteCourses.indexWhere((e) => e.id == id);
+          _listlocalForUpdate = _liteCourses[index];
+          break;
+        case DocWillUpdateCourse.other:
+          index = _liteOtherCourse.indexWhere((e) => e.id == id);
+          _listlocalForUpdate = _liteOtherCourse[index];
+          break;
+      }
+      // Set key for update and value list course or course other
       switch (key) {
         case CourseKeys.title:
-          keyForUpdate = "${CourseKeys.title}".split(".").last;
-          _liteOtherCourse[index].title = value;
+          _keyForUpdate = "${CourseKeys.title}".split(".").last;
+          _listlocalForUpdate.title = value;
           break;
         case CourseKeys.link:
-          keyForUpdate = "${CourseKeys.link}".split(".").last;
-          _liteOtherCourse[index].link = value;
+          _keyForUpdate = "${CourseKeys.link}".split(".").last;
+          _listlocalForUpdate.link = value;
           break;
         case CourseKeys.text:
-          keyForUpdate = "${CourseKeys.text}".split(".").last;
-          _liteOtherCourse[index].text = value;
+          _keyForUpdate = "${CourseKeys.text}".split(".").last;
+          _listlocalForUpdate.text = value;
           break;
-        default:
       }
-
-      _firestore.collection("course").doc('other').set(
+      // Update firestore collection "course"
+      _firestore
+          .collection("course")
+          .doc(docWillUpdateCourse.toString().split(".").last)
+          .set(
         {
-          "$id": {"$keyForUpdate": value}
+          "$id": {"$_keyForUpdate": value}
         },
         SetOptions(merge: true),
       ).whenComplete(() {
-        _liteOtherCourse.refresh();
+        switch (docWillUpdateCourse) {
+          case DocWillUpdateCourse.courses:
+            _liteCourses.refresh();
+            break;
+          case DocWillUpdateCourse.other:
+            _liteOtherCourse.refresh();
+            break;
+        }
         Get.back();
         kToast(
           'อัพเดทข้อมูลสำเร็จ',

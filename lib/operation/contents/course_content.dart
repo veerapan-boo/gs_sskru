@@ -17,6 +17,7 @@ class CourseContent extends StatelessWidget {
     return Container(
       constraints: BoxConstraints(maxWidth: kMaxWidth * .75),
       margin: EdgeInsets.only(bottom: kDefaultPadding * 8),
+      padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -43,6 +44,7 @@ class CourseContent extends StatelessWidget {
               return ListView.builder(
                 itemCount: _listOtherCourse.length,
                 shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (_, index) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,10 +63,12 @@ class CourseContent extends StatelessWidget {
                                   type: DialogEditType.titleOnly(
                                       title: _listOtherCourse[index].title!,
                                       onSubmitPress: (title) {
-                                        _courseController.updateOtherCourse(
+                                        _courseController.updateCourse(
                                             id: _listOtherCourse[index].id!,
                                             key: CourseKeys.title,
-                                            value: title);
+                                            value: title,
+                                            docWillUpdateCourse:
+                                                DocWillUpdateCourse.other);
                                       }),
                                   child: Flexible(
                                     child: Text(
@@ -82,10 +86,13 @@ class CourseContent extends StatelessWidget {
                                         type: DialogEditType.titleOnly(
                                           title: "",
                                           onSubmitPress: (title) {
-                                            _courseController.updateOtherCourse(
-                                                id: _listOtherCourse[index].id!,
-                                                key: CourseKeys.title,
-                                                value: title);
+                                            _courseController.updateCourse(
+                                              id: _listOtherCourse[index].id!,
+                                              key: CourseKeys.title,
+                                              value: title,
+                                              docWillUpdateCourse:
+                                                  DocWillUpdateCourse.other,
+                                            );
                                           },
                                         ),
                                         child: Padding(
@@ -111,10 +118,13 @@ class CourseContent extends StatelessWidget {
                                   type: DialogEditType.titleOnly(
                                       title: _listOtherCourse[index].text!,
                                       onSubmitPress: (text) {
-                                        _courseController.updateOtherCourse(
-                                            id: _listOtherCourse[index].id!,
-                                            key: CourseKeys.text,
-                                            value: text);
+                                        _courseController.updateCourse(
+                                          id: _listOtherCourse[index].id!,
+                                          key: CourseKeys.text,
+                                          value: text,
+                                          docWillUpdateCourse:
+                                              DocWillUpdateCourse.other,
+                                        );
                                       }),
                                   child: Flexible(
                                     child: Text(
@@ -134,10 +144,13 @@ class CourseContent extends StatelessWidget {
                                         type: DialogEditType.titleOnly(
                                           title: "",
                                           onSubmitPress: (text) {
-                                            _courseController.updateOtherCourse(
-                                                id: _listOtherCourse[index].id!,
-                                                key: CourseKeys.text,
-                                                value: text);
+                                            _courseController.updateCourse(
+                                              id: _listOtherCourse[index].id!,
+                                              key: CourseKeys.text,
+                                              value: text,
+                                              docWillUpdateCourse:
+                                                  DocWillUpdateCourse.other,
+                                            );
                                           },
                                         ),
                                         child: Padding(
@@ -163,10 +176,13 @@ class CourseContent extends StatelessWidget {
                                   type: DialogEditType.linkOnly(
                                       link: _listOtherCourse[index].link!,
                                       onSubmitPress: (link) {
-                                        _courseController.updateOtherCourse(
-                                            id: _listOtherCourse[index].id!,
-                                            key: CourseKeys.link,
-                                            value: link);
+                                        _courseController.updateCourse(
+                                          id: _listOtherCourse[index].id!,
+                                          key: CourseKeys.link,
+                                          value: link,
+                                          docWillUpdateCourse:
+                                              DocWillUpdateCourse.other,
+                                        );
                                       }),
                                   child: KTextLink(
                                     onPressed: () {
@@ -187,10 +203,13 @@ class CourseContent extends StatelessWidget {
                                         type: DialogEditType.linkOnly(
                                           link: "",
                                           onSubmitPress: (link) {
-                                            _courseController.updateOtherCourse(
-                                                id: _listOtherCourse[index].id!,
-                                                key: CourseKeys.link,
-                                                value: link);
+                                            _courseController.updateCourse(
+                                              id: _listOtherCourse[index].id!,
+                                              key: CourseKeys.link,
+                                              value: link,
+                                              docWillUpdateCourse:
+                                                  DocWillUpdateCourse.other,
+                                            );
                                           },
                                         ),
                                         child: Padding(
