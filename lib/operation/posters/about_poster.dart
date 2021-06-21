@@ -1,33 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gs_sskru/util/constants.dart';
 
 class AboutPoster extends StatelessWidget {
+  final ImageProvider _imagePosterThree = AssetImage(
+    'assets/images/sskru_poster2.jpg',
+  );
   @override
   Widget build(BuildContext context) {
     return Container(
       height: kDefaultPadding * 20,
-      constraints: BoxConstraints(maxWidth: kMaxWidth),
       child: Row(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0),
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'เกี่ยวกับ',
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 40),
+          Expanded(
+            flex: 1,
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: _imagePosterThree,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  Text(
-                    'มหาวิทยาลัยราชภัฏศรีสะเกษ',
-                    style: TextStyle(fontWeight: FontWeight.w300, fontSize: 22),
+                ),
+                Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'เกี่ยวกับบัญฑิต',
+                      style: context
+                          .responsiveValue(
+                              desktop: context.textTheme.headline2,
+                              tablet: context.textTheme.headline2,
+                              mobile: context.textTheme.headline4)!
+                          .copyWith(color: Colors.white),
+                    ),
                   ),
-                ],
-              ),
+                )
+              ],
             ),
-          ),
+          )
         ],
       ),
     );
