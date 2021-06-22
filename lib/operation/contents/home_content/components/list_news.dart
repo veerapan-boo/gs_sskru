@@ -155,8 +155,8 @@ class _ListNewsState extends State<ListNews> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     color: _isHover
-                                        ? Colors.black87
-                                        : Colors.black87.withOpacity(.5),
+                                        ? kPrimaryColor
+                                        : Colors.black87.withOpacity(.75),
                                   ),
                                 ),
                               ),
@@ -191,7 +191,7 @@ class _ListNewsState extends State<ListNews> {
                 child: FormActionLink(
                   inputWidth: _inputWidth,
                   type: FormActionLinkType.all(
-                    onSubmitPress: () => _editLinkToDatabase,
+                    onSubmitPress: _editLinkToDatabase,
                     title: 'ข้อความข่าว',
                     link: 'ลิงค์ข้อความข่าว',
                     textController: _textController,
@@ -202,16 +202,15 @@ class _ListNewsState extends State<ListNews> {
                       _isEdit = false;
                     });
                   },
-                  // onSubmitPress: () => _editLinkToDatabase,
                   isLoading: _isLoading,
                 ),
               ),
             if (widget.spaceBottom) ...{
               SizedBox(height: 30),
             } else ...{
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              Container(
+                margin: const EdgeInsets.symmetric(
+                    horizontal: kDefaultPadding, vertical: 2),
                 child: Divider(height: 0, color: Colors.grey[300]),
               ),
             }
@@ -230,6 +229,7 @@ class _ListNewsState extends State<ListNews> {
   }
 
   _editLinkToDatabase() async {
+    print('editing...');
     try {
       setState(() {
         _isLoading = true;
