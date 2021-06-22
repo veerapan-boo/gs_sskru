@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/components/k_launchURL.dart';
 import 'package:gs_sskru/controllers/contact_controller.dart';
+import 'package:gs_sskru/data/data_contact.dart';
 import 'package:gs_sskru/models/contact_model.dart';
 import 'package:gs_sskru/operation/posters/home_poster/components/contact_on_hove.dart';
 import 'package:gs_sskru/util/constants.dart';
@@ -37,7 +38,7 @@ class ContactDesktop extends GetView<ContactController> {
                 ),
               ),
               Text(
-                "099-9999-999",
+                phoneNumber,
                 style: context.textTheme.subtitle1!.copyWith(
                   color: kPrimaryColor,
                 ),
