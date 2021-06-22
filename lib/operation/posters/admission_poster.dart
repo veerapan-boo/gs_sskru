@@ -8,6 +8,8 @@ import 'package:gs_sskru/util/constants.dart';
 class AdmissionPoster extends StatelessWidget {
   final _addmissionController = Get.find<AddmissionController>();
 
+  final _initTitle = "การรับสมัครนักศึกษา";
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +27,7 @@ class AdmissionPoster extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "การรับสมัครนักศึกษา",
+                        _initTitle,
                         style: context
                             .responsiveValue(
                                 desktop: context.textTheme.headline4,
@@ -50,7 +52,8 @@ class AdmissionPoster extends StatelessWidget {
                               mobile: context.width - (kDefaultPadding * 2),
                             ),
                             child: KDialogEdit(
-                              maxLines: 4,
+                              title: _initTitle,
+                              maxLines: 8,
                               direction: DirectionDialogEdit.forCenter,
                               type: DialogEditType.titleOnly(
                                 title: _addmissionController.getDescription,

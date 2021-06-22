@@ -27,6 +27,9 @@ class BoxCoursePosterDegreeTwo extends StatelessWidget {
   final _firebaseAuthServiceController =
       Get.find<FirebaseAuthServiceController>();
 
+  final _titleAddTitleCourse = "เพิ่มหัวข้อหลักสูตร";
+  final _titleAddLinkCourse = "เพิ่มลิงค์หลักสูตร";
+
   @override
   Widget build(BuildContext context) {
     double deadlineDateSize = context.responsiveValue(
@@ -72,6 +75,7 @@ class BoxCoursePosterDegreeTwo extends StatelessWidget {
                 SizedBox(height: kDefaultPadding),
                 if (courseData.title != "") ...{
                   KDialogEdit(
+                    title: courseData.title,
                     direction: DirectionDialogEdit.forCenter,
                     type: DialogEditType.titleOnly(
                         title: courseData.title!,
@@ -100,6 +104,7 @@ class BoxCoursePosterDegreeTwo extends StatelessWidget {
                 } else ...{
                   _firebaseAuthServiceController.getIsAuthenticated
                       ? KDialogEdit(
+                          title: _titleAddTitleCourse,
                           onPressShowDialogOnChild: true,
                           direction: DirectionDialogEdit.forCenter,
                           type: DialogEditType.titleOnly(
@@ -117,7 +122,7 @@ class BoxCoursePosterDegreeTwo extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4.0),
                             child: Text(
-                              'เพิ่มหัวข้อ',
+                              _titleAddTitleCourse,
                               style: context.textTheme.subtitle1!.copyWith(
                                 color: kPrimaryColor,
                                 fontSize: context.textTheme.subtitle1!.fontSize,
@@ -129,6 +134,9 @@ class BoxCoursePosterDegreeTwo extends StatelessWidget {
                 },
                 if (courseData.link != "") ...{
                   KDialogEdit(
+                    title: courseData.title != ""
+                        ? "ลิงค์${courseData.title}"
+                        : notFound,
                     direction: DirectionDialogEdit.forCenter,
                     type: DialogEditType.linkOnly(
                         link: courseData.link!,
@@ -150,6 +158,7 @@ class BoxCoursePosterDegreeTwo extends StatelessWidget {
                 } else ...{
                   _firebaseAuthServiceController.getIsAuthenticated
                       ? KDialogEdit(
+                          title: _titleAddLinkCourse,
                           onPressShowDialogOnChild: true,
                           direction: DirectionDialogEdit.forCenter,
                           type: DialogEditType.linkOnly(
@@ -167,7 +176,7 @@ class BoxCoursePosterDegreeTwo extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4.0),
                             child: Text(
-                              'เพิ่มลิงค์',
+                              _titleAddLinkCourse,
                               style: context.textTheme.subtitle1!.copyWith(
                                 color: kPrimaryColor,
                                 fontSize: context.textTheme.subtitle1!.fontSize,

@@ -12,13 +12,11 @@ import 'package:gs_sskru/util/constants.dart';
 class BoxCoursePosterDegreeOne extends StatelessWidget {
   BoxCoursePosterDegreeOne({
     Key? key,
-    required this.data,
     required this.title,
     required this.context,
   })  : _imageOne = AssetImage('assets/images/book1.png'),
         super(key: key);
 
-  final List data;
   final TitleLinkModel title;
   final BuildContext context;
   final ImageProvider _imageOne;
@@ -27,6 +25,8 @@ class BoxCoursePosterDegreeOne extends StatelessWidget {
   final _firebaseAuthServiceController =
       Get.find<FirebaseAuthServiceController>();
 
+  final _titleAddTitleCourse = "เพิ่มหัวข้อหลักสูตร";
+  final _titleAddLinkCourse = "เพิ่มลิงค์หลักสูตร";
   @override
   Widget build(BuildContext context) {
     double deadlineDateSize = context.responsiveValue(
@@ -70,9 +70,11 @@ class BoxCoursePosterDegreeOne extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                // * Title
                 SizedBox(height: kDefaultPadding),
                 if (courseData.title != "") ...{
                   KDialogEdit(
+                    title: courseData.title,
                     direction: DirectionDialogEdit.forCenter,
                     type: DialogEditType.titleOnly(
                         title: courseData.title!,
@@ -101,6 +103,7 @@ class BoxCoursePosterDegreeOne extends StatelessWidget {
                 } else ...{
                   _firebaseAuthServiceController.getIsAuthenticated
                       ? KDialogEdit(
+                          title: _titleAddTitleCourse,
                           onPressShowDialogOnChild: true,
                           direction: DirectionDialogEdit.forCenter,
                           type: DialogEditType.titleOnly(
@@ -117,7 +120,7 @@ class BoxCoursePosterDegreeOne extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4.0),
                             child: Text(
-                              'เพิ่มหัวข้อ',
+                              _titleAddTitleCourse,
                               style: context.textTheme.subtitle1!.copyWith(
                                 color: kPrimaryColor,
                                 fontSize: context.textTheme.subtitle1!.fontSize,
@@ -127,8 +130,12 @@ class BoxCoursePosterDegreeOne extends StatelessWidget {
                         )
                       : SizedBox()
                 },
+                // * Link
                 if (courseData.link != "") ...{
                   KDialogEdit(
+                    title: courseData.title != ""
+                        ? "ลิงค์${courseData.title}"
+                        : notFound,
                     direction: DirectionDialogEdit.forCenter,
                     type: DialogEditType.linkOnly(
                         link: courseData.link!,
@@ -150,6 +157,7 @@ class BoxCoursePosterDegreeOne extends StatelessWidget {
                 } else ...{
                   _firebaseAuthServiceController.getIsAuthenticated
                       ? KDialogEdit(
+                          title: _titleAddLinkCourse,
                           onPressShowDialogOnChild: true,
                           direction: DirectionDialogEdit.forCenter,
                           type: DialogEditType.linkOnly(
@@ -167,7 +175,7 @@ class BoxCoursePosterDegreeOne extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4.0),
                             child: Text(
-                              'เพิ่มลิงค์',
+                              _titleAddLinkCourse,
                               style: context.textTheme.subtitle1!.copyWith(
                                 color: kPrimaryColor,
                                 fontSize: context.textTheme.subtitle1!.fontSize,

@@ -10,6 +10,7 @@ import 'package:gs_sskru/util/constants.dart';
 class EducationJoinUp extends StatelessWidget {
   final _navBarMenuController = Get.find<NavBarMenuController>();
   final _newsController = Get.find<NewsController>();
+  final title = "ข่าวรับสมัคร";
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class EducationJoinUp extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'ข่าวรับสมัคร',
+                      title,
                       style: context.textTheme.headline4!.copyWith(
                         color: Colors.white,
                       ),
@@ -45,11 +46,14 @@ class EducationJoinUp extends StatelessWidget {
                       width: 180,
                     ),
                     SizedBox(height: kDefaultPadding * 2),
+                    // * Text description
                     Obx(
                       () {
                         String descriptionJoinUp =
                             _newsController.getEducationJoinUpDescription;
                         return KDialogEdit(
+                          title: title,
+                          maxLines: 4,
                           child: Container(
                             width: context.isPhone
                                 ? context.width - kDefaultPadding * 2
@@ -92,6 +96,7 @@ class EducationJoinUp extends StatelessWidget {
                         );
                       },
                     ),
+                    // * Button enroll
                     SizedBox(height: kDefaultPadding),
                     KTextLink(
                       text: 'สมัครตอนนี้',

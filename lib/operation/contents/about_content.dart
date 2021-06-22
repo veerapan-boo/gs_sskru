@@ -12,6 +12,8 @@ class AboutContent extends StatelessWidget {
   final _aboutController = Get.find<AboutController>();
   final _firebaseAuthServiceController =
       Get.find<FirebaseAuthServiceController>();
+
+  final _initTitle = "เพิ่มหัวข้อ";
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,6 +49,7 @@ class AboutContent extends StatelessWidget {
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (_, index) {
+                  bool isNotEmptyTitle = _listAbouts[index].title!.isNotEmpty;
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -58,8 +61,9 @@ class AboutContent extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (_listAbouts[index].title != "") ...{
+                              if (isNotEmptyTitle) ...{
                                 KDialogEdit(
+                                  title: _listAbouts[index].title,
                                   direction: DirectionDialogEdit.forLeft,
                                   type: DialogEditType.titleOnly(
                                       title: _listAbouts[index].title!,
@@ -82,6 +86,7 @@ class AboutContent extends StatelessWidget {
                                 _firebaseAuthServiceController
                                         .getIsAuthenticated
                                     ? KDialogEdit(
+                                        title: _initTitle,
                                         onPressShowDialogOnChild: true,
                                         direction: DirectionDialogEdit.forLeft,
                                         type: DialogEditType.titleOnly(
@@ -115,6 +120,9 @@ class AboutContent extends StatelessWidget {
                               SizedBox(height: 8),
                               if (_listAbouts[index].text != "") ...{
                                 KDialogEdit(
+                                  title: isNotEmptyTitle
+                                      ? _listAbouts[index].title
+                                      : _initTitle,
                                   direction: DirectionDialogEdit.forLeft,
                                   type: DialogEditType.titleOnly(
                                       title: _listAbouts[index].text!,
@@ -140,6 +148,9 @@ class AboutContent extends StatelessWidget {
                                 _firebaseAuthServiceController
                                         .getIsAuthenticated
                                     ? KDialogEdit(
+                                        title: isNotEmptyTitle
+                                            ? _listAbouts[index].title
+                                            : _initTitle,
                                         onPressShowDialogOnChild: true,
                                         direction: DirectionDialogEdit.forLeft,
                                         type: DialogEditType.titleOnly(
@@ -173,6 +184,9 @@ class AboutContent extends StatelessWidget {
                               SizedBox(height: 8),
                               if (_listAbouts[index].link != "") ...{
                                 KDialogEdit(
+                                  title: isNotEmptyTitle
+                                      ? _listAbouts[index].title
+                                      : _initTitle,
                                   direction: DirectionDialogEdit.forLeft,
                                   type: DialogEditType.linkOnly(
                                       link: _listAbouts[index].link!,
@@ -199,6 +213,9 @@ class AboutContent extends StatelessWidget {
                                 _firebaseAuthServiceController
                                         .getIsAuthenticated
                                     ? KDialogEdit(
+                                        title: isNotEmptyTitle
+                                            ? _listAbouts[index].title
+                                            : _initTitle,
                                         onPressShowDialogOnChild: true,
                                         direction: DirectionDialogEdit.forLeft,
                                         type: DialogEditType.linkOnly(
