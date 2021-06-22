@@ -14,8 +14,7 @@ class CoursePoster extends StatelessWidget {
       children: [
         Expanded(
           flex: 1,
-          child: BoxCoursePosterDegreeOne(
-              data: [], title: title, context: context),
+          child: BoxCoursePosterDegreeOne(title: title, context: context),
         ),
         SizedBox(
           height: 220,
@@ -31,7 +30,7 @@ class CoursePoster extends StatelessWidget {
 
     var column = Column(
       children: [
-        BoxCoursePosterDegreeOne(data: [], title: title, context: context),
+        BoxCoursePosterDegreeOne(title: title, context: context),
         SizedBox(
           height: 100,
           width: context.width - (kDefaultPadding * 2),

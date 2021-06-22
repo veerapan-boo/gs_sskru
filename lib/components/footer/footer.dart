@@ -46,10 +46,10 @@ class _FooterState extends State<Footer> {
 
     return SliverToBoxAdapter(
       child: Container(
-        height: kDefaultPadding * 30,
+        height: kDefaultPadding * 34,
         color: kDarkBlackColor.withOpacity(.9),
         child: ListView(
-          physics: const BouncingScrollPhysics(),
+          physics: NeverScrollableScrollPhysics(),
           children: [
             Column(
               children: [
@@ -178,9 +178,8 @@ class _FooterState extends State<Footer> {
               )
             ],
           ),
-          Divider(
-            height: 80,
-            color: Colors.white24,
+          SizedBox(
+            height: 40,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

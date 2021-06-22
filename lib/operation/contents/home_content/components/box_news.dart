@@ -114,7 +114,13 @@ class _BoxNewsState extends State<BoxNews> {
           } else ...{
             if (!_isAddNews)
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.only(
+                  right: context.responsiveValue(
+                    desktop: kDefaultPadding * 1.6,
+                    tablet: kDefaultPadding * 1.6,
+                    mobile: 12,
+                  )!,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

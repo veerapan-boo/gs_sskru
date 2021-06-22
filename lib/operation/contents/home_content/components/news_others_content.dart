@@ -33,21 +33,18 @@ class NewsOthersContent extends GetView<NewsController> {
             children: [
               Expanded(
                 flex: 1,
-                child: Container(
-                  color: Colors.red,
-                  child: Obx(
-                    () => GetSize(
-                      onChange: (size) {
-                        if (size.height > imageMinHeight)
-                          updateheightValue!(size.height);
-                      },
-                      child: BoxNews(
-                        contentWidth: contentWidth,
-                        title:
-                            TitleLinkModel().getValue.data![0].subTitle[1].text,
-                        type: 1,
-                        data: controller.getListTypeOneOnly,
-                      ),
+                child: Obx(
+                  () => GetSize(
+                    onChange: (size) {
+                      if (size.height > imageMinHeight)
+                        updateheightValue!(size.height);
+                    },
+                    child: BoxNews(
+                      contentWidth: contentWidth,
+                      title:
+                          TitleLinkModel().getValue.data![0].subTitle[1].text,
+                      type: 1,
+                      data: controller.getListTypeOneOnly,
                     ),
                   ),
                 ),

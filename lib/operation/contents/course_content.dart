@@ -12,6 +12,10 @@ class CourseContent extends StatelessWidget {
   final _courseController = Get.find<CourseController>();
   final _firebaseAuthServiceController =
       Get.find<FirebaseAuthServiceController>();
+
+  final _titleAddTitle = "เพิ่มหัวข้อ";
+  final _titleAddText = "เพิ่มข้อความ";
+  final _titleLinkCourse = "ลิงค์เนื้อหาหลักสูตร";
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,6 +50,8 @@ class CourseContent extends StatelessWidget {
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (_, index) {
+                  bool isOtherCourseTitleNotEmpty =
+                      _listOtherCourse[index].title != "";
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -57,8 +63,10 @@ class CourseContent extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (_listOtherCourse[index].title != "") ...{
+                              // * Title
+                              if (isOtherCourseTitleNotEmpty) ...{
                                 KDialogEdit(
+                                  title: _listOtherCourse[index].title,
                                   direction: DirectionDialogEdit.forLeft,
                                   type: DialogEditType.titleOnly(
                                       title: _listOtherCourse[index].title!,
@@ -81,6 +89,7 @@ class CourseContent extends StatelessWidget {
                                 _firebaseAuthServiceController
                                         .getIsAuthenticated
                                     ? KDialogEdit(
+                                        title: _titleAddTitle,
                                         onPressShowDialogOnChild: true,
                                         direction: DirectionDialogEdit.forLeft,
                                         type: DialogEditType.titleOnly(
@@ -99,7 +108,7 @@ class CourseContent extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 4.0),
                                           child: Text(
-                                            'เพิ่มหัวข้อ',
+                                            _titleAddTitle,
                                             style: context.textTheme.subtitle1!
                                                 .copyWith(
                                               color: kPrimaryColor,
@@ -112,8 +121,13 @@ class CourseContent extends StatelessWidget {
                                     : SizedBox()
                               },
                               SizedBox(height: 8),
+                              // * Text description
                               if (_listOtherCourse[index].text != "") ...{
                                 KDialogEdit(
+                                  title: isOtherCourseTitleNotEmpty
+                                      ? "เนื้อหา${_listOtherCourse[index].title}"
+                                      : notFound,
+                                  maxLines: 3,
                                   direction: DirectionDialogEdit.forLeft,
                                   type: DialogEditType.titleOnly(
                                       title: _listOtherCourse[index].text!,
@@ -139,6 +153,8 @@ class CourseContent extends StatelessWidget {
                                 _firebaseAuthServiceController
                                         .getIsAuthenticated
                                     ? KDialogEdit(
+                                        title: "เนื้อหา$_titleAddText",
+                                        maxLines: 3,
                                         onPressShowDialogOnChild: true,
                                         direction: DirectionDialogEdit.forLeft,
                                         type: DialogEditType.titleOnly(
@@ -157,7 +173,7 @@ class CourseContent extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 4.0),
                                           child: Text(
-                                            'เพิ่มข้อความ',
+                                            "เนื้อหา$_titleAddText",
                                             style: context.textTheme.subtitle1!
                                                 .copyWith(
                                               color: kPrimaryColor,
@@ -172,6 +188,7 @@ class CourseContent extends StatelessWidget {
                               SizedBox(height: 8),
                               if (_listOtherCourse[index].link != "") ...{
                                 KDialogEdit(
+                                  title: _titleLinkCourse,
                                   direction: DirectionDialogEdit.forLeft,
                                   type: DialogEditType.linkOnly(
                                       link: _listOtherCourse[index].link!,
@@ -198,6 +215,7 @@ class CourseContent extends StatelessWidget {
                                 _firebaseAuthServiceController
                                         .getIsAuthenticated
                                     ? KDialogEdit(
+                                        title: "เพิ่ม$_titleLinkCourse",
                                         onPressShowDialogOnChild: true,
                                         direction: DirectionDialogEdit.forLeft,
                                         type: DialogEditType.linkOnly(
@@ -216,7 +234,7 @@ class CourseContent extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 4.0),
                                           child: Text(
-                                            'เพิ่มลิงค์',
+                                            "เพิ่ม$_titleLinkCourse",
                                             style: context.textTheme.subtitle1!
                                                 .copyWith(
                                               color: kPrimaryColor,

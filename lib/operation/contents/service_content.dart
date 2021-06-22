@@ -43,6 +43,7 @@ class ServiceContent extends GetView<ServiceController> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 2),
                     child: KDialogEdit(
+                      title: "ลิงค์${_elemSubTitle.text}",
                       child: KTextLink(
                         text: _elemSubTitle.text!,
                         colors: Colors.black54,

@@ -17,6 +17,11 @@ class AdmissionContent extends StatelessWidget {
   final _addmissionController = Get.find<AddmissionController>();
   final _firebaseAuthServiceController =
       Get.find<FirebaseAuthServiceController>();
+
+  final _titleTimeOut = "ระยะเวลาหมดเขตรับสมัคร";
+  final _titleAddLinkJoinUp = "เพิ่มลิงค์สมัคร";
+  final _titleDialogLinkJoinUp = "ลิงค์สมัคร";
+  final _titleJoinUp = "สมัครเรียน";
   @override
   Widget build(BuildContext context) {
     final title = TitleLinkModel().getValue;
@@ -83,6 +88,7 @@ class AdmissionContent extends StatelessWidget {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
+        // * Image cap
         Positioned.fill(
           child: Align(
             alignment: Alignment.topCenter,
@@ -106,6 +112,7 @@ class AdmissionContent extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              // * Title
               Text(
                 enroll[0].type != null
                     ? "ระดับ${title.data![2].subTitle[enroll[0].type!].text}"
@@ -119,7 +126,9 @@ class AdmissionContent extends StatelessWidget {
                       color: Colors.black54,
                     ),
               ),
+              // * Time out
               KDialogEdit(
+                title: _titleTimeOut,
                 direction: DirectionDialogEdit.forCenter,
                 type: DialogEditType.titleOnly(
                     title: enroll[0].duration ?? notFound,
@@ -143,9 +152,11 @@ class AdmissionContent extends StatelessWidget {
                         ),
                       ),
               ),
+              // * Join up link
               if (enroll.isNotEmpty)
                 if (enroll[0].applyLink != "") ...{
                   KDialogEdit(
+                    title: _titleDialogLinkJoinUp,
                     direction: DirectionDialogEdit.forCenter,
                     type: DialogEditType.linkOnly(
                         link: enroll[0].applyLink!,
@@ -157,7 +168,7 @@ class AdmissionContent extends StatelessWidget {
                         }),
                     child: KTextButton(
                       onPressed: () => k_launchURL(url: enroll[0].applyLink!),
-                      text: 'สมัครเรียน',
+                      text: _titleJoinUp,
                       mainAxisAlignment: MainAxisAlignment.center,
                       textSize: deadlineDateSize,
                     ),
@@ -165,6 +176,7 @@ class AdmissionContent extends StatelessWidget {
                 } else ...{
                   _firebaseAuthServiceController.getIsAuthenticated
                       ? KDialogEdit(
+                          title: _titleAddLinkJoinUp,
                           onPressShowDialogOnChild: true,
                           direction: DirectionDialogEdit.forCenter,
                           type: DialogEditType.linkOnly(
@@ -179,7 +191,7 @@ class AdmissionContent extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4.0),
                             child: Text(
-                              'เพิ่มลิงค์สมัคร',
+                              _titleAddLinkJoinUp,
                               style: context.textTheme.subtitle1!.copyWith(
                                 color: kPrimaryColor,
                                 fontSize: context.textTheme.subtitle1!.fontSize,
@@ -209,6 +221,7 @@ class AdmissionContent extends StatelessWidget {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
+        // * Image cap
         Positioned.fill(
           child: Align(
             alignment: Alignment.topCenter,
@@ -228,11 +241,13 @@ class AdmissionContent extends StatelessWidget {
             ),
           ),
         ),
+
         Container(
           height: 240,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              // * Title
               Text(
                 enroll[1].type != null
                     ? "ระดับ${title.data![2].subTitle[enroll[1].type!].text}"
@@ -247,7 +262,9 @@ class AdmissionContent extends StatelessWidget {
                       color: Colors.black54,
                     ),
               ),
+              // * Time out
               KDialogEdit(
+                title: _titleTimeOut,
                 direction: DirectionDialogEdit.forCenter,
                 type: DialogEditType.titleOnly(
                     title: enroll[1].duration ?? notFound,
@@ -271,9 +288,11 @@ class AdmissionContent extends StatelessWidget {
                         ),
                       ),
               ),
+              // * Join up link
               if (enroll.isNotEmpty)
                 if (enroll[1].applyLink != "") ...{
                   KDialogEdit(
+                    title: _titleDialogLinkJoinUp,
                     direction: DirectionDialogEdit.forCenter,
                     type: DialogEditType.linkOnly(
                         link: enroll[1].applyLink!,
@@ -285,7 +304,7 @@ class AdmissionContent extends StatelessWidget {
                         }),
                     child: KTextButton(
                       onPressed: () => k_launchURL(url: enroll[1].applyLink!),
-                      text: 'สมัครเรียน',
+                      text: _titleJoinUp,
                       mainAxisAlignment: MainAxisAlignment.center,
                       textSize: deadlineDateSize,
                     ),
@@ -293,6 +312,7 @@ class AdmissionContent extends StatelessWidget {
                 } else ...{
                   _firebaseAuthServiceController.getIsAuthenticated
                       ? KDialogEdit(
+                          title: _titleAddLinkJoinUp,
                           onPressShowDialogOnChild: true,
                           direction: DirectionDialogEdit.forCenter,
                           type: DialogEditType.linkOnly(
@@ -307,7 +327,7 @@ class AdmissionContent extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4.0),
                             child: Text(
-                              'เพิ่มลิงค์สมัคร',
+                              _titleAddLinkJoinUp,
                               style: context.textTheme.subtitle1!.copyWith(
                                 color: kPrimaryColor,
                                 fontSize: context.textTheme.subtitle1!.fontSize,
