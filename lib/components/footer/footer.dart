@@ -152,7 +152,7 @@ class _FooterState extends State<Footer> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              headTitle('Follow Up'),
+              headTitle('ติดต่อ'),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -178,6 +178,21 @@ class _FooterState extends State<Footer> {
               )
             ],
           ),
+          Divider(
+            height: 80,
+            color: Colors.white24,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "มหาวิทยาลัยราชภัฏศรีสะเกษ © 2021",
+                style: TextStyle(
+                  color: Colors.white70,
+                ),
+              )
+            ],
+          )
         ],
       ),
     );
@@ -279,26 +294,31 @@ class _FooterState extends State<Footer> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  headTitle('Follow Up'),
+                  headTitle('ติดต่อ'),
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Row(
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(right: 16),
-                          child: InkWell(
-                            onTap: () {
-                              k_launchURL(url: facebookLink);
-                            },
-                            child: FaIcon(
-                              FontAwesomeIcons.facebook,
-                              color: Colors.white60,
-                            ),
+                        InkWell(
+                          onTap: () {
+                            k_launchURL(url: facebookLink);
+                          },
+                          child: FaIcon(
+                            FontAwesomeIcons.facebook,
+                            color: Colors.white60,
                           ),
                         ),
+                        SizedBox(width: kDefaultPadding),
                         FaIcon(
                           FontAwesomeIcons.line,
                           color: Colors.white60,
+                        ),
+                        SizedBox(width: kDefaultPadding),
+                        Text(
+                          phoneNumber,
+                          style: TextStyle(
+                            color: Colors.white70,
+                          ),
                         ),
                       ],
                     ),
@@ -306,6 +326,22 @@ class _FooterState extends State<Footer> {
                 ],
               ),
             ),
+          ],
+        ),
+        // * Copyright
+        Divider(
+          height: 80,
+          color: Colors.white24,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "มหาวิทยาลัยราชภัฏศรีสะเกษ © 2021",
+              style: TextStyle(
+                color: Colors.white70,
+              ),
+            )
           ],
         )
       ],
