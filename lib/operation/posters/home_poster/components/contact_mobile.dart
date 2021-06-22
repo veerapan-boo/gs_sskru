@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:gs_sskru/components/k_launchURL.dart';
+import 'package:gs_sskru/data/data_contact.dart';
 import 'package:gs_sskru/util/constants.dart';
 
 class ContactMobile extends StatelessWidget {
@@ -42,7 +44,7 @@ class ContactMobile extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "099-9999-999",
+                      phoneNumber,
                       style: textCaption.copyWith(
                         color: kPrimaryColor,
                       ),
@@ -51,43 +53,48 @@ class ContactMobile extends StatelessWidget {
                 ),
               ),
               SizedBox(width: kDefaultPadding),
-              Container(
-                width: _width,
-                padding: EdgeInsets.symmetric(
-                  vertical: kDefaultPadding * .55,
-                  horizontal: kDefaultPadding,
-                ),
-                decoration: BoxDecoration(
-                  color: kPrimaryColor,
-                  border: Border.all(
-                    color: kPrimaryColor,
-                    width: 1,
+              InkWell(
+                onTap: () {
+                  k_launchURL(url: facebookLink);
+                },
+                child: Container(
+                  width: _width,
+                  padding: EdgeInsets.symmetric(
+                    vertical: kDefaultPadding * .55,
+                    horizontal: kDefaultPadding,
                   ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(right: kDefaultPadding * .55),
-                      child: FaIcon(
-                        FontAwesomeIcons.facebookF,
-                        color: Colors.white,
-                        size: textCaption.fontSize,
-                      ),
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor,
+                    border: Border.all(
+                      color: kPrimaryColor,
+                      width: 1,
                     ),
-                    Flexible(
-                      child: Text(
-                        "Facebook Page",
-                        overflow: TextOverflow.clip,
-                        softWrap: false,
-                        style: textCaption.copyWith(
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(right: kDefaultPadding * .55),
+                        child: FaIcon(
+                          FontAwesomeIcons.facebookF,
                           color: Colors.white,
+                          size: textCaption.fontSize,
                         ),
                       ),
-                    ),
-                  ],
+                      Flexible(
+                        child: Text(
+                          "Facebook Page",
+                          overflow: TextOverflow.clip,
+                          softWrap: false,
+                          style: textCaption.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],

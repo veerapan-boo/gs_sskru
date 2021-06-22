@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:gs_sskru/components/k_launchURL.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 import 'package:gs_sskru/controllers/service_controller.dart';
+import 'package:gs_sskru/data/data_contact.dart';
 import 'package:gs_sskru/models/service_model.dart';
 import 'package:gs_sskru/models/title_link_model.dart';
 import 'package:gs_sskru/util/constants.dart';
@@ -285,16 +286,14 @@ class _FooterState extends State<Footer> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(right: 16),
-                          child: FaIcon(
-                            FontAwesomeIcons.facebook,
-                            color: Colors.white60,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 16),
-                          child: FaIcon(
-                            FontAwesomeIcons.instagram,
-                            color: Colors.white60,
+                          child: InkWell(
+                            onTap: () {
+                              k_launchURL(url: facebookLink);
+                            },
+                            child: FaIcon(
+                              FontAwesomeIcons.facebook,
+                              color: Colors.white60,
+                            ),
                           ),
                         ),
                         FaIcon(
