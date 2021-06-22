@@ -24,7 +24,7 @@ class NewsController extends GetxController {
   }
 
   void addLinkModelToList(LinkModel value) {
-    _linkModel.add(value);
+    _linkModel.insert(0, value);
   }
 
   void updateLinkModelInList(

@@ -64,7 +64,8 @@ class _BoxNewsState extends State<BoxNews> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.all(kDefaultPadding * 1.5),
+            padding: const EdgeInsets.only(
+                top: kDefaultPadding * 2.5, bottom: kDefaultPadding),
             child: Text(
               widget.title,
               style: context.textTheme.headline5,
