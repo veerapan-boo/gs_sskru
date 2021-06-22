@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gs_sskru/operation/posters/home_poster/components/home_poster_contect.dart';
+import 'package:gs_sskru/operation/posters/home_poster/components/home_poster_contact.dart';
 import 'package:gs_sskru/util/constants.dart';
 
 class TitleHeader extends StatefulWidget {
