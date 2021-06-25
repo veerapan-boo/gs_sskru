@@ -46,7 +46,11 @@ class _FooterState extends State<Footer> {
 
     return SliverToBoxAdapter(
       child: Container(
-        height: kDefaultPadding * 34,
+        height: context.responsiveValue(
+          desktop: kDefaultPadding * 30,
+          tablet: kDefaultPadding * 28,
+          mobile: kDefaultPadding * 27,
+        ),
         color: kDarkBlackColor.withOpacity(.9),
         child: ListView(
           physics: NeverScrollableScrollPhysics(),
@@ -178,20 +182,21 @@ class _FooterState extends State<Footer> {
               )
             ],
           ),
-          SizedBox(
-            height: 40,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "มหาวิทยาลัยราชภัฏศรีสะเกษ © 2021",
-                style: TextStyle(
-                  color: Colors.white70,
-                ),
-              )
-            ],
-          )
+          // * Copyright
+          // SizedBox(
+          //   height: 40,
+          // ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Text(
+          //       "มหาวิทยาลัยราชภัฏศรีสะเกษ © 2021",
+          //       style: TextStyle(
+          //         color: Colors.white70,
+          //       ),
+          //     )
+          //   ],
+          // )
         ],
       ),
     );
@@ -328,21 +333,21 @@ class _FooterState extends State<Footer> {
           ],
         ),
         // * Copyright
-        Divider(
-          height: 80,
-          color: Colors.white24,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "มหาวิทยาลัยราชภัฏศรีสะเกษ © 2021",
-              style: TextStyle(
-                color: Colors.white70,
-              ),
-            )
-          ],
-        )
+        // Divider(
+        //   height: 80,
+        //   color: Colors.white24,
+        // ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     Text(
+        //       "มหาวิทยาลัยราชภัฏศรีสะเกษ © 2021",
+        //       style: TextStyle(
+        //         color: Colors.white70,
+        //       ),
+        //     )
+        //   ],
+        // )
       ],
     );
   }

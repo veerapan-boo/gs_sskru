@@ -7,7 +7,7 @@ import 'package:gs_sskru/operation/contents/home_content/components/box_news.dar
 import 'package:gs_sskru/util/constants.dart';
 import 'package:gs_sskru/util/responsive.dart';
 
-class NewsOthersContent extends GetView<NewsController> {
+class NewsOthersContent extends StatelessWidget {
   final ImageProvider _imagePosterThree = AssetImage(
     'assets/images/sskru_poster3.jpg',
   );
@@ -17,6 +17,8 @@ class NewsOthersContent extends GetView<NewsController> {
   final double height = kDefaultPadding * 25;
   final double imageMinHeight = 500.0;
 
+  final _newsController = Get.find<NewsController>();
+
   @override
   Widget build(BuildContext context) {
     final double kSizeWidth = Responsive.kSizeWidth(context);
@@ -25,6 +27,7 @@ class NewsOthersContent extends GetView<NewsController> {
             kDefaultPadding;
     List<Widget> _listWidgetDesktop = [
       // Can see the type at data_type.dart
+      // * ข่าวประกาศ
       ValueBuilder<double>(
         initialValue: imageMinHeight,
         builder: (double? heightValue, Function(double)? updateheightValue) {
@@ -34,19 +37,21 @@ class NewsOthersContent extends GetView<NewsController> {
               Expanded(
                 flex: 1,
                 child: Obx(
-                  () => GetSize(
-                    onChange: (size) {
-                      if (size.height > imageMinHeight)
-                        updateheightValue!(size.height);
-                    },
-                    child: BoxNews(
-                      contentWidth: contentWidth,
-                      title:
-                          TitleLinkModel().getValue.data![0].subTitle[1].text,
-                      type: 1,
-                      data: controller.getListTypeOneOnly,
-                    ),
-                  ),
+                  () {
+                    return GetSize(
+                      onChange: (size) {
+                        if (size.height > imageMinHeight)
+                          updateheightValue!(size.height);
+                      },
+                      child: BoxNews(
+                        contentWidth: contentWidth,
+                        title:
+                            TitleLinkModel().getValue.data![0].subTitle[1].text,
+                        type: 1,
+                        data: _newsController.getListTypeOneOnly,
+                      ),
+                    );
+                  },
                 ),
               ),
               Expanded(
@@ -65,6 +70,7 @@ class NewsOthersContent extends GetView<NewsController> {
           );
         },
       ),
+      // * ข่าวทุนวิจัย
       ValueBuilder<double>(
         initialValue: imageMinHeight,
         builder: (double? heightValue, Function(double)? updateheightValue) {
@@ -97,7 +103,7 @@ class NewsOthersContent extends GetView<NewsController> {
                         title:
                             TitleLinkModel().getValue.data![0].subTitle[0].text,
                         type: 0,
-                        data: controller.getListTypeZeroOnly,
+                        data: _newsController.getListTypeZeroOnly,
                       ),
                     ),
                   ),
@@ -116,7 +122,7 @@ class NewsOthersContent extends GetView<NewsController> {
           contentWidth: context.width,
           title: TitleLinkModel().getValue.data![0].subTitle[1].text,
           type: 1,
-          data: controller.getListTypeOneOnly,
+          data: _newsController.getListTypeOneOnly,
         ),
       ),
       SizedBox(height: kDefaultPadding),
@@ -125,7 +131,7 @@ class NewsOthersContent extends GetView<NewsController> {
           contentWidth: context.width,
           title: TitleLinkModel().getValue.data![0].subTitle[0].text,
           type: 0,
-          data: controller.getListTypeZeroOnly,
+          data: _newsController.getListTypeZeroOnly,
         ),
       )
     ];

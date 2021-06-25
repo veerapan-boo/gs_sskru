@@ -38,7 +38,7 @@ class _KDialogEditState extends State<KDialogEdit> {
   late TextEditingController _linkController;
   late bool _isAuth;
 
-  bool _hovering = false;
+  bool _hovering = true;
 
   bool _isLoading = false;
 
@@ -128,48 +128,38 @@ class _KDialogEditState extends State<KDialogEdit> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => _mouseEnter(true),
-      onExit: (_) => _mouseEnter(false),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (_isAuth &&
-              widget.direction == DirectionDialogEdit.forCenter &&
-              !widget.pressShowDialogOnChild!)
-            Icon(
-              Icons.edit_outlined,
-              color: Colors.transparent,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (_isAuth &&
+            widget.direction == DirectionDialogEdit.forCenter &&
+            !widget.pressShowDialogOnChild!)
+          Icon(
+            Icons.edit_outlined,
+            color: Colors.transparent,
+            size: 16,
+          ),
+        if (widget.pressShowDialogOnChild!) ...{
+          InkWell(
+            onTap: _showDialog,
+            child: widget.child,
+          )
+        } else ...{
+          widget.child
+        },
+        if (_isAuth && !widget.pressShowDialogOnChild!) ...{
+          SizedBox(width: 4),
+          InkWell(
+            onTap: _showDialog,
+            child: Icon(
+              Icons.edit,
+              color: _hovering ? Colors.black54 : Colors.transparent,
               size: 16,
             ),
-          if (widget.pressShowDialogOnChild!) ...{
-            InkWell(
-              onTap: _showDialog,
-              child: widget.child,
-            )
-          } else ...{
-            widget.child
-          },
-          if (_isAuth && !widget.pressShowDialogOnChild!) ...{
-            SizedBox(width: 4),
-            InkWell(
-              onTap: _showDialog,
-              child: Icon(
-                Icons.edit_outlined,
-                color: _hovering ? Colors.black54 : Colors.transparent,
-                size: 16,
-              ),
-            ),
-          }
-        ],
-      ),
+          ),
+        }
+      ],
     );
-  }
-
-  void _mouseEnter(bool hover) {
-    setState(() {
-      _hovering = hover;
-    });
   }
 }
 

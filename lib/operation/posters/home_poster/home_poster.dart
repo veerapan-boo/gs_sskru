@@ -2,47 +2,57 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/operation/posters/home_poster/components/home_poster_title_header.dart';
 import 'package:gs_sskru/util/constants.dart';
-import 'package:gs_sskru/util/responsive.dart';
 
 class HomePoster extends StatelessWidget {
   final ImageProvider _imagePoster = AssetImage(
-    'assets/images/pattern_new.png',
+    'assets/images/sskru_poster1.jpg',
   );
   @override
   Widget build(BuildContext context) {
-    final double height = kDefaultPadding * 25;
-
-    bool isTablet = Responsive.isTablet(context);
-    bool isDesktop = Responsive.isDesktop(context);
-    bool isMobile = Responsive.isMobile(context);
+    final double height = kDefaultPadding * 30;
 
     return Container(
       height: context.responsiveValue(
         desktop: height,
-        tablet: height,
+        tablet: height * .75,
         mobile: height * .75,
       ),
-      constraints: BoxConstraints(maxWidth: kMaxWidth),
+      // constraints: BoxConstraints(maxWidth: kMaxWidth),
       child: Stack(
         children: [
-          if (!isMobile)
+          if (!context.isPhone)
             Positioned(
               right: 0,
               child: Container(
-                width: 500,
-                height: height,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: _imagePoster,
+                width: context.responsiveValue(
+                    desktop: context.width, tablet: 440, mobile: 0),
+                height: context.responsiveValue(
+                  desktop: height,
+                  tablet: height * .75,
+                  mobile: height * .75,
+                ),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: _imagePoster,
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
                 ),
               ),
             ),
           Positioned.fill(
+            left: context.responsiveValue(
+              desktop: kDefaultPadding * 4,
+              tablet: kDefaultPadding,
+              mobile: 0,
+            ),
             child: Align(
-              alignment: isDesktop || isTablet
-                  ? Alignment.centerLeft
-                  : Alignment.center,
+              alignment: context.responsiveValue(
+                  desktop: Alignment.centerLeft,
+                  tablet: Alignment.centerLeft,
+                  mobile: Alignment.center)!,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: Container(

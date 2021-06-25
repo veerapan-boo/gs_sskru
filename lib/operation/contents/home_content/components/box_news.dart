@@ -92,6 +92,7 @@ class _BoxNewsState extends State<BoxNews> {
           if (widget.data.isEmpty) ...{
             Container(
               padding: EdgeInsets.only(bottom: kDefaultPadding),
+              width: double.infinity,
               height: 300,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -139,7 +140,6 @@ class _BoxNewsState extends State<BoxNews> {
                   init: FirebaseAuthServiceController(),
                   builder: (_) {
                     return ListNews(
-                      key: ValueKey(index),
                       data: widget.data[index],
                       width: widget.contentWidth,
                       isAuth: _.getIsAuthenticated,

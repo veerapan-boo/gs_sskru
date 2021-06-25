@@ -10,7 +10,7 @@ import 'package:gs_sskru/util/constants.dart';
 class EducationJoinUp extends StatelessWidget {
   final _navBarMenuController = Get.find<NavBarMenuController>();
   final _newsController = Get.find<NewsController>();
-  final title = "ข่าวรับสมัคร";
+  final title = "ข่าวรับสมัครนักศึกษาระดับบัณฑิตศึกษา";
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +36,16 @@ class EducationJoinUp extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: context.textTheme.headline4!.copyWith(
-                        color: Colors.white,
-                      ),
+                      style: context.responsiveValue(
+                          desktop: context.textTheme.headline4!.copyWith(
+                            color: Colors.white,
+                          ),
+                          tablet: context.textTheme.headline5!.copyWith(
+                            color: Colors.white,
+                          ),
+                          mobile: context.textTheme.headline6!.copyWith(
+                            color: Colors.white,
+                          )),
                     ),
                     SizedBox(height: kDefaultPadding * 2),
                     SvgPicture.asset(

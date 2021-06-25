@@ -13,7 +13,10 @@ class NavBarMenuController extends GetxController {
     'เกี่ยวกับบัญฑิต',
     'รับสมัครนักศึกษา',
     'หลักสูตร',
+    'วิจัยและบริการวิชาการ',
     'บริการ',
+    'บุคลากร',
+    'ติดต่อ',
     'สำหรับเจ้าหน้าที่'
   ].obs;
 
@@ -63,6 +66,6 @@ class NavBarMenuController extends GetxController {
 
   // Set nev text after logged in
   void setMenuItemsOfAuthStatus(bool authStatus) {
-    authStatus ? _menuItems[5] = '@Admin' : _menuItems[5] = 'สำหรับเจ้าหน้าที่';
+    authStatus ? _menuItems[8] = '@Admin' : _menuItems[8] = 'สำหรับเจ้าหน้าที่';
   }
 }

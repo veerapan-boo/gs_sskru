@@ -39,6 +39,7 @@ class NewsController extends GetxController {
 
   void removeLinkModelInList({required String id}) {
     _linkModel.removeWhere((e) => e.id == id);
+    _linkModel.refresh();
   }
 
   Future<bool> fetchNewsData() async {

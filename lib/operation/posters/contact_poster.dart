@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/util/constants.dart';
 
-class ServicePoster extends StatelessWidget {
+class ContactPoster extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +19,7 @@ class ServicePoster extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'บริการบัณฑิตศึกษา',
+                    'ติดต่อบัณฑิตศึกษา',
                     style: context
                         .responsiveValue(
                           desktop: context.textTheme.headline4,

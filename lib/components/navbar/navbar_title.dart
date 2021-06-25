@@ -11,11 +11,23 @@ class NavBarTitle extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(image: DecorationImage(image: logo)),
-        ),
+        context.responsiveValue(
+          desktop: Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(image: DecorationImage(image: logo)),
+          ),
+          tablet: Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(image: DecorationImage(image: logo)),
+          ),
+          mobile: Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(image: DecorationImage(image: logo)),
+          ),
+        )!,
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
           child: Column(
@@ -23,11 +35,11 @@ class NavBarTitle extends StatelessWidget {
             children: [
               Text(
                 'สำนักงานบัณฑิตศึกษา ',
-                style: context.textTheme.subtitle1,
+                style: context.textTheme.headline6,
               ),
               Text(
                 'มหาวิทยาลัยราชภัฏศรีสะเกษ',
-                style: context.textTheme.caption,
+                style: context.textTheme.subtitle2,
               ),
             ],
           ),

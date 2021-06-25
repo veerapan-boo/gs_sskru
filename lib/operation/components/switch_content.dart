@@ -23,8 +23,11 @@ class _SwitchContentState extends State<SwitchContent>
     AboutContent(),
     AdmissionContent(),
     CourseContent(),
+    SizedBox(),
     ServiceContent(),
-    SizedBox()
+    SizedBox(),
+    SizedBox(),
+    SizedBox(),
   ];
   final _navBarMenuController = Get.find<NavBarMenuController>();
 

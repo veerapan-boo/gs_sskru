@@ -13,7 +13,7 @@ import 'package:gs_sskru/util/constants.dart';
 
 class ListNews extends StatefulWidget {
   ListNews({
-    required Key key,
+    Key? key,
     required this.data,
     required this.width,
     required this.isAuth,
@@ -30,25 +30,30 @@ class ListNews extends StatefulWidget {
 }
 
 class _ListNewsState extends State<ListNews> {
-  late LinkModel data;
   late double width;
   late double _inputWidth;
   late bool isAuth;
   late bool spaceBottom;
-  late TextEditingController _textController = TextEditingController();
-  late TextEditingController _linkController = TextEditingController();
+  late TextEditingController _textController =
+      TextEditingController(text: widget.data.text);
+  late TextEditingController _linkController =
+      TextEditingController(text: widget.data.link);
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final _newsController = Get.find<NewsController>();
   @override
   void initState() {
     super.initState();
-    data = widget.data;
     width = widget.width;
     _inputWidth = width - (kDefaultPadding * 2);
     isAuth = widget.isAuth;
     spaceBottom = widget.spaceBottom;
-    _textController = TextEditingController(text: data.text);
-    _linkController = TextEditingController(text: data.link);
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    _linkController.dispose();
+    super.dispose();
   }
 
   bool _isSlideAnimationChanged = false;
@@ -84,7 +89,7 @@ class _ListNewsState extends State<ListNews> {
             _isHover = value;
           });
         },
-        onTap: () => k_launchURL(url: data.link!),
+        onTap: () => k_launchURL(url: widget.data.link!),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -244,11 +249,11 @@ class _ListNewsState extends State<ListNews> {
 
         _firebaseFirestore
             .collection('news')
-            .doc(data.id)
+            .doc(widget.data.id)
             .update(_linkModel)
             .then((value) {
           _newsController.updateLinkModelInList(
-              id: data.id!, value: _linkModel);
+              id: widget.data.id!, value: _linkModel);
           setState(() {
             _isEdit = false;
             _isLoading = false;
@@ -280,10 +285,13 @@ class _ListNewsState extends State<ListNews> {
 
   _removeLinkOnDatabase() async {
     try {
-      setState(() {});
-      _firebaseFirestore.collection('news').doc(data.id).delete().then((value) {
+      _firebaseFirestore
+          .collection('news')
+          .doc(widget.data.id)
+          .delete()
+          .then((value) {
         Get.back();
-        _newsController.removeLinkModelInList(id: data.id!);
+        _newsController.removeLinkModelInList(id: widget.data.id!);
         setState(() {
           _isEdit = false;
         });

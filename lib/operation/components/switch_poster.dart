@@ -5,6 +5,7 @@ import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 import 'package:gs_sskru/operation/posters/about_poster.dart';
 import 'package:gs_sskru/operation/posters/admin_poster/admin_poster.dart';
 import 'package:gs_sskru/operation/posters/admission_poster.dart';
+import 'package:gs_sskru/operation/posters/contact_poster.dart';
 import 'package:gs_sskru/operation/posters/course_poster/course_poster.dart';
 import 'package:gs_sskru/operation/posters/home_poster/home_poster.dart';
 import 'package:gs_sskru/operation/posters/service_poster.dart';
@@ -21,7 +22,10 @@ class _SwitchPosterState extends State<SwitchPoster>
     AboutPoster(),
     AdmissionPoster(),
     CoursePoster(),
+    SizedBox(),
     ServicePoster(),
+    SizedBox(),
+    ContactPoster(),
     AdminPoster(),
   ];
 

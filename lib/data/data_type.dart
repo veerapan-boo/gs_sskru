@@ -6,8 +6,8 @@ Map<String, dynamic> data_type = {
       "headTitle": "ข่าว",
       "subTitle": [
         {"type": 0, "text": "ข่าวทุนวิจัย", "link": ""},
-        {"type": 1, "text": "ข่าวนักศึกษา", "link": ""},
-        {"type": 2, "text": "ข่าวรับสมัคร", "link": ""}
+        {"type": 1, "text": "ข่าวประกาศ", "link": ""},
+        {"type": 2, "text": "ข่าวรับสมัครนักศึกษาระดับบัณฑิตศึกษา", "link": ""}
       ]
     },
     {
@@ -42,7 +42,7 @@ Map<String, dynamic> data_type = {
     },
     {
       "col": 4,
-      "headTitle": "บริการด้านวิชาการ",
+      "headTitle": "วิจัยและบริการวิชาการ",
       "subTitle": [
         {"type": 0, "text": "วิจัยและบริการวิชาการ", "link": ""},
         {"type": 1, "text": "วารสารวิชาการ", "link": ""},
@@ -56,7 +56,7 @@ Map<String, dynamic> data_type = {
     },
     {
       "col": 5,
-      "headTitle": "บริการด้านอื่น ๆ",
+      "headTitle": "บริการด้านข้อมูล",
       "subTitle": [
         {"type": 0, "text": "ปฏิทินนักศึกษา", "link": ""},
         {"type": 1, "text": "ข้อบังคับ/ประกาศหลักเกณฑ์", "link": ""},
