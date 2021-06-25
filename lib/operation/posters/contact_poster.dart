@@ -6,7 +6,7 @@ class ContactPoster extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.isTablet ? kDefaultPadding * 8 : kDefaultPadding * 4,
+      height: kDefaultPadding * 8,
       constraints: BoxConstraints(maxWidth: kMaxWidth),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -15,7 +15,7 @@ class ContactPoster extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 18.0),
             child: Container(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(

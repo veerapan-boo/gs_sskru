@@ -21,7 +21,7 @@ class ContactDesktop extends GetView<ContactController> {
           ),
           decoration: BoxDecoration(
             border: Border.all(
-              color: kPrimaryColor,
+              color: Colors.black54,
               width: 1,
             ),
           ),
@@ -33,14 +33,14 @@ class ContactDesktop extends GetView<ContactController> {
                 padding: const EdgeInsets.only(right: kDefaultPadding),
                 child: FaIcon(
                   FontAwesomeIcons.phone,
-                  color: kPrimaryColor,
+                  color: Colors.black54,
                   size: context.textTheme.subtitle2!.fontSize,
                 ),
               ),
               Text(
                 phoneNumber,
                 style: context.textTheme.subtitle1!.copyWith(
-                  color: kPrimaryColor,
+                  color: Colors.black54,
                 ),
               ),
             ],

@@ -4,8 +4,11 @@ import 'package:gs_sskru/operation/posters/home_poster/components/home_poster_ti
 import 'package:gs_sskru/util/constants.dart';
 
 class HomePoster extends StatelessWidget {
+  // final ImageProvider _imagePoster = AssetImage(
+  //   'assets/images/sskru_poster1.jpg',
+  // );
   final ImageProvider _imagePoster = AssetImage(
-    'assets/images/sskru_poster1.jpg',
+    'assets/images/zone-content-bg-new.png',
   );
   @override
   Widget build(BuildContext context) {
@@ -36,27 +39,45 @@ class HomePoster extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: _imagePoster,
-                      fit: BoxFit.fitWidth,
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                 ),
               ),
             ),
+          // Positioned(
+          //   child: Container(
+          //     height: height,
+          //     width: double.infinity,
+          //     decoration: BoxDecoration(
+          //       gradient: LinearGradient(
+          //         colors: [
+          //           kPrimaryColor.withOpacity(0.0),
+          //           kPrimaryColor.withOpacity(.95),
+          //         ],
+          //         begin: Alignment.topCenter,
+          //         end: Alignment.bottomCenter,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Positioned.fill(
-            left: context.responsiveValue(
+            bottom: context.responsiveValue(
               desktop: kDefaultPadding * 4,
               tablet: kDefaultPadding,
               mobile: 0,
             ),
             child: Align(
               alignment: context.responsiveValue(
-                  desktop: Alignment.centerLeft,
-                  tablet: Alignment.centerLeft,
-                  mobile: Alignment.center)!,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                desktop: Alignment.bottomCenter,
+                tablet: Alignment.bottomCenter,
+                mobile: Alignment.center,
+              )!,
+              child: Container(
+                // padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: Container(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Column(
@@ -65,9 +86,10 @@ class HomePoster extends StatelessWidget {
                         children: [
                           // * Title
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   TitleHeader(),

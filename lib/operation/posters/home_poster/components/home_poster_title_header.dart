@@ -13,6 +13,9 @@ class TitleHeader extends StatefulWidget {
 }
 
 class _TitleHeaderState extends State<TitleHeader> {
+  final ImageProvider logo = AssetImage(
+    'assets/images/sskru_logo.png',
+  );
   @override
   Widget build(BuildContext context) {
     var textHead = context.textTheme.apply(
@@ -20,9 +23,26 @@ class _TitleHeaderState extends State<TitleHeader> {
       displayColor: Colors.black54,
     );
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
+        context.responsiveValue(
+          desktop: Container(
+            width: 160,
+            height: 160,
+            decoration: BoxDecoration(image: DecorationImage(image: logo)),
+          ),
+          tablet: Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(image: DecorationImage(image: logo)),
+          ),
+          mobile: Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(image: DecorationImage(image: logo)),
+          ),
+        )!,
         Flexible(
           fit: FlexFit.loose,
           child: Text(
@@ -45,13 +65,13 @@ class _TitleHeaderState extends State<TitleHeader> {
         Text(
           'มหาวิทยาลัยราชภัฏศรีสะเกษ',
           style: context.textTheme.headline6!.copyWith(
-            color: Colors.black54,
+            color: Colors.black87,
             fontWeight: FontWeight.w300,
           ),
         ),
         if (context.isPhone) SizedBox(height: kDefaultPadding),
         Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               width: context.responsiveValue(
@@ -60,13 +80,14 @@ class _TitleHeaderState extends State<TitleHeader> {
                 mobile: context.width - (kDefaultPadding * 2),
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Flexible(
                     child: Text(
                       'เว็บไซต์หลักสำนักงานบัณฑิตศึกษา มหาวิทยาลัยราชภัฏศรีสะเกษ',
                       overflow: TextOverflow.fade,
                       style: context.textTheme.subtitle2!.copyWith(
-                          color: Colors.black54, fontWeight: FontWeight.w300),
+                          color: Colors.black87, fontWeight: FontWeight.w300),
                     ),
                   ),
                 ],

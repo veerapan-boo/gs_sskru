@@ -2,7 +2,6 @@ import 'package:animate_icons/animate_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/components/navbar/navbar_menu.dart';
-import 'package:gs_sskru/components/navbar/navbar_title.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 import 'package:gs_sskru/util/constants.dart';
 
