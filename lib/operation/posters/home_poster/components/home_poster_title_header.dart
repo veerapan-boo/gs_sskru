@@ -33,16 +33,17 @@ class _TitleHeaderState extends State<TitleHeader> {
             decoration: BoxDecoration(image: DecorationImage(image: logo)),
           ),
           tablet: Container(
-            width: 60,
-            height: 60,
+            width: 130,
+            height: 130,
             decoration: BoxDecoration(image: DecorationImage(image: logo)),
           ),
           mobile: Container(
-            width: 50,
-            height: 50,
+            width: 120,
+            height: 120,
             decoration: BoxDecoration(image: DecorationImage(image: logo)),
           ),
         )!,
+        if (context.isPhone) SizedBox(height: kDefaultPadding),
         Flexible(
           fit: FlexFit.loose,
           child: Text(
@@ -82,14 +83,25 @@ class _TitleHeaderState extends State<TitleHeader> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Flexible(
-                    child: Text(
-                      'เว็บไซต์หลักสำนักงานบัณฑิตศึกษา มหาวิทยาลัยราชภัฏศรีสะเกษ',
-                      overflow: TextOverflow.fade,
-                      style: context.textTheme.subtitle2!.copyWith(
-                          color: Colors.black87, fontWeight: FontWeight.w300),
+                  context.responsiveValue(
+                    desktop: Flexible(
+                      child: Text(
+                        'เว็บไซต์หลักสำนักงานบัณฑิตศึกษา มหาวิทยาลัยราชภัฏศรีสะเกษ',
+                        overflow: TextOverflow.fade,
+                        style: context.textTheme.subtitle2!.copyWith(
+                            color: Colors.black87, fontWeight: FontWeight.w300),
+                      ),
                     ),
-                  ),
+                    tablet: Flexible(
+                      child: Text(
+                        'เว็บไซต์หลักสำนักงานบัณฑิตศึกษา มหาวิทยาลัยราชภัฏศรีสะเกษ',
+                        overflow: TextOverflow.fade,
+                        style: context.textTheme.subtitle2!.copyWith(
+                            color: Colors.black87, fontWeight: FontWeight.w300),
+                      ),
+                    ),
+                    mobile: SizedBox(),
+                  )!
                 ],
               ),
             )

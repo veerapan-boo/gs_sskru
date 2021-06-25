@@ -13,18 +13,18 @@ class NavBarTitle extends StatelessWidget {
       children: [
         context.responsiveValue(
           desktop: Container(
-            width: 60,
-            height: 60,
+            width: 50,
+            height: 50,
             decoration: BoxDecoration(image: DecorationImage(image: logo)),
           ),
           tablet: Container(
-            width: 60,
-            height: 60,
+            width: 45,
+            height: 45,
             decoration: BoxDecoration(image: DecorationImage(image: logo)),
           ),
           mobile: Container(
-            width: 50,
-            height: 50,
+            width: 40,
+            height: 40,
             decoration: BoxDecoration(image: DecorationImage(image: logo)),
           ),
         )!,

@@ -22,7 +22,7 @@ class ContactTablet extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             border: Border.all(
-              color: kPrimaryColor,
+              color: Colors.black54,
               width: 1,
             ),
           ),
@@ -34,14 +34,14 @@ class ContactTablet extends StatelessWidget {
                 padding: const EdgeInsets.only(right: kDefaultPadding),
                 child: FaIcon(
                   FontAwesomeIcons.phone,
-                  color: kPrimaryColor,
+                  color: Colors.black54,
                   size: context.textTheme.caption!.fontSize,
                 ),
               ),
               Text(
                 phoneNumber,
                 style: context.textTheme.caption!.copyWith(
-                  color: kPrimaryColor,
+                  color: Colors.black54,
                 ),
               ),
             ],

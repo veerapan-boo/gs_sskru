@@ -2,6 +2,7 @@ import 'package:animate_icons/animate_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/components/navbar/navbar_menu.dart';
+import 'package:gs_sskru/components/navbar/navbar_title.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 import 'package:gs_sskru/util/constants.dart';
 
@@ -25,6 +26,7 @@ class NavBar extends GetView<NavBarMenuController> {
         return true;
       },
     );
+    // print(context.);
     return SliverAppBar(
       automaticallyImplyLeading: false,
       floating: false,
@@ -49,8 +51,17 @@ class NavBar extends GetView<NavBarMenuController> {
               child: Container(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: context.responsiveValue(
+                    desktop: MainAxisAlignment.center,
+                    tablet: MainAxisAlignment.spaceBetween,
+                    mobile: MainAxisAlignment.spaceBetween,
+                  )!,
                   children: [
+                    context.responsiveValue(
+                      desktop: SizedBox(),
+                      tablet: NavBarTitle(),
+                      mobile: NavBarTitle(),
+                    )!,
                     // NavBarTitle(),
                     // Spacer(),
                     context.responsiveValue(

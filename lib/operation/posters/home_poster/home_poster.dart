@@ -28,11 +28,14 @@ class HomePoster extends StatelessWidget {
               right: 0,
               child: Container(
                 width: context.responsiveValue(
-                    desktop: context.width, tablet: 440, mobile: 0),
+                  desktop: context.width,
+                  tablet: context.width,
+                  mobile: 0,
+                ),
                 height: context.responsiveValue(
                   desktop: height,
-                  tablet: height * .75,
-                  mobile: height * .75,
+                  tablet: height,
+                  mobile: height,
                 ),
                 child: Container(
                   width: double.infinity,
@@ -61,6 +64,7 @@ class HomePoster extends StatelessWidget {
           //     ),
           //   ),
           // ),
+          // * Title
           Positioned.fill(
             bottom: context.responsiveValue(
               desktop: kDefaultPadding * 4,
@@ -70,7 +74,7 @@ class HomePoster extends StatelessWidget {
             child: Align(
               alignment: context.responsiveValue(
                 desktop: Alignment.bottomCenter,
-                tablet: Alignment.bottomCenter,
+                tablet: Alignment.center,
                 mobile: Alignment.center,
               )!,
               child: Container(
@@ -84,7 +88,6 @@ class HomePoster extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // * Title
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
