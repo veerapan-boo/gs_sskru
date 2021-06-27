@@ -108,7 +108,7 @@ class EducationJoinUp extends StatelessWidget {
                     KTextLink(
                       text: 'สมัครตอนนี้',
                       arrowIcon: true,
-                      textSize: context.textTheme.headline6!.fontSize,
+                      fontSize: context.textTheme.headline6!.fontSize,
                       colors: Colors.white,
                       onPressed: () {
                         _navBarMenuController.setSelectedIndex(2);

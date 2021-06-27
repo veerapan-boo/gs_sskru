@@ -7,16 +7,7 @@ import 'package:gs_sskru/components/k_launchURL.dart';
 import 'package:gs_sskru/controllers/service_controller.dart';
 import 'package:gs_sskru/util/constants.dart';
 
-class ServiceContent extends GetView<ServiceController> {
-  final List<IconData> _icons = [
-    Icons.calendar_today_outlined,
-    Icons.rule_outlined,
-    Icons.check_circle_outlined,
-    Icons.menu_book_outlined,
-    Icons.download_outlined,
-    Icons.image_outlined
-  ];
-
+class StaffContent extends GetView<ServiceController> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _listService = List.generate(
@@ -25,46 +16,50 @@ class ServiceContent extends GetView<ServiceController> {
         return Obx(
           () {
             return Expanded(
-              child: GridView.builder(
+              child: ListView.builder(
+                itemCount: controller.getStaff.length,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: MediaQuery.of(context).size.width /
-                      (MediaQuery.of(context).size.height / 2),
-                ),
                 itemBuilder: (_, index) => Container(
                   child: Center(
                     child: Column(
                       children: [
-                        Icon(
-                          _icons[index],
-                          size: 50,
-                          color: Colors.grey[500],
-                        ),
-                        SizedBox(height: kDefaultPadding),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 2),
                           child: KDialogEdit(
                             direction: DirectionDialogEdit.forCenter,
-                            title: "ลิงค์${controller.getOther[index].text}",
-                            child: KTextLink(
-                              text: controller.getOther[index].text!,
-                              colors: Colors.black54,
-                              maxWidth: context.isTablet
-                                  ? kMaxWidth / 6
-                                  : context.width / 1.4,
-                              onPressed: () {
-                                k_launchURL(
-                                    url: controller.getOther[index].link!);
-                              },
+                            title: "ลิงค์${controller.getStaff[index].text}",
+                            child: Container(
+                              width: context.isPhone
+                                  ? context.width - (kDefaultPadding * 2)
+                                  : context.width * .5,
+                              child: Row(
+                                mainAxisAlignment: context.isPhone
+                                    ? MainAxisAlignment.start
+                                    : MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: KTextLink(
+                                      text: controller.getStaff[index].text!,
+                                      colors: Colors.black54,
+                                      fontSize:
+                                          context.textTheme.headline6!.fontSize,
+                                      onPressed: () {
+                                        k_launchURL(
+                                            url: controller
+                                                .getStaff[index].link!);
+                                      },
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                             type: DialogEditType.linkOnly(
-                              link: controller.getOther[index].link ?? notFound,
+                              link: controller.getStaff[index].link ?? notFound,
                               onSubmitPress: (link) {
                                 controller.updateService(
-                                  doc: UpdateServiceTo.other,
-                                  id: controller.getOther[index].id!,
+                                  doc: UpdateServiceTo.staff,
+                                  id: controller.getStaff[index].id!,
                                   key: ServiceKey.link,
                                   value: link,
                                 );
@@ -72,11 +67,15 @@ class ServiceContent extends GetView<ServiceController> {
                             ),
                           ),
                         ),
+                        if (index < controller.getAcademic.length - 1)
+                          SizedBox(
+                            height: kDefaultPadding * 2,
+                            child: Divider(),
+                          ),
                       ],
                     ),
                   ),
                 ),
-                itemCount: controller.getOther.length,
               ),
             );
           },

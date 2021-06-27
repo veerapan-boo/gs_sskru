@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs_sskru/controllers/navbar_menu_controller.dart';
 import 'package:gs_sskru/operation/posters/about_poster.dart';
+import 'package:gs_sskru/operation/posters/academic_poster.dart';
 import 'package:gs_sskru/operation/posters/admin_poster/admin_poster.dart';
 import 'package:gs_sskru/operation/posters/admission_poster.dart';
 import 'package:gs_sskru/operation/posters/contact_poster.dart';
 import 'package:gs_sskru/operation/posters/course_poster/course_poster.dart';
 import 'package:gs_sskru/operation/posters/home_poster/home_poster.dart';
 import 'package:gs_sskru/operation/posters/service_poster.dart';
+import 'package:gs_sskru/operation/posters/staff_poster.dart';
 
 class SwitchPoster extends StatefulWidget {
   @override
@@ -22,9 +24,9 @@ class _SwitchPosterState extends State<SwitchPoster>
     AboutPoster(),
     AdmissionPoster(),
     CoursePoster(),
-    SizedBox(),
+    AcademicPoster(),
     ServicePoster(),
-    SizedBox(),
+    StaffPoster(),
     ContactPoster(),
     AdminPoster(),
   ];
