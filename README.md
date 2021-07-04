@@ -1,16 +1,25 @@
-# gs_sskru
+# เว็บไซต์สํานักงานบัณฑิตศึกษา | มหาวิทยาลัยราชภัฏศรีสะเกษ
 
-A new Flutter project.
+<div align="center">
+  <br>
+	<br>
+  <img width="20%" src="https://github.com/benz45/gs_sskru/blob/main/assets/images/sskru_logo.png?raw=true">
+  <br>
+	<br>
+  <p>
+      <b><a href="https://gs-sskru-4060e.web.app/"></a>www.gs-sskru.ac.th</b>
+			<sup>
+				<a href=""></a>
+			</sup>
+		</p>
+		<h2>สํานักงานบัณฑิตศึกษา | มหาวิทยาลัยราชภัฏศรีสะเกษ </h2>
+  
+	
+</div>
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Development
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+$ git clone https://github.com/benz45/gs_sskru.git
+```
