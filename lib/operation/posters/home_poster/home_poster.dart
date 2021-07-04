@@ -77,34 +77,25 @@ class HomePoster extends StatelessWidget {
                 tablet: Alignment.center,
                 mobile: Alignment.center,
               )!,
-              child: Container(
-                // padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Column(
                     mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  TitleHeader(),
-                                ],
-                              ),
-                            ],
-                          ),
+                          TitleHeader(),
                         ],
                       ),
                     ],
                   ),
-                ),
+                ],
               ),
             ),
           ),

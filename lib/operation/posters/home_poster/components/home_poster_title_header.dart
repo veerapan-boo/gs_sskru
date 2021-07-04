@@ -4,10 +4,6 @@ import 'package:gs_sskru/operation/posters/home_poster/components/home_poster_co
 import 'package:gs_sskru/util/constants.dart';
 
 class TitleHeader extends StatefulWidget {
-  const TitleHeader({
-    Key? key,
-  }) : super(key: key);
-
   @override
   _TitleHeaderState createState() => _TitleHeaderState();
 }
@@ -16,6 +12,7 @@ class _TitleHeaderState extends State<TitleHeader> {
   final ImageProvider logo = AssetImage(
     'assets/images/sskru_logo.png',
   );
+  final _colorTitleHeader = Colors.black87;
   @override
   Widget build(BuildContext context) {
     var textHead = context.textTheme.apply(
@@ -59,14 +56,14 @@ class _TitleHeaderState extends State<TitleHeader> {
                   ),
                 )
                 ?.copyWith(
-                  color: Colors.black87,
+                  color: _colorTitleHeader,
                 ),
           ),
         ),
         Text(
           'มหาวิทยาลัยราชภัฏศรีสะเกษ',
           style: context.textTheme.headline6!.copyWith(
-            color: Colors.black87,
+            color: _colorTitleHeader,
             fontWeight: FontWeight.w300,
           ),
         ),
@@ -89,7 +86,9 @@ class _TitleHeaderState extends State<TitleHeader> {
                         'เว็บไซต์หลักสำนักงานบัณฑิตศึกษา มหาวิทยาลัยราชภัฏศรีสะเกษ',
                         overflow: TextOverflow.fade,
                         style: context.textTheme.subtitle2!.copyWith(
-                            color: Colors.black87, fontWeight: FontWeight.w300),
+                          color: _colorTitleHeader,
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
                     ),
                     tablet: Flexible(
@@ -97,7 +96,9 @@ class _TitleHeaderState extends State<TitleHeader> {
                         'เว็บไซต์หลักสำนักงานบัณฑิตศึกษา มหาวิทยาลัยราชภัฏศรีสะเกษ',
                         overflow: TextOverflow.fade,
                         style: context.textTheme.subtitle2!.copyWith(
-                            color: Colors.black87, fontWeight: FontWeight.w300),
+                          color: _colorTitleHeader,
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
                     ),
                     mobile: SizedBox(),

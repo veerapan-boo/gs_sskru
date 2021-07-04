@@ -11,35 +11,30 @@ class StaffPoster extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0),
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'บุคลากร',
-                    style: context
-                        .responsiveValue(
-                          desktop: context.textTheme.headline4,
-                          tablet: context.textTheme.headline4,
-                          mobile: context.textTheme.headline5,
-                        )
-                        ?.copyWith(
-                          color: Colors.black87,
-                        ),
-                  ),
-                  Text(
-                    'มหาวิทยาลัยราชภัฏศรีสะเกษ',
-                    style: context.textTheme.headline6!.copyWith(
-                      color: Colors.black54,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'บุคลากร',
+                style: context
+                    .responsiveValue(
+                      desktop: context.textTheme.headline4,
+                      tablet: context.textTheme.headline4,
+                      mobile: context.textTheme.headline5,
+                    )
+                    ?.copyWith(
+                      color: Colors.black87,
                     ),
-                  ),
-                ],
               ),
-            ),
-          ),
+              Text(
+                'มหาวิทยาลัยราชภัฏศรีสะเกษ',
+                style: context.textTheme.headline6!.copyWith(
+                  color: Colors.black54,
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );
