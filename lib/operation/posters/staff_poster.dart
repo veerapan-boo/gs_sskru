@@ -28,7 +28,7 @@ class StaffPoster extends StatelessWidget {
                     ),
               ),
               Text(
-                'มหาวิทยาลัยราชภัฏศรีสะเกษ',
+                'สำนักงานบัณฑิตศึกษา',
                 style: context.textTheme.headline6!.copyWith(
                   color: Colors.black54,
                 ),

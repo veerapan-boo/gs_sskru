@@ -19,77 +19,75 @@ class ServiceContent extends GetView<ServiceController> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _listService = List.generate(
-      1,
-      (index) {
-        return Obx(
-          () {
-            return Expanded(
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: MediaQuery.of(context).size.width /
-                      (MediaQuery.of(context).size.height / 2),
-                ),
-                itemBuilder: (_, index) => Container(
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Icon(
-                          _icons[index],
-                          size: 50,
-                          color: Colors.grey[500],
-                        ),
-                        SizedBox(height: kDefaultPadding),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 2),
-                          child: KDialogEdit(
-                            direction: DirectionDialogEdit.forCenter,
-                            title: "ลิงค์${controller.getOther[index].text}",
-                            child: KTextLink(
-                              text: controller.getOther[index].text!,
-                              colors: Colors.black54,
-                              maxWidth: context.isTablet
-                                  ? kMaxWidth / 6
-                                  : context.width / 1.4,
-                              onPressed: () {
-                                k_launchURL(
-                                    url: controller.getOther[index].link!);
-                              },
-                            ),
-                            type: DialogEditType.linkOnly(
-                              link: controller.getOther[index].link ?? notFound,
-                              onSubmitPress: (link) {
-                                controller.updateService(
-                                  doc: UpdateServiceTo.other,
-                                  id: controller.getOther[index].id!,
-                                  key: ServiceKey.link,
-                                  value: link,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                itemCount: controller.getOther.length,
-              ),
-            );
-          },
-        );
-      },
-    );
     Column _rowList = Column(
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
-          children: _listService,
+          children: [
+            Obx(
+              () {
+                return Expanded(
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: MediaQuery.of(context).size.width /
+                          (MediaQuery.of(context).size.height / 2),
+                    ),
+                    itemCount: controller.getOther.length,
+                    itemBuilder: (_, index) => Container(
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Icon(
+                              _icons[index],
+                              size: 50,
+                              color: Colors.grey[500],
+                            ),
+                            SizedBox(height: kDefaultPadding),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 2),
+                              child: KDialogEdit(
+                                direction: DirectionDialogEdit.forCenter,
+                                title:
+                                    "ลิงค์${controller.getOther[index].text}",
+                                child: KTextLink(
+                                  text: controller.getOther[index].text!,
+                                  colors: Colors.black54,
+                                  maxWidth: context.isTablet
+                                      ? kMaxWidth / 6
+                                      : context.width / 1.4,
+                                  onPressed: () {
+                                    k_launchURL(
+                                        url: controller.getOther[index].link!);
+                                  },
+                                ),
+                                type: DialogEditType.linkOnly(
+                                  link: controller.getOther[index].link ??
+                                      notFound,
+                                  onSubmitPress: (link) {
+                                    controller.updateService(
+                                      doc: UpdateServiceTo.other,
+                                      id: controller.getOther[index].id!,
+                                      key: ServiceKey.link,
+                                      value: link,
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            )
+          ],
         ),
         SizedBox(height: kDefaultPadding * 10)
       ],

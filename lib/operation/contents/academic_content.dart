@@ -10,65 +10,94 @@ import 'package:gs_sskru/util/constants.dart';
 class AcademicContent extends GetView<ServiceController> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(height: kDefaultPadding * 2),
-        Obx(
-          () => ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: controller.getAcademic.length,
-            itemBuilder: (_, index) {
-              return Column(
-                crossAxisAlignment: context.isPhone
-                    ? CrossAxisAlignment.start
-                    : CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    constraints: BoxConstraints(maxWidth: kMaxWidth),
-                    child: KDialogEdit(
-                      direction: DirectionDialogEdit.forCenter,
-                      title: "ลิงค์${controller.getAcademic[index].text}",
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                        child: KTextLink(
-                          text: controller.getAcademic[index].text!,
-                          colors: Colors.black54,
-                          maxWidth: context.width - (kDefaultPadding * 4),
-                          fontSize: context.textTheme.headline6!.fontSize,
-                          onPressed: () {
-                            k_launchURL(
-                                url: controller.getAcademic[index].link!);
-                          },
+    final List<IconData> _icons = [
+      Icons.library_books_outlined,
+      Icons.web_asset_rounded,
+      Icons.data_usage_outlined,
+      Icons.person_outline_outlined
+    ];
+
+    return Container(
+      constraints: BoxConstraints(maxWidth: kMaxWidth * .75),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(height: kDefaultPadding * 3),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Obx(() {
+                return Expanded(
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: MediaQuery.of(context).size.width /
+                          (MediaQuery.of(context).size.height / 1.8),
+                    ),
+                    itemCount: controller.getAcademic.length,
+                    itemBuilder: (_, index) => Container(
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Icon(
+                              _icons[index],
+                              size: 50,
+                              color: Colors.grey[500],
+                            ),
+                            SizedBox(height: kDefaultPadding),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: KDialogEdit(
+                                direction: DirectionDialogEdit.forCenter,
+                                title:
+                                    "ลิงค์${controller.getAcademic[index].text}",
+                                child: KTextLink(
+                                  text: controller.getAcademic[index].text!,
+                                  colors: Colors.black54,
+                                  maxWidth: context.responsiveValue(
+                                    desktop: context.width / 6.1,
+                                    tablet: context.width / 5,
+                                    mobile: context.width / 3,
+                                  ),
+                                  onPressed: () {
+                                    k_launchURL(
+                                        url: controller
+                                            .getAcademic[index].link!);
+                                  },
+                                ),
+                                type: DialogEditType.linkOnly(
+                                  link: controller.getAcademic[index].link ??
+                                      notFound,
+                                  onSubmitPress: (link) {
+                                    controller.updateService(
+                                      doc: UpdateServiceTo.academic,
+                                      id: controller.getAcademic[index].id!,
+                                      key: ServiceKey.link,
+                                      value: link,
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      type: DialogEditType.linkOnly(
-                        link: controller.getAcademic[index].link ?? notFound,
-                        onSubmitPress: (link) {
-                          controller.updateService(
-                            doc: UpdateServiceTo.staff,
-                            id: controller.getAcademic[index].id!,
-                            key: ServiceKey.link,
-                            value: link,
-                          );
-                        },
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: kDefaultPadding,
-                  )
-                ],
-              );
-            },
+                );
+              })
+            ],
           ),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: kDefaultPadding) * 5.5,
-        ),
-      ],
+          Container(
+            padding:
+                const EdgeInsets.symmetric(vertical: kDefaultPadding) * 5.5,
+          ),
+        ],
+      ),
     );
   }
 }

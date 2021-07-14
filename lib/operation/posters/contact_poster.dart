@@ -19,7 +19,7 @@ class ContactPoster extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'ติดต่อบัณฑิตศึกษา',
+                    'ติดต่อสำนักงานบัณฑิตศึกษา',
                     style: context
                         .responsiveValue(
                           desktop: context.textTheme.headline4,

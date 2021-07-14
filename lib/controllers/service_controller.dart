@@ -64,23 +64,26 @@ class ServiceController extends GetxController {
     try {
       late String keyForUpdate;
       late String docForUpdate;
-      int index = _listAcademic.indexWhere((e) => e.id == id);
+      int index;
       split(v) => "$v".split(".").last;
       bool _isText = key == ServiceKey.text;
       bool _isLink = key == ServiceKey.link;
 
       // Document for update value
       if (doc == UpdateServiceTo.academic) {
+        index = _listAcademic.indexWhere((e) => e.id == id);
         docForUpdate = split("${UpdateServiceTo.academic}");
         if (_isText) _listAcademic[index].text = value;
         if (_isLink) _listAcademic[index].link = value;
       }
       if (doc == UpdateServiceTo.other) {
+        index = _listOther.indexWhere((e) => e.id == id);
         docForUpdate = split("${UpdateServiceTo.other}");
         if (_isText) _listOther[index].text = value;
         if (_isLink) _listOther[index].link = value;
       }
       if (doc == UpdateServiceTo.staff) {
+        index = _listStaff.indexWhere((e) => e.id == id);
         docForUpdate = split("${UpdateServiceTo.staff}");
         if (_isText) _listStaff[index].text = value;
         if (_isLink) _listStaff[index].link = value;
