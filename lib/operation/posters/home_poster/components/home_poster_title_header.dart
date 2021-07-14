@@ -83,9 +83,9 @@ class _TitleHeaderState extends State<TitleHeader> {
                   context.responsiveValue(
                     desktop: Flexible(
                       child: Text(
-                        'เว็บไซต์หลักสำนักงานบัณฑิตศึกษา มหาวิทยาลัยราชภัฏศรีสะเกษ',
+                        'ความรู้คู่คุณธรรม น้อมนำศาสตร์พระราชาพัฒนาท้องถิ่น',
                         overflow: TextOverflow.fade,
-                        style: context.textTheme.subtitle2!.copyWith(
+                        style: context.textTheme.subtitle1!.copyWith(
                           color: _colorTitleHeader,
                           fontWeight: FontWeight.w300,
                         ),
@@ -93,7 +93,7 @@ class _TitleHeaderState extends State<TitleHeader> {
                     ),
                     tablet: Flexible(
                       child: Text(
-                        'เว็บไซต์หลักสำนักงานบัณฑิตศึกษา มหาวิทยาลัยราชภัฏศรีสะเกษ',
+                        'ความรู้คู่คุณธรรม น้อมนำศาสตร์พระราชาพัฒนาท้องถิ่น',
                         overflow: TextOverflow.fade,
                         style: context.textTheme.subtitle2!.copyWith(
                           color: _colorTitleHeader,

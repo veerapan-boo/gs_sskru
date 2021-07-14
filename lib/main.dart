@@ -19,7 +19,7 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     loadImage(context);
     return GetMaterialApp(
-      title: 'วิทยาลัยบัญฑิต | SSKRU',
+      title: 'สำนักงานบัณฑิตศึกษา',
       debugShowCheckedModeBanner: false,
       builder: themeBuilder,
       initialRoute: Operation.routeName,

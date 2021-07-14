@@ -25,12 +25,7 @@ class ContactMobile extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                   vertical: kDefaultPadding * .55,
                 ),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: kPrimaryColor,
-                    width: 1,
-                  ),
-                ),
+                color: kPrimaryColor,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
@@ -39,14 +34,14 @@ class ContactMobile extends StatelessWidget {
                       padding: EdgeInsets.only(right: kDefaultPadding * .55),
                       child: FaIcon(
                         FontAwesomeIcons.phone,
-                        color: kPrimaryColor,
+                        color: Colors.white,
                         size: textCaption.fontSize,
                       ),
                     ),
                     Text(
                       phoneNumber,
                       style: textCaption.copyWith(
-                        color: kPrimaryColor,
+                        color: Colors.white,
                       ),
                     ),
                   ],

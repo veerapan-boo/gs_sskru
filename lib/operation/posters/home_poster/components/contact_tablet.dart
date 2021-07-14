@@ -18,14 +18,9 @@ class ContactTablet extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(
             vertical: kDefaultPadding * .75,
-            horizontal: kDefaultPadding,
+            horizontal: kDefaultPadding * 1.95,
           ),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.black54,
-              width: 1,
-            ),
-          ),
+          color: kPrimaryColor,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -34,14 +29,14 @@ class ContactTablet extends StatelessWidget {
                 padding: const EdgeInsets.only(right: kDefaultPadding),
                 child: FaIcon(
                   FontAwesomeIcons.phone,
-                  color: Colors.black54,
+                  color: Colors.white,
                   size: context.textTheme.caption!.fontSize,
                 ),
               ),
               Text(
                 phoneNumber,
                 style: context.textTheme.caption!.copyWith(
-                  color: Colors.black54,
+                  color: Colors.white,
                 ),
               ),
             ],

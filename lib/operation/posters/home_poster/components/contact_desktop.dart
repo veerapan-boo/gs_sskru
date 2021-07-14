@@ -9,7 +9,6 @@ import 'package:gs_sskru/operation/posters/home_poster/components/contact_on_hov
 import 'package:gs_sskru/util/constants.dart';
 
 class ContactDesktop extends GetView<ContactController> {
-  final _colorBtnContact = Colors.black54;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -18,11 +17,12 @@ class ContactDesktop extends GetView<ContactController> {
         Container(
           padding: EdgeInsets.symmetric(
             vertical: kDefaultPadding * .75,
-            horizontal: kDefaultPadding * 2,
+            horizontal: kDefaultPadding * 2.5,
           ),
           decoration: BoxDecoration(
+            color: kPrimaryColor,
             border: Border.all(
-              color: _colorBtnContact,
+              color: kPrimaryColor,
               width: 1,
             ),
           ),
@@ -34,14 +34,14 @@ class ContactDesktop extends GetView<ContactController> {
                 padding: const EdgeInsets.only(right: kDefaultPadding),
                 child: FaIcon(
                   FontAwesomeIcons.phone,
-                  color: _colorBtnContact,
+                  color: Colors.white,
                   size: context.textTheme.subtitle2!.fontSize,
                 ),
               ),
               Text(
                 phoneNumber,
                 style: context.textTheme.subtitle1!.copyWith(
-                  color: _colorBtnContact,
+                  color: Colors.white,
                 ),
               ),
             ],
